@@ -1,0 +1,235 @@
+
+@fgcolor:     #a5a5a5;
+@errColor:    #f44336;
+@promptColor: #eee;
+@hightlight:  #ff0;
+@declare:     #3e3;
+@fontFamily:  Menlo, Monaco, consolas, 'Courier New', monospace;
+@fontSize:    13px;
+@lineHeight:  1.35;
+
+
+// applies to 'WindowBody': START;
+background-color: rgba(0, 0, 0, 0.8);
+backdrop-filter: blur(8px);
+
+&.focused {
+	content {
+		div.input .cursor {
+			--color-1: @fgcolor;
+			--color-2: transparent;
+		}
+		.cursor-blink {
+			animation: cursorBlink 700ms infinite alternate;
+		}
+	}
+}
+// END;
+
+content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+	padding: 1px 4px;
+	font-size: 0;
+	//background: #000;
+	color: @fgcolor;
+	
+	textarea1 {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		bottom: 0;
+		background: transparent;
+		color: red;
+		z-index: 2;
+	}
+
+	textarea {
+		position: absolute;
+		top: -999px;
+		left: -999px;
+		width: 0;
+		height: 0;
+	}
+
+	.wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		scroll-behavior: smooth;
+	}
+
+	::selection {
+	  background: #888;
+	}
+
+	i, b, em, u, span {
+		line-height: @lineHeight;
+		font-family: @fontFamily;
+		font-size: @fontSize;
+		font-weight: normal;
+		font-style: normal;
+		text-decoration: none;
+	}
+
+	.output-buffer {
+		b {
+			display: inline;
+			//vertical-align: top;
+			white-space: pre;
+			color: @fgcolor;
+			--color-1: darken(@fgcolor, 17%);
+
+			&.declare { color: @declare; }
+			&.error { color: @errColor; }
+			&.feed { color: darken(@fgcolor, 17%); }
+			&.bold { color: inherit; font-weight: 600; }
+			&.italic { color: inherit; font-style: italic; }
+			&.underline { color: inherit; text-decoration: underline; }
+
+			&.c1 { color: #0ff; }
+			&.c2 { color: #f4f; }
+			&.c3 { color: #e5e500; }
+
+			> .ticon {
+				margin-right: 0.15em;
+
+				&.terminal-link {
+					--color-1: @fgcolor;
+					width: 2em;
+					margin-left: 0.15em;
+					margin-right: 0.15em;
+				}
+			}
+			> em {
+				cursor: pointer;
+
+				&:hover { text-decoration: underline; }
+			}
+		}
+
+		u {
+			color: #777;
+
+			&:after { content: ":"; color: #aaa; }
+		}
+
+		span {
+			cursor: text;
+
+			&.group {
+				&.collapsed {
+					> em {
+						margin-right: 0;
+						cursor: text;
+					}
+
+					&.function { display: none; }
+				}
+				&:before { content: '{'; opacity: 0.7; }
+				&:after { content: '}'; opacity: 0.7; }
+
+				&.array:before { content: '['; }
+				&.array:after { content: ']'; }
+
+				&.function:before { content: '{'; color: @fgcolor; }
+				&.function:after { content: '}'; color: @fgcolor; }
+			}
+		}
+
+		.function  { color: #59e; font-style: italic; }
+		.number    { color: #95d; }
+		.date      { color: #aaa; }
+		.boolean   { color: #d55; }
+		.undefined { color: #855; }
+		.null      { color: #d55; }
+		.string    { color: #5b5; }
+		.string:before,
+		.string:after { content: '"'; opacity: 0.7; }
+		.status    { font-style: italic; }
+	}
+	em {
+		margin-right: 0.5em;
+		font-style: italic;
+		cursor: pointer;
+		color: #28d;
+	}
+
+	b {
+		display: inline-block;
+	}
+
+	i {
+		display: inline-block;
+		color: @promptColor;
+		--color-1: darken(@promptColor, 19%);
+	}
+
+	svg,
+	.ticon {
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		background-size: contain;
+		display: inline-block;
+		margin-top: -0.2em;
+		width: 0.9em;
+		height: 1em;
+		vertical-align: middle;
+
+		&.terminal-output { background-image: url(/res/icons/terminal-output); }
+		&.terminal-input { background-image: url(/res/icons/terminal-input); }
+	}
+
+	div.input {
+		font-size: 0;
+
+		.buffer {
+			position: relative;
+			word-break: break-all;
+			z-index: 1;
+		}
+
+		.cursor {
+			position: relative;
+			z-index: 2;
+			--color-1: transparent;
+			--color-2: darken(@fgcolor, 13%);
+
+			&.moved {
+				svg:nth-child(1) { display: none; }
+				svg:nth-child(2) { display: initial; }
+				svg:nth-child(3) { display: none; }
+			}
+
+			&.loading {
+				svg:nth-child(1) { display: initial; }
+				svg:nth-child(2) { display: none; }
+				svg:nth-child(3) { display: none; }
+			}
+
+			svg {
+				position: absolute;
+				top: -0.15em;
+				margin-top: 0;
+				width: 1em;
+				height: 1.42em;
+
+				&:nth-child(1) { display: none; top: 0; }
+				&:nth-child(2) { display: none; }
+			}
+		}
+	}
+}
+			
+@keyframes cursorBlink {
+	0%   { opacity: 0; }
+	45%  { opacity: 0; }
+	55%  { opacity: 1; }
+	100% { opacity: 1; }
+};

@@ -1,0 +1,76 @@
+<Application>
+	<Head>
+		<meta name="id" value="terminal"/>
+		<meta name="title" value="Terminal" version="1.0"/>
+		<meta name="width" value="700"/>
+		<meta name="height" value="380"/>
+		<meta name="top" value="120"/>
+		<meta name="left" value="200"/>
+		<meta name="minimize"/>
+		<meta name="maximize"/>
+		<meta name="resize"/>
+		<meta name="appIcon" value="res/svg/app-icon.svg"/>
+		<meta name="script" value="res/js/main.js"/>
+		<meta name="style" value="res/css/main.less"/>
+		<meta name="icons" value="res/svg/icons.svg"/>
+		<meta name="content" value="res/partials/content.htm"/>
+		<meta name="xsl" value="res/partials/templates.xsl"/>
+		
+		<Shell>
+			<i object="terminal" type="Application" description="Public Interace for Terminal">
+				<i name="fileSystem.pwd" alias="pwd" arg="NONE" description="Print working directory path."/>
+				<i name="fileSystem.list" alias="ls" arg="[path]" description="Lists directory contents."/>
+				<i name="fileSystem.changeDirectory" alias="cd" arg="[path]" description="Changes path to working directory."/>
+
+				<i switch="c" name="clear" alias="clear" arg="NONE" description="Clears output."/>
+				<i name="grep" alias="grep" arg="string" description="Filters piped data with given string."/>
+				<i name="help" alias="help" arg="NONE" description="Provides Help about shell commands."/>
+				<i name="more" alias="more" arg="NONE" description="Lists available details about object."/>
+				<i name="history" alias="history" arg="NONE" description="Lists history of commands."/>
+				<i name="about" alias="about" arg="NONE" description="Displays author and copyright-info."/>
+				<i name="exit" alias="exit" arg="NONE" description="Exits shell."/>
+			</i>
+		</Shell>
+
+		<MenuBar>
+			<Menu name="Terminal">
+				<Menu name="About Terminal"/>
+				<Menu type="divider"/>
+				<Menu name="Preferences"/>
+				<Menu type="divider"/>
+				<Menu name="Emptry Trash"/>
+				<Menu type="divider"/>
+				<Menu name="Services">
+					<Menu name="Open"/>
+					<Menu name="Close"/>
+				</Menu>
+				<Menu type="divider"/>
+				<Menu name="Hide Terminal"/>
+				<Menu name="Hide Others"/>
+				<Menu name="Show All" disabled="1"/>
+				<Menu type="divider"/>
+				<Menu name="Quit Terminal" shell="win -c"/>
+			</Menu>
+			<Menu name="Edit">
+				<Menu name="Clear Screen" shell="terminal -c" hotkey="meta+k"/>
+				<Menu type="divider"/>
+				<Menu name="Jump to Start" click="jump-to-start" hotkey="control+a"/>
+				<Menu name="Jump to End" click="jump-to-end" hotkey="control+e"/>
+				<Menu type="divider"/>
+				<Menu name="Delete to Start" click="delete-to-start" hotkey="control+u"/>
+				<Menu name="Delete to End" click="delete-to-end" hotkey="control+k"/>
+			</Menu>
+			<Menu name="Window">
+				<Menu name="Minimize" shell="win -s min"/>
+				<Menu name="Maximize" shell="win -s max"/>
+				<Menu type="divider"/>
+				<Menu name="Close Window" shell="win -c"/>
+			</Menu>
+			<Menu name="Help">
+				<Menu name="Send Terminal Feedback"/>
+				<Menu type="divider"/>
+				<Menu name="License"/>
+			</Menu>
+		</MenuBar>
+	</Head>
+</Application>

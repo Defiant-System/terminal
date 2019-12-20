@@ -1,0 +1,35 @@
+
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="terminal-linearGradient-1">
+			<stop stop-color="#D2E8EF" offset="0%"></stop>
+			<stop stop-color="#757574" offset="100%"></stop>
+		</linearGradient>
+		<rect id="terminal-path-2" x="0" y="0" width="432" height="378" rx="16.5"></rect>
+		<filter x="-3.1%" y="-2.5%" width="106.2%" height="107.4%" filterUnits="objectBoundingBox" id="terminal-filter-3">
+			<feMorphology radius="5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+			<feOffset dx="0" dy="5" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+			<feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+			<feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+			<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.237403759 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+		</filter>
+	</defs>
+	<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(5, 40) scale(1.075)">
+		<g id="Terminal" transform="translate(-33.000000, -62.000000)">
+			<g id="Icon" transform="translate(40.000000, 67.000000)">
+				<g id="Backgorund">
+					<g id="Rectangle-1">
+						<use fill="black" fill-opacity="1" filter="url(#terminal-filter-3)" href="#terminal-path-2"></use>
+						<use fill="#000000" fill-rule="evenodd" href="#terminal-path-2"></use>
+						<rect stroke="url(#terminal-linearGradient-1)" stroke-width="5" x="-2.5" y="-2.5" width="437" height="383" rx="20"></rect>
+					</g>
+					<rect id="Rectangle-2" fill="#5C5C5C" opacity="0.353078358" x="28" y="27.9261214" width="377" height="323.145119"></rect>
+				</g>
+				<g transform="translate(53.000000, 54.000000)" fill="#FFFFFF">
+					<polygon points="0 49.0546047 0 65 64.5825195 38.7245314 64.5825195 26.2754686 0 0 0 15.9453953 44.5233109 31.99674 44.5233109 33.00326"></polygon>
+					<polygon points="128 84 128 71 65 71 65 84"></polygon>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>
