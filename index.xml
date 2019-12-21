@@ -10,10 +10,10 @@
 		<meta name="minimize"/>
 		<meta name="maximize"/>
 		<meta name="resize"/>
-		<meta name="appIcon" value="res/svg/app-icon.svg"/>
 		<meta name="script" value="res/js/main.js"/>
 		<meta name="style" value="res/css/main.less"/>
 		<meta name="icons" value="res/svg/icons.svg"/>
+		<meta name="appIcon" value="res/svg/icon.svg"/>
 		<meta name="content" value="res/partials/content.htm"/>
 		<meta name="xsl" value="res/partials/templates.xsl"/>
 		
