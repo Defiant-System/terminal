@@ -1,0 +1,15 @@
+<Shell>
+	<i object="terminal" type="Application" description="Public Interace for Terminal">
+		<i name="fileSystem.pwd" alias="pwd" arg="NONE" description="Print working directory path."/>
+		<i name="fileSystem.list" alias="ls" arg="[path]" description="Lists directory contents."/>
+		<i name="fileSystem.changeDirectory" alias="cd" arg="[path]" description="Changes path to working directory."/>
+
+		<i switch="c" name="clear" alias="clear" arg="NONE" description="Clears output."/>
+		<i name="grep" alias="grep" arg="string" description="Filters piped data with given string."/>
+		<i name="help" alias="help" arg="NONE" description="Provides Help about shell commands."/>
+		<i name="more" alias="more" arg="NONE" description="Lists available details about object."/>
+		<i name="history" alias="history" arg="NONE" description="Lists history of commands."/>
+		<i name="about" alias="about" arg="NONE" description="Displays author and copyright-info."/>
+		<i name="exit" alias="exit" arg="NONE" description="Exits shell."/>
+	</i>
+</Shell>

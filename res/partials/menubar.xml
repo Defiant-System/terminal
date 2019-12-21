@@ -1,0 +1,40 @@
+<MenuBar>
+	<Menu name="Terminal">
+		<Menu name="About Terminal"/>
+		<Menu type="divider"/>
+		<Menu name="Preferences"/>
+		<Menu type="divider"/>
+		<Menu name="Emptry Trash"/>
+		<Menu type="divider"/>
+		<Menu name="Services">
+			<Menu name="Open"/>
+			<Menu name="Close"/>
+		</Menu>
+		<Menu type="divider"/>
+		<Menu name="Hide Terminal"/>
+		<Menu name="Hide Others"/>
+		<Menu name="Show All" disabled="1"/>
+		<Menu type="divider"/>
+		<Menu name="Quit Terminal" shell="win -c"/>
+	</Menu>
+	<Menu name="Edit">
+		<Menu name="Clear Screen" shell="terminal -c" hotkey="meta+k"/>
+		<Menu type="divider"/>
+		<Menu name="Jump to Start" click="jump-to-start" hotkey="control+a"/>
+		<Menu name="Jump to End" click="jump-to-end" hotkey="control+e"/>
+		<Menu type="divider"/>
+		<Menu name="Delete to Start" click="delete-to-start" hotkey="control+u"/>
+		<Menu name="Delete to End" click="delete-to-end" hotkey="control+k"/>
+	</Menu>
+	<Menu name="Window">
+		<Menu name="Minimize" shell="win -s min"/>
+		<Menu name="Maximize" shell="win -s max"/>
+		<Menu type="divider"/>
+		<Menu name="Close Window" shell="win -c"/>
+	</Menu>
+	<Menu name="Help">
+		<Menu name="Send Terminal Feedback"/>
+		<Menu type="divider"/>
+		<Menu name="License"/>
+	</Menu>
+</MenuBar>
