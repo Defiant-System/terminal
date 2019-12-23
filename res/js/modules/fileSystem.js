@@ -1,5 +1,5 @@
 
-let cwd = "~/Documents"
+let cwd = "~/usr"
 
 const fileSystem = {
 	pwd() {
