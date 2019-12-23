@@ -255,7 +255,7 @@ const terminal = {
 	},
 	async about() {
 		let command = await defiant.shell("sys -b");
-		let stdIn = `${command.result.name} Shell [v${command.result.version}] ${command.result.author} &copy; 2017-`+ (new Date).getFullYear();
+		let stdIn = `${command.result.name} Shell [v${command.result.version}] ${command.result.author} &copy; 2019-`+ (new Date).getFullYear();
 		this.print(stdIn.declare);
 	},
 	exit() {
