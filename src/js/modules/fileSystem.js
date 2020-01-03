@@ -12,7 +12,7 @@ const fileSystem = {
 		let text = path.slice(stdInPath.length);
 		let root = window.path.join(cwd, stdInPath || "./");
 		let fsList = await defiant.shell(`fs -l '${root}'`);
-		
+
 		let dictionary = fsList.result.reduce((acc, curr) => {
 			if (curr.name.startsWith(text)) {
 				let path = window.path.join(root, curr.name);

@@ -27,8 +27,11 @@ const terminal = {
 
 		// temp
 		// let tmp = this.fileSystem.list();
-		// this.print("ls".withPrompt);
+		// this.print("ls a".withPrompt);
 		// this.print(tmp);
+
+		this.textarea.val(`ls A`);
+		this.dispatch({type: "keystroke"});
 
 		/*
 		let obj = {
