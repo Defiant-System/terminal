@@ -31,7 +31,7 @@ const terminal = {
 		// this.print(tmp);
 
 		this.textarea.val(`ls A`);
-		this.dispatch({type: "keystroke"});
+		this.dispatch({type: "window.keystroke"});
 
 		/*
 		let obj = {
@@ -55,13 +55,13 @@ const terminal = {
 
 		/*
 		this.textarea.val(`ls`);
-		this.dispatch({ type: "keystroke" });
-		this.dispatch({ type: "keystroke", keyCode: 13 });
+		this.dispatch({ type: "window.keystroke" });
+		this.dispatch({ type: "window.keystroke", keyCode: 13 });
 		return;
 
 		this.textarea.val(`ls ..`);
-		this.dispatch({type: "keystroke"});
-		this.dispatch({type: "keystroke", keyCode: 9, target: this.textarea[0]});
+		this.dispatch({type: "window.keystroke"});
+		this.dispatch({type: "window.keystroke", keyCode: 9, target: this.textarea[0]});
 		*/
 	},
 	async dispatch(event) {
@@ -78,7 +78,7 @@ const terminal = {
 		switch (event.type) {
 			case "explore-item":
 				return parser.dispatch(event);
-			case "keystroke":
+			case "window.keystroke":
 
 				switch (event.keyCode) {
 					case 13: // return
