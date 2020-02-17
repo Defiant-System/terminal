@@ -1,7 +1,7 @@
 <Application>
 	<Head>
 		<meta name="id" value="terminal"/>
-		<meta name="title" value="Terminal" version="1.0"/>
+		<meta name="title" value="Terminal" version="1.1"/>
 		<meta name="author" value="Hakan Bilgin" namespace="ant"/>
 		<meta name="license" value="AGPL-3.0-or-later"/>
 		<meta name="width" value="700"/>

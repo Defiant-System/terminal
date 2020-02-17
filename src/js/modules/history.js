@@ -5,7 +5,7 @@ const history = {
 		"history",
 		"win -o mines",
 		"clear",
-		"fs -dh",
+		"fs -ih",
 		"history",
 		"ls",
 		"sys -b",
