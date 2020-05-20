@@ -41,7 +41,7 @@
 	<xsl:value-of select="substring(concat(@isodate, ' '), 12, 16)"/>
 	<xsl:choose>
 		<xsl:when test="name(..) = 'FileSystem'">
-			<b class="c1"><xsl:value-of select="//FsAlias/*[@name = $name]/@value"/></b>
+			<b class="c1"><xsl:value-of select="@name"/></b>
 		</xsl:when>
 		<xsl:when test="substring( @mode, 1, 1 ) = 'd' and $name != '.' and $name != '..'">
 			<b class="c1"><xsl:value-of select="$name"/></b>

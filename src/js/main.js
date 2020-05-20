@@ -30,8 +30,8 @@ const terminal = {
 		// this.print("ls a".withPrompt);
 		// this.print(tmp);
 
-		this.textarea.val(`ls A`);
-		this.dispatch({type: "window.keystroke"});
+		// this.textarea.val(`ls A`);
+		// this.dispatch({type: "window.keyup"});
 
 		/*
 		let obj = {
@@ -55,13 +55,13 @@ const terminal = {
 
 		/*
 		this.textarea.val(`ls`);
-		this.dispatch({ type: "window.keystroke" });
-		this.dispatch({ type: "window.keystroke", keyCode: 13 });
+		this.dispatch({ type: "window.keyup" });
+		this.dispatch({ type: "window.keyup", keyCode: 13 });
 		return;
 
 		this.textarea.val(`ls ..`);
-		this.dispatch({type: "window.keystroke"});
-		this.dispatch({type: "window.keystroke", keyCode: 9, target: this.textarea[0]});
+		this.dispatch({type: "window.keyup"});
+		this.dispatch({type: "window.keyup", keyCode: 9, target: this.textarea[0]});
 		*/
 	},
 	async dispatch(event) {
@@ -78,7 +78,7 @@ const terminal = {
 		switch (event.type) {
 			case "explore-item":
 				return parser.dispatch(event);
-			case "window.keystroke":
+			case "window.keyup":
 
 				switch (event.keyCode) {
 					case 13: // return
