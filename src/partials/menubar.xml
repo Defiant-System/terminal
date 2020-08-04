@@ -1,6 +1,6 @@
 <MenuBar>
 	<Menu name="Terminal">
-		<Menu name="About Terminal"/>
+		<Menu name="About Terminal" shell="win -a"/>
 		<Menu type="divider"/>
 		<Menu name="Preferences"/>
 		<Menu type="divider"/>
