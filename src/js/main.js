@@ -257,11 +257,10 @@ const terminal = {
 		return this.more();
 	},
 	friends() {
-		let htm = window.render({
+		return window.render({
 				template: "friends-list",
 				match: '//Friends'
-			});
-		return htm.declare;
+			}).declare;
 	},
 	more(name) {
 		let xpath = name ? `/ledger/Shell/*[@object="${name}"]` : '/ledger/Shell',
