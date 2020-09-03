@@ -214,4 +214,41 @@
 	</xsl:for-each>
 </xsl:template>
 
+
+<xsl:template name="friends-list">
+	<xsl:variable name="col1" select="2"></xsl:variable>
+	<xsl:variable name="col2"><xsl:call-template name="max-width"><xsl:with-param name="attribute" select="'id'" /><xsl:with-param name="pad" select="5" /></xsl:call-template></xsl:variable>
+	<xsl:variable name="col3"><xsl:call-template name="max-width"><xsl:with-param name="attribute" select="'name'" /><xsl:with-param name="pad" select="3" /></xsl:call-template></xsl:variable>
+	
+	<b class="c3">
+		<xsl:text>   </xsl:text>
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat('Username', $white-space)" />
+			<xsl:with-param name="len" select="$col2" />
+		</xsl:call-template>
+
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat('Name', $white-space)" />
+			<xsl:with-param name="len" select="$col3" />
+		</xsl:call-template>
+	</b><br/>
+
+	<xsl:for-each select="./*">
+		<span class="ticon offline">
+			<xsl:if test="@online='1'"><xsl:attribute name="class">ticon online</xsl:attribute></xsl:if>
+		</span>
+		
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat(@id, $white-space)" />
+			<xsl:with-param name="len" select="$col2" />
+		</xsl:call-template>
+		
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat(@name, $white-space)" />
+			<xsl:with-param name="len" select="$col3" />
+		</xsl:call-template>
+		<br/>
+	</xsl:for-each>
+</xsl:template>
+
 </xsl:stylesheet>

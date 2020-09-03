@@ -7,6 +7,7 @@
 		<i switch="c" name="clear" alias="clear" arg="NONE" description="Clears output."/>
 		<i name="grep" alias="grep" arg="string" description="Filters piped data with given string."/>
 		<i name="help" alias="help" arg="NONE" description="Provides Help about shell commands."/>
+		<i name="friends" alias="friends" arg="NONE" description="Lists current user friends."/>
 		<i name="more" alias="more" arg="NONE" description="Lists available details about object."/>
 		<i name="history" alias="history" arg="NONE" description="Lists history of commands."/>
 		<i name="about" alias="about" arg="NONE" description="Displays author and copyright-info."/>

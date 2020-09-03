@@ -65,7 +65,8 @@ const terminal = {
 		*/
 	},
 	async dispatch(event) {
-		let stdIn,
+		let Self = terminal,
+			stdIn,
 			stdOut,
 			target,
 			selection,
@@ -76,16 +77,21 @@ const terminal = {
 		
 		//console.log(event);
 		switch (event.type) {
-			case "explore-item":
-				return parser.dispatch(event);
+			// system events
+			case "window.open":
+				// temp
+				Self.textarea.val(`friends`);
+				Self.dispatch({ type: "window.keyup" });
+				Self.dispatch({ type: "window.keyup", keyCode: 13 });
+				break;
 			case "window.keyup":
 
 				switch (event.keyCode) {
 					case 13: // return
-						stdIn = this.stdIn.text().replace(/\s+/g, " ").trim();
+						stdIn = Self.stdIn.text().replace(/\s+/g, " ").trim();
 
 						// output stdIn
-						this.print(stdIn.withPrompt);
+						Self.print(stdIn.withPrompt);
 
 						if (stdIn.slice(0, 1) === "!") {
 							let index = +stdIn.slice(1);
@@ -109,21 +115,21 @@ const terminal = {
 
 							if (command.error) {
 								// append error string to output
-								this.print(command.error.err);
+								Self.print(command.error.err);
 							} else if (command.result) {
 								// command returned success
-								this.print(command.result);
+								Self.print(command.result);
 							}
 						}
 
 						// empty input buffer
-						this.stdIn.html("");
-						this.textarea.val("");
-						this.caret.css({left: 0});
+						Self.stdIn.html("");
+						Self.textarea.val("");
+						Self.caret.css({left: 0});
 						break;
 					case 9: // tab
 						target = event.target;
-						stdIn = this.stdIn.text().trim().slice(0, target.selectionStart);
+						stdIn = Self.stdIn.text().trim().slice(0, target.selectionStart);
 						let suggestions = await fileSystem.suggest(stdIn);
 						
 						if (!suggestions.length) return;
@@ -133,31 +139,31 @@ const terminal = {
 							selectionEnd = stdIn.length + suggestions[0].stub.length;
 							target.setSelectionRange(selectionEnd, selectionEnd);
 
-							this.cursor.addClass("loading");
+							Self.cursor.addClass("loading");
 							await fileSystem.preload(suggestions[0].path);
-							this.cursor.removeClass("loading");
+							Self.cursor.removeClass("loading");
 						} else {
 							// print copy of stdIn
-							stdIn = this.stdIn.text();
-							this.print(stdIn.withPrompt);
+							stdIn = Self.stdIn.text();
+							Self.print(stdIn.withPrompt);
 
 							// prepare suggestion list
 							stdOut = "";
 							suggestions.map((item, index) => {
 								stdOut += item.name.padEnd(30, " ") + (index % 2 === 1 ? "\n" : "");
 							});
-							this.print(stdOut.declare);
+							Self.print(stdOut.declare);
 						}
 						break;
 					case 38: // up
 						history.index = Math.max(history.index - 1, 0);
 						stdIn = history.log[history.index] || "";
-						this.textarea.val(stdIn);
+						Self.textarea.val(stdIn);
 						break;
 					case 40: // down
 						history.index = Math.min(history.index + 1, history.log.length);
 						stdIn = history.log[history.index] || "";
-						this.textarea.val(stdIn);
+						Self.textarea.val(stdIn);
 						break;
 					case 33: // pageup
 					case 36: // home
@@ -166,19 +172,22 @@ const terminal = {
 						target = event.target;
 						selectionEnd = ~[33, 36].indexOf(event.keyCode) ? 0 : target.value.length;
 						target.setSelectionRange(selectionEnd, selectionEnd);
-						this.dispatch({...event, type: "update-caret-position"});
+						Self.dispatch({...event, type: "update-caret-position"});
 						break;
 					case 37: // left
 					case 39: // right
-						this.dispatch({...event, type: "update-caret-position"});
+						Self.dispatch({...event, type: "update-caret-position"});
 						break;
 				}
 
-				stdIn = this.textarea.val().replace(/ /g, "&#160;");
-				this.stdIn.html(stdIn);
+				stdIn = Self.textarea.val().replace(/ /g, "&#160;");
+				Self.stdIn.html(stdIn);
 				//if (~[18,91,93,37,39].indexOf(event.keyCode)) return;
-				this.scrollIntoView();
+				Self.scrollIntoView();
 				break;
+			// custom events
+			case "explore-item":
+				return parser.dispatch(event);
 			case "update-caret-position":
 				target = event.target;
 				selectionStart = target.selectionStart;
@@ -189,19 +198,19 @@ const terminal = {
 				}
 
 				left = ((selectionStart - target.value.length) * 0.6075);
-				this.caret.css({left: left +"em"});
-				this.cursor.toggleClass("moved", left === 0);
+				Self.caret.css({left: left +"em"});
+				Self.cursor.toggleClass("moved", left === 0);
 				break;
 			case "jump-to-start":
 			case "jump-to-end":
-				target = this.textarea[0];
+				target = Self.textarea[0];
 				selectionEnd = event.type === "jump-to-start" ? 0 : target.value.length;
 				target.setSelectionRange(selectionEnd, selectionEnd);
-				this.dispatch({...event, target, type: "update-caret-position"});
+				Self.dispatch({...event, target, type: "update-caret-position"});
 				break;
 			case "delete-to-start":
 			case "delete-to-end":
-				target = this.textarea[0];
+				target = Self.textarea[0];
 				stdIn = (event.type === "delete-to-start")
 							? target.value.slice(target.selectionStart, target.value.length)
 							: target.value.slice(0, target.selectionStart);
@@ -209,15 +218,15 @@ const terminal = {
 				target.value = stdIn;
 				if (event.type === "delete-to-start") target.setSelectionRange(0, 0);
 
-				this.stdIn.html(stdIn);
-				this.dispatch({...event, target, type: "update-caret-position"});
+				Self.stdIn.html(stdIn);
+				Self.dispatch({...event, target, type: "update-caret-position"});
 				break;
 			case "catch-focus":
 			case "window.focus":
-				this.textarea.focus();
+				Self.textarea.focus();
 				break;
 			case "window.blur":
-				this.textarea.blur();
+				Self.textarea.blur();
 				break;
 		}
 	},
@@ -238,27 +247,33 @@ const terminal = {
 	},
 	grep(stdIn, str) {
 		let stdOut = stdIn.split("<br>").reduce((acc, line) => {
-			line = line.stripHtml();
-			if (~line.indexOf(str)) acc.push(line);
-			return acc;
-		}, []);
+				line = line.stripHtml();
+				if (~line.indexOf(str)) acc.push(line);
+				return acc;
+			}, []);
 		return stdOut.join("<br>").declare;
 	},
 	help() {
 		return this.more();
 	},
-	more(object) {
-		let xpath = object ? `/ledger/Shell/*[@object = "${object}"]` : '/ledger/Shell';
+	friends() {
 		let htm = window.render({
-			template: "more-output",
-			match: xpath
-		});
-
+				template: "friends-list",
+				match: '//Friends'
+			});
+		return htm.declare;
+	},
+	more(name) {
+		let xpath = name ? `/ledger/Shell/*[@object="${name}"]` : '/ledger/Shell',
+			htm = window.render({
+				template: "more-output",
+				match: xpath
+			});
 		return htm.declare;
 	},
 	async about() {
-		let command = await defiant.shell("sys -b");
-		let stdIn = `${command.result.name} Shell [v${command.result.version}] ${command.result.author} &copy; 2019-`+ (new Date).getFullYear();
+		let command = await defiant.shell("sys -b"),
+			stdIn = `${command.result.name} Shell [v${command.result.version}] ${command.result.author} &copy; 2019-`+ (new Date).getFullYear();
 		this.print(stdIn.declare);
 	},
 	exit() {

@@ -9,6 +9,8 @@ const history = {
 		"history",
 		"ls",
 		"sys -b",
+		"whoami",
+		"friends",
 	]
 };
 history.index = history.log.length;

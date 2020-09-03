@@ -44,4 +44,18 @@
 			<path d="M363.7,418.127c-7.741,7.742-20.293,7.742-28.033,0l-51.86-51.86c-7.74-7.742-7.74-20.291,0-28.033l51.86-51.859 c7.74-7.742,20.292-7.742,28.033-0.002l51.859,51.861c7.74,7.742,7.74,20.291,0,28.033L363.7,418.127z"/>
 		</g>
 	</svg>
+
+	<svg id="offline" viewBox="0 0 500 500">
+		<style type="text/css">
+			.st0{fill:none;stroke:#2c2;stroke-width:70;stroke-linecap:round;}
+		</style>
+		<circle class="st0" cx="250" cy="300" r="150"/>
+	</svg>
+
+	<svg id="online" viewBox="0 0 500 500">
+		<style type="text/css">
+			.st0{fill:#3e3;stroke:#3e3;stroke-width:70;stroke-linecap:round;}
+		</style>
+		<circle class="st0" cx="250" cy="300" r="150"/>
+	</svg>
 </svg>
