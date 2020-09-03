@@ -234,8 +234,11 @@
 	</b><br/>
 
 	<xsl:for-each select="./*">
-		<span class="ticon offline">
-			<xsl:if test="@online='1'"><xsl:attribute name="class">ticon online</xsl:attribute></xsl:if>
+		<span class="ticon offline" title="Offline">
+			<xsl:if test="@online='1'">
+				<xsl:attribute name="class">ticon online</xsl:attribute>
+				<xsl:attribute name="title">Online</xsl:attribute>
+			</xsl:if>
 		</span>
 		
 		<xsl:call-template name="slice-string">
