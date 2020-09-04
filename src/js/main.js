@@ -87,7 +87,7 @@ const terminal = {
 				setTimeout(() => {
 					Self.textarea.val(`user -a bill`);
 					Self.dispatch({ type: "window.keyup" });
-					Self.dispatch({ type: "window.keyup", keyCode: 13 });
+					//Self.dispatch({ type: "window.keyup", keyCode: 13 });
 				}, 100);
 				break;
 			case "window.keyup":

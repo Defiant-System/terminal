@@ -234,6 +234,7 @@
 	</b><br/>
 
 	<xsl:for-each select="./*">
+		<xsl:sort select="@name" />
 		<span class="ticon offline" title="Offline">
 			<xsl:if test="@online='1'">
 				<xsl:attribute name="class">ticon online</xsl:attribute>
