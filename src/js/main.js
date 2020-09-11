@@ -45,9 +45,9 @@ const terminal = {
 				// Self.print("ls a".withPrompt);
 				// Self.print(tmp);
 
-				// Self.textarea.val(`friends`);
-				// Self.dispatch({ type: "window.keystroke" });
-				// Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+				Self.textarea.val(`friends`);
+				Self.dispatch({ type: "window.keystroke" });
+				Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 
 				// setTimeout(() => {
 				// 	Self.textarea.val(`user -a bill`);
