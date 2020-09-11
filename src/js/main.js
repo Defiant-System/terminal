@@ -66,6 +66,24 @@ const terminal = {
 				// 	Self.dispatch({ type: "window.keystroke" });
 				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				// }, 100);
+
+				// setTimeout(() => {
+				// 	Self.textarea.val(`cd Applications`);
+				// 	Self.dispatch({ type: "window.keystroke" });
+				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+
+				// 	setTimeout(() => {
+				// 		Self.textarea.val(`ls`);
+				// 		Self.dispatch({ type: "window.keystroke" });
+				// 		Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+
+				// 		setTimeout(() => {
+				// 			Self.textarea.val(`echo {"a":1}`);
+				// 			Self.dispatch({ type: "window.keystroke" });
+				// 			Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+				// 		}, 100);
+				// 	}, 100);
+				// }, 100);
 				break;
 			case "window.keystroke":
 
@@ -100,6 +118,14 @@ const terminal = {
 						if (stdIn) {
 							command = await defiant.shell(stdIn);
 
+							// app-custom test of stdIn
+							if (command.error) {
+								try {
+									command.result = (new Function(`return ${stdIn}`))();
+									delete command.error;
+								} catch (e) {}
+							}
+							// evaluate result
 							if (command.error) {
 								// append error string to output
 								Self.print(command.error.err);
@@ -116,6 +142,9 @@ const terminal = {
 						Self.cursor.removeClass("moved");
 						break;
 					case 9: // tab
+						// prevent default behaviour
+						event.preventDefault();
+
 						target = event.target;
 						stdIn = Self.stdIn.text().trim().slice(0, target.selectionStart);
 						let suggestions = await fileSystem.suggest(stdIn);
@@ -126,10 +155,6 @@ const terminal = {
 
 							selectionEnd = stdIn.length + suggestions[0].stub.length;
 							target.setSelectionRange(selectionEnd, selectionEnd);
-
-							Self.cursor.addClass("loading");
-							await fileSystem.preload(suggestions[0].path);
-							Self.cursor.removeClass("loading");
 						} else {
 							// print copy of stdIn
 							stdIn = Self.stdIn.text();

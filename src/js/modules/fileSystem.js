@@ -7,7 +7,7 @@ const fileSystem = {
 	},
 	async suggest(stdIn) {
 		let parts = await defiant.shell(`sys -p '${stdIn}'`);
-		let path = parts.result.arg[parts.result.arg.length-1];
+		let path = parts.result.args[parts.result.args.length-1];
 		let stdInPath = path.slice(0, path.lastIndexOf("/") + 1);
 		let text = path.slice(stdInPath.length);
 		let root = window.path.join(cwd, stdInPath || "./");
@@ -26,24 +26,21 @@ const fileSystem = {
 		
 		return dictionary;
 	},
-	async preload(path) {
-		let fsList = await defiant.shell(`fs -r '${path}'`);
-	},
 	async list(path) {
 		path = window.path.join(cwd, path || ".");
 		let htm = window.render({ path, template: "directory-listing" });
 		
 		return htm.declare;
 	},
-	async changeDirectory(path) {
+	changeDirectory(path) {
 		if (!path || path === "/") {
 			path = "~";
 		} else {
-			let test = window.path.join(cwd, path);
-			if (!window.path.isDirectory(test)) {
+			let newPath = window.path.join(cwd, path);
+			if (!window.path.isDirectory(newPath)) {
 				return { error: `"${path}" is not a directory` }
 			}
-			path = test;
+			path = newPath;
 		}
 		cwd = path;
 	}

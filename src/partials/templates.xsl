@@ -3,7 +3,7 @@
 <xsl:template name="directory-listing">
 	<xsl:text>total </xsl:text>
 	<xsl:call-template name="sys:file-size">
-		<xsl:with-param name="bytes" select="sum(./*/@size)" />
+		<xsl:with-param name="bytes" select="sum(./*[@kind != 'app']/@size)" />
 	</xsl:call-template>
 	<br/>
 	
@@ -40,6 +40,9 @@
 
 	<xsl:value-of select="substring(concat(@isodate, ' '), 12, 16)"/>
 	<xsl:choose>
+		<xsl:when test="$name = '.'">
+			<b class="c1"><xsl:value-of select="$name"/></b>
+		</xsl:when>
 		<xsl:when test="name(..) = 'FileSystem'">
 			<b class="c1"><xsl:value-of select="@name"/></b>
 		</xsl:when>

@@ -1,5 +1,5 @@
 
-let terminal;
+let APP;
 let memory = [];
 let collapsed_limit = 3;
 let tabLength = 3;
@@ -7,7 +7,7 @@ let tabLength = 3;
 let parser = {
 	init(_terminal) {
 		// fast and direct references
-		terminal = _terminal;
+		APP = _terminal;
 	},
 	dispatch(event) {
 		let item,
@@ -55,6 +55,8 @@ let parser = {
 					htm = htm.replace(/\t/g, String().fill(tabLength, ' '));
 					group.html(htm);
 				}
+				// scroll expand in to view
+				APP.scrollIntoView();
 				break;
 		}
 	},
