@@ -189,6 +189,10 @@ const terminal = {
 						break;
 					case 37: // left
 					case 39: // right
+						if (event.shiftKey) {
+							// no support for selection (yet)
+							return event.preventDefault();
+						}
 						Self.dispatch({...event, type: "update-caret-position"});
 						break;
 				}
