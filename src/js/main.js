@@ -24,45 +24,6 @@ const terminal = {
 		// version and copyright 
 		this.about();
 		this.textarea.focus();
-
-		// temp
-		// let tmp = this.fileSystem.list();
-		// this.print("ls a".withPrompt);
-		// this.print(tmp);
-
-		// this.textarea.val(`ls A`);
-		// this.dispatch({type: "window.keyup"});
-
-		/*
-		let obj = {
-			bla: {
-				arr: [1,2,3,4,5],
-				a: 1,
-				str: "test",
-			},
-			prom: new Promise(resolve => {}),
-			fn: function(a, b) {
-				return a + b;
-			}
-		};
-		//obj = [1,2,3,4,5];
-		console.log(obj);
-		this.print(obj);
-
-		//this.buffer.find('em[data-click="explore-item"]').trigger("click");
-		//this.buffer.find('em[data-click="explore-item"]:nth(1)').trigger("click");
-		*/
-
-		/*
-		this.textarea.val(`ls`);
-		this.dispatch({ type: "window.keyup" });
-		this.dispatch({ type: "window.keyup", keyCode: 13 });
-		return;
-
-		this.textarea.val(`ls ..`);
-		this.dispatch({type: "window.keyup"});
-		this.dispatch({type: "window.keyup", keyCode: 9, target: this.textarea[0]});
-		*/
 	},
 	async dispatch(event) {
 		let Self = terminal,
@@ -80,17 +41,33 @@ const terminal = {
 			// system events
 			case "window.open":
 				// temp
-				Self.textarea.val(`friends`);
-				Self.dispatch({ type: "window.keyup" });
-				Self.dispatch({ type: "window.keyup", keyCode: 13 });
+				// let tmp = Self.fileSystem.list();
+				// Self.print("ls a".withPrompt);
+				// Self.print(tmp);
 
-				setTimeout(() => {
-					Self.textarea.val(`user -a bill`);
-					Self.dispatch({ type: "window.keyup" });
-					//Self.dispatch({ type: "window.keyup", keyCode: 13 });
-				}, 100);
+				// Self.textarea.val(`friends`);
+				// Self.dispatch({ type: "window.keystroke" });
+				// Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+
+				// setTimeout(() => {
+				// 	Self.textarea.val(`user -a bill`);
+				// 	Self.dispatch({ type: "window.keystroke" });
+				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+				// }, 100);
+
+				// setTimeout(() => {
+				// 	Self.textarea.val(`echo {"a":1}`);
+				// 	Self.dispatch({ type: "window.keystroke" });
+				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+				// }, 100);
+
+				// setTimeout(() => {
+				// 	Self.textarea.val(`fs -ih`);
+				// 	Self.dispatch({ type: "window.keystroke" });
+				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+				// }, 100);
 				break;
-			case "window.keyup":
+			case "window.keystroke":
 
 				switch (event.keyCode) {
 					case 13: // return
@@ -132,6 +109,7 @@ const terminal = {
 						Self.stdIn.html("");
 						Self.textarea.val("");
 						Self.caret.css({left: 0});
+						Self.cursor.removeClass("moved");
 						break;
 					case 9: // tab
 						target = event.target;
@@ -186,6 +164,7 @@ const terminal = {
 						break;
 				}
 
+				//console.log(Self.textarea.val());
 				stdIn = Self.textarea.val().replace(/ /g, "&#160;");
 				Self.stdIn.html(stdIn);
 				//if (~[18,91,93,37,39].indexOf(event.keyCode)) return;

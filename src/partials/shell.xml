@@ -5,6 +5,7 @@
 		<i name="fileSystem.changeDirectory" alias="cd" arg="[path]" description="Changes path to working directory."/>
 
 		<i switch="c" name="clear" alias="clear" arg="NONE" description="Clears output."/>
+		<i name="print" alias="echo" arg="[arg]" description="Prints string."/>
 		<i name="grep" alias="grep" arg="string" description="Filters piped data with given string."/>
 		<i name="help" alias="help" arg="NONE" description="Provides Help about shell commands."/>
 		<i name="friends" alias="friends" arg="NONE" description="Lists current user friends."/>

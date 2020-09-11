@@ -1,6 +1,7 @@
 
 const history = {
 	log: [
+		// DEV-ONLY-START
 		"help",
 		"history",
 		"win -o mines",
@@ -9,8 +10,11 @@ const history = {
 		"history",
 		"ls",
 		"sys -b",
+		//"sys -p 'ls a'",
 		"whoami",
 		"friends",
+		"user -a bill",
+		// DEV-ONLY-END
 	]
 };
 history.index = history.log.length;
