@@ -76,6 +76,10 @@ const terminal = {
 						// output stdIn
 						Self.print(stdIn.withPrompt);
 
+						if (stdIn.slice(0, 1) === "?") {
+							stdIn = "help"+ stdIn.slice(1);
+						}
+
 						if (stdIn.slice(0, 1) === "!") {
 							let index = +stdIn.slice(1);
 							if (index > 0 && index < history.log.length) stdIn = history.log[index - 1];
