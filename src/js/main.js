@@ -118,7 +118,7 @@ const terminal = {
 
 						// execute command
 						if (stdIn) {
-							command = await defiant.shell(stdIn);
+							command = await defiant.shell(stdIn.replace(/\\ /g, "%20"));
 
 							// app-custom test of stdIn
 							if (command.error) {
