@@ -40,16 +40,19 @@ const terminal = {
 		switch (event.type) {
 			// system events
 			case "window.open":
-				// temp
+				// DEV-ONLY-START
+
 				// let tmp = Self.fileSystem.list();
 				// Self.print("ls a".withPrompt);
 				// Self.print(tmp);
 
-				// setTimeout(() => {
-				// 	Self.textarea.val(`friends`);
-				// 	Self.dispatch({ type: "window.keystroke" });
-				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				// }, 100);
+				setTimeout(() => {
+					if (defiant.user.username !== "steve") return;
+					
+					Self.textarea.val(`user -m bill Hello`);
+					Self.dispatch({ type: "window.keystroke" });
+				//	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+				}, 100);
 
 				// setTimeout(() => {
 				// 	Self.textarea.val(`user -a bill`);
@@ -86,6 +89,8 @@ const terminal = {
 				// 		}, 100);
 				// 	}, 100);
 				// }, 100);
+
+				// DEV-ONLY-END
 				break;
 			case "window.keystroke":
 

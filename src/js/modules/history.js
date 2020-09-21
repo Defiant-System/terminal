@@ -14,6 +14,7 @@ const history = {
 		"whoami",
 		"friends",
 		"user -a bill",
+		"net -s bill Hello",
 		// DEV-ONLY-END
 	]
 };
