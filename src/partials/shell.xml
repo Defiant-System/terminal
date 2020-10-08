@@ -1,7 +1,9 @@
 <Shell>
 	<i object="terminal" type="Application" description="Public Interace for Terminal">
 		<i name="fileSystem.pwd" alias="pwd" arg="NONE" description="Print working directory path."/>
-		<i name="fileSystem.move" alias="mv" arg="[src, dest]" description="Renames file."/>
+		<i name="fileSystem.move" alias="mv" arg="[src, dest]" description="Renames file/folder."/>
+		<i name="fileSystem.copy" alias="cp" arg="[src, dest]" description="Copies file/folder."/>
+		<i name="fileSystem.remove" alias="rm" arg="[path]" description="Remove file/folder."/>
 		<i name="fileSystem.list" alias="ls" arg="[path]" description="Lists directory contents."/>
 		<i name="fileSystem.changeDirectory" alias="cd" arg="[path]" description="Changes path to working directory."/>
 

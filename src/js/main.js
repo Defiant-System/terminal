@@ -63,8 +63,15 @@ const terminal = {
 				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				// }, 100);
 
+				// FS
+				// setTimeout(() => {
+				// 	Self.textarea.val(`mv test-1.mid test-5.mid`);
+				// 	Self.dispatch({ type: "window.keystroke" });
+				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+				// }, 100);
+
 				setTimeout(() => {
-					Self.textarea.val(`mv test-1.mid test-5.mid`);
+					Self.textarea.val(`rm test-1.mid`);
 					Self.dispatch({ type: "window.keystroke" });
 					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				}, 100);
@@ -259,7 +266,7 @@ const terminal = {
 		stdIn = parser.format(stdIn);
 		let uiIn = this.buffer.append(`<div>${stdIn}</div>`);
 
-		if (stdIn.includes(' data-click="explore-item"') && stdIn.stripHtml().length + 8 > this.charWidth) {
+		if (stdIn.includes(' data-click="explore-item"') && stdIn.stripHtml().length + 17 > this.charWidth) {
 			// auto explore output - if content longer than window width
 			uiIn.find('b.output [data-click="explore-item"]:first').trigger("click");
 		}
