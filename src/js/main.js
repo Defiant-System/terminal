@@ -69,12 +69,6 @@ const terminal = {
 					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				}, 100);
 
-				// setTimeout(() => {
-				// 	Self.textarea.val(`terminal +`);
-				// 	Self.dispatch({ type: "window.keystroke" });
-				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				// }, 100);
-
 				// 	setTimeout(() => {
 				// 		Self.textarea.val(`ls`);
 				// 		Self.dispatch({ type: "window.keystroke" });
@@ -286,7 +280,7 @@ const terminal = {
 		return stdOut.join("<br>").declare;
 	},
 	help() {
-		return this.more();
+		return this.more("terminal");
 	},
 	friends() {
 		return window.render({
