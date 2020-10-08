@@ -7,7 +7,11 @@ let tabLength = 3;
 let parser = {
 	init(_terminal) {
 		// fast and direct references
+		this.measureEl = window.find(".wrapper").append('<i class="measurement">a</i>');
 		APP = _terminal;
+
+		// fake trigger resize, to calculate charWidth
+		this.dispatch({ type: "window.resize", width: window.width });
 	},
 	dispatch(event) {
 		let item,
@@ -19,6 +23,10 @@ let parser = {
 			isOn,
 			htm;
 		switch (event.type) {
+			case "window.resize":
+				// measures available width in characters
+				parser.charWidth = event.width / parser.measureEl[0].getBoundingClientRect().width;
+				break;
 			case "explore-item":
 				item = $(event.target);
 				if (item.parent().hasClass("output")) {
@@ -86,6 +94,7 @@ let parser = {
 
 		htm.push(`<em data-click="explore-item">${type}</em>`);
 		htm.push(`<span data-index="${index}" class="group ${type.toLowerCase()} collapsed"> ${list.join(", ")} </span>`);
+
 		return htm.join(``).output;
 	},
 	getProperties(item, collapsed, pIndent = "") {
@@ -96,6 +105,8 @@ let parser = {
 			let type = typeof item[key];
 			let value = item[key];
 			let sample = ``;
+
+			if (!item[key]) return;
 
 			switch (value !== null && item[key].constructor) {
 				case Promise:

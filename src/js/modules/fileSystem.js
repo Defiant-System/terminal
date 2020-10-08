@@ -1,5 +1,5 @@
 
-let cwd = "~/"
+let cwd = "\~/Desktop/"
 
 const fileSystem = {
 	pwd() {
@@ -25,6 +25,13 @@ const fileSystem = {
 		}, []);
 		
 		return dictionary;
+	},
+	async move(src, dest) {
+		src = window.path.join(cwd, src || ".");
+		dest = window.path.join(cwd, dest || ".");
+		
+		let cmd = await defiant.shell(`fs -m '${src}' '${dest}'`);
+		return cmd.result;
 	},
 	async list(path) {
 		path = window.path.join(cwd, path || ".");

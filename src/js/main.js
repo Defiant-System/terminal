@@ -35,7 +35,6 @@ const terminal = {
 			selectionEnd,
 			left,
 			command;
-		
 		//console.log(event);
 		switch (event.type) {
 			// system events
@@ -46,13 +45,13 @@ const terminal = {
 				// Self.print("ls a".withPrompt);
 				// Self.print(tmp);
 
-				setTimeout(() => {
-					if (defiant.user.username !== "steve") return;
+				// setTimeout(() => {
+				// 	if (defiant.user.username !== "steve") return;
 					
-					Self.textarea.val(`user -m bill Hello`);
-					Self.dispatch({ type: "window.keystroke" });
-				//	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				}, 100);
+				// 	Self.textarea.val(`user -m bill Hello`);
+				// 	Self.dispatch({ type: "window.keystroke" });
+				// //	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+				// }, 100);
 
 				// setTimeout(() => {
 				// 	Self.textarea.val(`user -a bill`);
@@ -60,22 +59,17 @@ const terminal = {
 				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				// }, 100);
 
-				// setTimeout(() => {
-				// 	Self.textarea.val(`echo {"a":1}`);
-				// 	Self.dispatch({ type: "window.keystroke" });
-				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				// }, 100);
+				setTimeout(() => {
+					Self.textarea.val(`mv test-1.mid test-5.mid`);
+					Self.dispatch({ type: "window.keystroke" });
+					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+				}, 100);
 
 				// setTimeout(() => {
 				// 	Self.textarea.val(`fs -ih`);
 				// 	Self.dispatch({ type: "window.keystroke" });
 				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				// }, 100);
-
-				// setTimeout(() => {
-				// 	Self.textarea.val(`cd Applications`);
-				// 	Self.dispatch({ type: "window.keystroke" });
-				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 
 				// 	setTimeout(() => {
 				// 		Self.textarea.val(`ls`);
@@ -91,6 +85,9 @@ const terminal = {
 				// }, 100);
 
 				// DEV-ONLY-END
+				break;
+			case "window.resize":
+				parser.dispatch(event);
 				break;
 			case "window.keystroke":
 
@@ -261,7 +258,12 @@ const terminal = {
 	},
 	print(stdIn) {
 		stdIn = parser.format(stdIn);
-		this.buffer.append(`<div>${stdIn}</div>`);
+		let uiIn = this.buffer.append(`<div>${stdIn}</div>`);
+
+		if (stdIn.includes(' data-click="explore-item"') && stdIn.stripHtml().length + 8 > parser.charWidth) {
+			// auto explore output - if content longer than window width
+			uiIn.find('b.output [data-click="explore-item"]:first').trigger("click");
+		}
 	},
 	clear() {
 		this.buffer.html("");

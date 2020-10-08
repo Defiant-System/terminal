@@ -38,17 +38,6 @@ content {
 	//background: #000;
 	color: @fgcolor;
 	
-	textarea1 {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		bottom: 0;
-		background: transparent;
-		color: red;
-		z-index: 2;
-	}
-
 	textarea {
 		position: absolute;
 		top: -999px;
@@ -76,9 +65,20 @@ content {
 		font-weight: normal;
 		font-style: normal;
 		text-decoration: none;
+
+		&.measurement {
+			position: absolute;
+			top: 0;
+			left: 0;
+			//opacity: 0;
+		}
 	}
 
 	.output-buffer {
+		> div {
+			white-space: nowrap;
+		}
+		
 		b {
 			display: inline;
 			//vertical-align: top;
