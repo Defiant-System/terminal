@@ -7,11 +7,7 @@ let tabLength = 3;
 let parser = {
 	init(_terminal) {
 		// fast and direct references
-		this.measureEl = window.find(".wrapper").append('<i class="measurement">a</i>');
 		APP = _terminal;
-
-		// fake trigger resize, to calculate charWidth
-		this.dispatch({ type: "window.resize", width: window.width });
 	},
 	dispatch(event) {
 		let item,
@@ -23,10 +19,6 @@ let parser = {
 			isOn,
 			htm;
 		switch (event.type) {
-			case "window.resize":
-				// measures available width in characters
-				parser.charWidth = event.width / parser.measureEl[0].getBoundingClientRect().width;
-				break;
 			case "explore-item":
 				item = $(event.target);
 				if (item.parent().hasClass("output")) {

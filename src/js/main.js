@@ -16,10 +16,14 @@ const terminal = {
 		this.caret = this.cursor.find("svg:nth(1)");
 		this.stdIn = this.input.find(".buffer");
 		this.prompt = this.input.find("b");
+		this.measureEl = window.find(".wrapper").append('<i class="measurement">a</i>');
 
 		parser.init(terminal);
 
 		this.fileSystem = fileSystem;
+
+		// fake trigger resize, to calculate charWidth
+		this.dispatch({ type: "window.resize", width: window.width });
 
 		// version and copyright 
 		this.about();
@@ -66,7 +70,7 @@ const terminal = {
 				}, 100);
 
 				// setTimeout(() => {
-				// 	Self.textarea.val(`fs -ih`);
+				// 	Self.textarea.val(`terminal +`);
 				// 	Self.dispatch({ type: "window.keystroke" });
 				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				// }, 100);
@@ -87,7 +91,8 @@ const terminal = {
 				// DEV-ONLY-END
 				break;
 			case "window.resize":
-				parser.dispatch(event);
+				// measures available width in characters
+				Self.charWidth = Math.round(event.width / Self.measureEl[0].getBoundingClientRect().width);
 				break;
 			case "window.keystroke":
 
@@ -260,7 +265,7 @@ const terminal = {
 		stdIn = parser.format(stdIn);
 		let uiIn = this.buffer.append(`<div>${stdIn}</div>`);
 
-		if (stdIn.includes(' data-click="explore-item"') && stdIn.stripHtml().length + 8 > parser.charWidth) {
+		if (stdIn.includes(' data-click="explore-item"') && stdIn.stripHtml().length + 8 > this.charWidth) {
 			// auto explore output - if content longer than window width
 			uiIn.find('b.output [data-click="explore-item"]:first').trigger("click");
 		}
