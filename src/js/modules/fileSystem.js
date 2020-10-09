@@ -26,6 +26,14 @@ const fileSystem = {
 		
 		return dictionary;
 	},
+	async mkdir(path) {
+		path = window.path.join(cwd, path || ".");
+		console.log(path);
+	},
+	async touch(path, text) {
+		path = window.path.join(cwd, path || ".");
+		console.log(path, text);
+	},
 	async move(src, dest) {
 		src = window.path.join(cwd, src || ".");
 		dest = window.path.join(cwd, dest || ".");

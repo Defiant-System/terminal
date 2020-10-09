@@ -70,8 +70,12 @@ const terminal = {
 				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				// }, 100);
 
+				// window.dialog.alert({
+				// 	message: "Test alert"
+				// });
+
 				setTimeout(() => {
-					Self.textarea.val(`rm test-1.mid`);
+					Self.textarea.val(`mkdir test2`);
 					Self.dispatch({ type: "window.keystroke" });
 					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				}, 100);
@@ -207,8 +211,8 @@ const terminal = {
 						break;
 				}
 
-				//console.log(Self.textarea.val());
 				stdIn = Self.textarea.val().replace(/ /g, "&#160;");
+				if (event.shiftKey && event.char !== "shift") stdIn += event.char;
 				Self.stdIn.html(stdIn);
 				//if (~[18,91,93,37,39].indexOf(event.keyCode)) return;
 				Self.scrollIntoView();
