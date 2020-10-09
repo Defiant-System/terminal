@@ -75,7 +75,7 @@ const terminal = {
 				// });
 
 				setTimeout(() => {
-					Self.textarea.val(`mkdir test2`);
+					Self.textarea.val(`rm test`);
 					Self.dispatch({ type: "window.keystroke" });
 					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				}, 100);

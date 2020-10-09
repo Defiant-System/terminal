@@ -8,6 +8,8 @@ const fileSystem = {
 	async suggest(stdIn) {
 		let parts = await defiant.shell(`sys -p '${stdIn}'`);
 		let path = parts.result.args[parts.result.args.length-1];
+		if (path === "..") return [{ stub: "/" }];
+
 		let stdInPath = path.slice(0, path.lastIndexOf("/") + 1);
 		let text = path.slice(stdInPath.length);
 		let root = window.path.join(cwd, stdInPath || "./");
