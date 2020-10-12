@@ -7,7 +7,8 @@
 		<i name="fileSystem.copy" alias="cp" arg="[src, dest]" description="Copies file/folder."/>
 		<i name="fileSystem.remove" alias="rm" arg="[path]" description="Remove file/folder."/>
 		<i name="fileSystem.list" alias="ls" arg="[path]" description="Lists directory contents."/>
-		<i name="fileSystem.changeDirectory" alias="cd" arg="[path]" description="Changes path to working directory."/>
+		<i name="fileSystem.emptyBin" alias="empty-bin" arg="NONE" description="Empties filesystem trashcan."/>
+		<i name="fileSystem.list" alias="ls" arg="[path]" description="Lists directory contents."/>
 
 		<i switch="c" name="clear" alias="clear" arg="NONE" description="Clears output."/>
 		<i name="print" alias="echo" arg="[arg]" description="Prints string."/>

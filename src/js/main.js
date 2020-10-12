@@ -45,53 +45,31 @@ const terminal = {
 			case "window.open":
 				// DEV-ONLY-START
 
-				// let tmp = Self.fileSystem.list();
-				// Self.print("ls a".withPrompt);
-				// Self.print(tmp);
-
-				// setTimeout(() => {
-				// 	if (defiant.user.username !== "steve") return;
-					
-				// 	Self.textarea.val(`user -m bill Hello`);
-				// 	Self.dispatch({ type: "window.keystroke" });
-				// //	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				// }, 100);
-
-				// setTimeout(() => {
-				// 	Self.textarea.val(`user -a bill`);
-				// 	Self.dispatch({ type: "window.keystroke" });
-				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				// }, 100);
-
-				// FS
-				// setTimeout(() => {
-				// 	Self.textarea.val(`mv test-1.mid test-5.mid`);
-				// 	Self.dispatch({ type: "window.keystroke" });
-				// 	Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				// }, 100);
-
-				// window.dialog.alert({
-				// 	message: "Test alert"
-				// });
-
 				setTimeout(() => {
-					Self.textarea.val(`rm test`);
+					// Self.textarea.val(`rm test/`);
+					// Self.textarea.val(`rm test-3.mid`);
+
+					Self.textarea.val(`mv test-3.mid test-4.mid`);
+					// Self.textarea.val(`mv test-3.mid test/test-3.mid`);
+					// Self.textarea.val(`mv test-3.mid ../Trashcan/`);
+					// Self.textarea.val(`mv test/ ../Trashcan/`);
+					// Self.textarea.val(`mv test/ ./test2/`);
+					// Self.textarea.val(`mv ../Trashcan/abba.mid ./`);
+					// Self.textarea.val(`mv ../Trashcan/test/ ./`);
+
+					// Self.textarea.val(`cp test-3.mid ../Trashcan/test-4.mid`);
+					// Self.textarea.val(`cp test-3.mid ../Trashcan/`);
+					// Self.textarea.val(`cp test/ ../Trashcan/`);
+					// Self.textarea.val(`cp test/ ../Trashcan/test2/`);
+					// Self.textarea.val(`cp test/ ../Trashcan/test/`);
+					// Self.textarea.val(`cp ../Trashcan/abba.mid ./`);
+					// Self.textarea.val(`cp ../Trashcan/test/ ./`);
+					
+					// Self.textarea.val(`empty-bin`);
+
 					Self.dispatch({ type: "window.keystroke" });
 					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				}, 100);
-
-				// 	setTimeout(() => {
-				// 		Self.textarea.val(`ls`);
-				// 		Self.dispatch({ type: "window.keystroke" });
-				// 		Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-
-				// 		setTimeout(() => {
-				// 			Self.textarea.val(`echo {"a":1}`);
-				// 			Self.dispatch({ type: "window.keystroke" });
-				// 			Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				// 		}, 100);
-				// 	}, 100);
-				// }, 100);
+				}, 500);
 
 				// DEV-ONLY-END
 				break;

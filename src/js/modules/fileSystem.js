@@ -1,5 +1,6 @@
 
 let cwd = "\~/Desktop/"
+//let cwd = "\~/"
 
 const fileSystem = {
 	pwd() {
@@ -19,9 +20,13 @@ const fileSystem = {
 			if (curr.name.startsWith(text)) {
 				let path = window.path.join(root, curr.name);
 				let stub = curr.name.slice(text.length);
-				if (curr.kind === "_dir") stub += "/";
+				let name = curr.name;
+				if (curr.kind === "_dir") {
+					stub += "/";
+					name += "/";
+				}
 				stub = stub.replace(/\s/g, "\\ ");
-				acc.push({ stub, path, name: curr.name });
+				acc.push({ stub, path, name });
 			}
 			return acc;
 		}, []);
@@ -35,6 +40,10 @@ const fileSystem = {
 	async touch(path, text) {
 		path = window.path.join(cwd, path || ".");
 		console.log(path, text);
+	},
+	async emptyBin() {
+		let cmd = await defiant.shell(`fs -e`);
+		return cmd.result;
 	},
 	async move(src, dest) {
 		src = window.path.join(cwd, src || ".");
