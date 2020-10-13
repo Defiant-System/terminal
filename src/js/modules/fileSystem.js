@@ -35,11 +35,15 @@ const fileSystem = {
 	},
 	async mkdir(path) {
 		path = window.path.join(cwd, path || ".");
-		console.log(path);
+		
+		let cmd = await defiant.shell(`fs -c '${path}'`);
+		return cmd.result;
 	},
-	async touch(path, text) {
+	async touch(path, text = "") {
 		path = window.path.join(cwd, path || ".");
-		console.log(path, text);
+		
+		let cmd = await defiant.shell(`fs -s '${path}' '${text}'`);
+		return cmd.result;
 	},
 	async emptyBin() {
 		let cmd = await defiant.shell(`fs -e`);

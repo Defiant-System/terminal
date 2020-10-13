@@ -46,16 +46,20 @@ const terminal = {
 				// DEV-ONLY-START
 
 				setTimeout(() => {
+					// Self.textarea.val(`rm ../Settings/`);
 					// Self.textarea.val(`rm test/`);
 					// Self.textarea.val(`rm test-3.mid`);
 
-					Self.textarea.val(`mv test-3.mid test-4.mid`);
-					// Self.textarea.val(`mv test-3.mid test/test-3.mid`);
+					// Self.textarea.val(`mv test/zebra.txt ./`);
+					// Self.textarea.val(`mv test/zebra.txt test/zebra-2.txt`);
+					// Self.textarea.val(`mv test-3.mid test/test-4.mid`);
+					// Self.textarea.val(`mv test/docs/ ./`);
 					// Self.textarea.val(`mv test-3.mid ../Trashcan/`);
 					// Self.textarea.val(`mv test/ ../Trashcan/`);
 					// Self.textarea.val(`mv test/ ./test2/`);
 					// Self.textarea.val(`mv ../Trashcan/abba.mid ./`);
 					// Self.textarea.val(`mv ../Trashcan/test/ ./`);
+					Self.textarea.val(`mv ../Documents/ ../Dokument/`);
 
 					// Self.textarea.val(`cp test-3.mid ../Trashcan/test-4.mid`);
 					// Self.textarea.val(`cp test-3.mid ../Trashcan/`);
@@ -65,11 +69,18 @@ const terminal = {
 					// Self.textarea.val(`cp ../Trashcan/abba.mid ./`);
 					// Self.textarea.val(`cp ../Trashcan/test/ ./`);
 					
+					// Self.textarea.val(`touch cow.txt '...says muu'`);
+					// Self.textarea.val(`touch ./cow.txt '...says muu'`);
+					// Self.textarea.val(`touch test/cow.txt`);
+
+					// Self.textarea.val(`mkdir animals`);
+					// Self.textarea.val(`mkdir test/animals`);
+
 					// Self.textarea.val(`empty-bin`);
 
 					Self.dispatch({ type: "window.keystroke" });
 					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				}, 500);
+				}, 1000);
 
 				// DEV-ONLY-END
 				break;
