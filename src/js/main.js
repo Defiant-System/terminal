@@ -46,6 +46,7 @@ const terminal = {
 				// DEV-ONLY-START
 
 				setTimeout(() => {
+					return;
 					// Self.textarea.val(`rm ../Settings/`);
 					// Self.textarea.val(`rm test/`);
 					// Self.textarea.val(`rm test-3.mid`);
