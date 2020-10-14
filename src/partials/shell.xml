@@ -8,6 +8,8 @@
 		<i name="fileSystem.remove" alias="rm" arg="[path]" description="Remove file/folder."/>
 		<i name="fileSystem.emptyBin" alias="empty-bin" arg="NONE" description="Empties filesystem trashcan."/>
 		<i name="fileSystem.list" alias="ls" arg="[path]" description="Lists directory contents."/>
+		<i name="fileSystem.changeMode" alias="chmod" arg="[mode, path]" description="Not implemented yet." hidden="1"/>
+		<i name="fileSystem.changeOwner" alias="chown" arg="[owner, path]" description="Not implemented yet." hidden="1"/>
 		<i name="fileSystem.changeDirectory" alias="cd" arg="[path]" description="Changes path to working directory."/>
 
 		<i switch="c" name="clear" alias="clear" arg="NONE" description="Clears output."/>

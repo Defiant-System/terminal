@@ -75,6 +75,12 @@ const fileSystem = {
 		
 		return htm.declare;
 	},
+	changeMode() {
+		return { error: "Not implemented yet" };
+	},
+	changeOwner() {
+		return { error: "Not implemented yet" };
+	},
 	changeDirectory(path) {
 		if (!path || path === "/") {
 			path = "~";

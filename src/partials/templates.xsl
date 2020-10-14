@@ -153,7 +153,7 @@
 	</b><br/>
 	
 	<xsl:for-each select="./*">
-		<xsl:if test="@type != 'Application'">
+		<xsl:if test="@type != 'Application' and not(@hidden)">
 			<xsl:call-template name="slice-string">
 				<xsl:with-param name="str" select="concat(@object, $white-space)" />
 				<xsl:with-param name="len" select="$col1" />
@@ -193,32 +193,34 @@
 	</b><br/>
 
 	<xsl:for-each select="./*">
-		<xsl:choose>
-			<xsl:when test="../@type = 'Application'">
-				<xsl:call-template name="slice-string">
-					<xsl:with-param name="str" select="concat(@alias, $white-space)" />
-					<xsl:with-param name="len" select="$col1 + $col2 + 1" />
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test="@switch">
-				<xsl:call-template name="slice-string">
-					<xsl:with-param name="str" select="concat(../@object, $white-space)" />
-					<xsl:with-param name="len" select="$col1" />
-				</xsl:call-template>
+		<xsl:if test="not(@hidden)">
+			<xsl:choose>
+				<xsl:when test="../@type = 'Application'">
+					<xsl:call-template name="slice-string">
+						<xsl:with-param name="str" select="concat(@alias, $white-space)" />
+						<xsl:with-param name="len" select="$col1 + $col2 + 1" />
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:when test="@switch">
+					<xsl:call-template name="slice-string">
+						<xsl:with-param name="str" select="concat(../@object, $white-space)" />
+						<xsl:with-param name="len" select="$col1" />
+					</xsl:call-template>
 
-				<xsl:call-template name="slice-string">
-					<xsl:with-param name="str" select="concat('-', @switch, $white-space)" />
-					<xsl:with-param name="len" select="$col2" />
-				</xsl:call-template>
-			</xsl:when>
-		</xsl:choose>
+					<xsl:call-template name="slice-string">
+						<xsl:with-param name="str" select="concat('-', @switch, $white-space)" />
+						<xsl:with-param name="len" select="$col2" />
+					</xsl:call-template>
+				</xsl:when>
+			</xsl:choose>
 
-		<xsl:call-template name="slice-string">
-			<xsl:with-param name="str" select="concat(@arg, $white-space)" />
-			<xsl:with-param name="len" select="$col3" />
-		</xsl:call-template>
+			<xsl:call-template name="slice-string">
+				<xsl:with-param name="str" select="concat(@arg, $white-space)" />
+				<xsl:with-param name="len" select="$col3" />
+			</xsl:call-template>
 
-		<b class="italic"><xsl:value-of select="@description"/></b><br/>
+			<b class="italic"><xsl:value-of select="@description"/></b><br/>
+		</xsl:if>
 	</xsl:for-each>
 </xsl:template>
 

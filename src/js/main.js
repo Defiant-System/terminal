@@ -11,7 +11,7 @@ const terminal = {
 		this.textarea = this.content.find("textarea");
 		this.buffer = this.content.find(".output-buffer");
 		this.input = this.content.find(".input");
-		this.inputBuffer = this.input.find(".buffer");
+		// this.inputBuffer = this.input.find(".buffer");
 		this.cursor = this.input.find(".cursor");
 		this.caret = this.cursor.find("svg:nth(1)");
 		this.stdIn = this.input.find(".buffer");
@@ -47,6 +47,8 @@ const terminal = {
 
 				setTimeout(() => {
 					return;
+					Self.textarea.val(`chmod 644 ../Settings/`);
+
 					// Self.textarea.val(`rm ../Settings/`);
 					// Self.textarea.val(`rm test/`);
 					// Self.textarea.val(`rm test-3.mid`);
@@ -60,7 +62,6 @@ const terminal = {
 					// Self.textarea.val(`mv test/ ./test2/`);
 					// Self.textarea.val(`mv ../Trashcan/abba.mid ./`);
 					// Self.textarea.val(`mv ../Trashcan/test/ ./`);
-					Self.textarea.val(`mv ../Documents/ ../Dokument/`);
 
 					// Self.textarea.val(`cp test-3.mid ../Trashcan/test-4.mid`);
 					// Self.textarea.val(`cp test-3.mid ../Trashcan/`);
@@ -80,7 +81,7 @@ const terminal = {
 					// Self.textarea.val(`empty-bin`);
 
 					Self.dispatch({ type: "window.keystroke" });
-					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+					// Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				}, 1000);
 
 				// DEV-ONLY-END
@@ -199,6 +200,11 @@ const terminal = {
 						}
 						Self.dispatch({...event, type: "update-caret-position"});
 						break;
+					case 46: // delete
+						stdIn = Self.textarea.val().replace(/ /g, "&#160;");
+						Self.stdIn.html(stdIn);
+						Self.dispatch({...event, type: "update-caret-position"});
+						return;
 				}
 
 				stdIn = Self.textarea.val().replace(/ /g, "&#160;");
