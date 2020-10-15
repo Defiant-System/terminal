@@ -33,6 +33,12 @@ const fileSystem = {
 		
 		return dictionary;
 	},
+	async open(path) {
+		path = window.path.join(cwd, path || ".");
+		
+		let cmd = await defiant.shell(`fs -o '${path}'`);
+		return cmd.result;
+	},
 	async mkdir(path) {
 		path = window.path.join(cwd, path || ".");
 		

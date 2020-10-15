@@ -1,6 +1,7 @@
 <Shell>
 	<i object="terminal" type="Application" description="Public Interace for Terminal">
 		<i name="fileSystem.pwd" alias="pwd" arg="NONE" description="Print working directory path."/>
+		<i name="fileSystem.open" alias="open" arg="[path]" description="Opens item with associated application."/>
 		<i name="fileSystem.touch" alias="touch" arg="[path, text]" description="Creates file."/>
 		<i name="fileSystem.mkdir" alias="mkdir" arg="[path]" description="Creates folder."/>
 		<i name="fileSystem.move" alias="mv" arg="[src, dest]" description="Renames file/folder."/>
