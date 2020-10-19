@@ -49,13 +49,15 @@ const terminal = {
 					return;
 					// Self.textarea.val(`chmod 644 ../Settings/`);
 
+					Self.textarea.val(`ls ~/Doc`);
+
 					// Self.textarea.val(`rm ../Settings/`);
 					// Self.textarea.val(`rm test/`);
 					// Self.textarea.val(`rm test-3.mid`);
 
 					// Self.textarea.val(`mv test/zebra.txt ./`);
 					// Self.textarea.val(`mv test/zebra.txt test/zebra-2.txt`);
-					Self.textarea.val(`mv test-3.mid test-4.mid`);
+					// Self.textarea.val(`mv test-3.mid test-4.mid`);
 					// Self.textarea.val(`mv test/docs/ ./`);
 					// Self.textarea.val(`mv test-3.mid ../Trashcan/`);
 					// Self.textarea.val(`mv test/ ../Trashcan/`);
@@ -81,7 +83,7 @@ const terminal = {
 					// Self.textarea.val(`empty-bin`);
 
 					Self.dispatch({ type: "window.keystroke" });
-					// Self.dispatch({ type: "window.keystroke", keyCode: 13 });
+					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
 				}, 1000);
 
 				// DEV-ONLY-END
