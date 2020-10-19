@@ -8,7 +8,7 @@ const fileSystem = {
 	},
 	async suggest(stdIn) {
 		let parsed = await defiant.shell(`sys -p '${stdIn}'`);
-		let path = parsed.result.args[parsed.result.args.length-1];
+		let path = parsed.result.args[parsed.result.args.length-1] || "";
 		if (path === "..") return [{ stub: "/" }];
 
 		let stdInPath = path.slice(0, path.lastIndexOf("/") + 1);
@@ -33,20 +33,20 @@ const fileSystem = {
 		
 		return dictionary;
 	},
-	async open(path) {
-		path = src.startsWith("~") ? src : window.path.join(cwd, path || ".");
+	async open(path="") {
+		path = path.startsWith("~") ? path : window.path.join(cwd, path || ".");
 		
 		let cmd = await defiant.shell(`fs -o '${path}'`);
 		return cmd.result;
 	},
-	async mkdir(path) {
-		path = src.startsWith("~") ? src : window.path.join(cwd, path || ".");
+	async mkdir(path="") {
+		path = path.startsWith("~") ? path : window.path.join(cwd, path || ".");
 		
 		let cmd = await defiant.shell(`fs -c '${path}'`);
 		return cmd.result;
 	},
-	async touch(path, text = "") {
-		path = src.startsWith("~") ? src : window.path.join(cwd, path || ".");
+	async touch(path="", text = "") {
+		path = path.startsWith("~") ? path : window.path.join(cwd, path || ".");
 		
 		let cmd = await defiant.shell(`fs -s '${path}' '${text}'`);
 		return cmd.result;
@@ -55,27 +55,27 @@ const fileSystem = {
 		let cmd = await defiant.shell(`fs -e`);
 		return cmd.result;
 	},
-	async move(src, dest) {
+	async move(src="", dest="") {
 		src = src.startsWith("~") ? src : window.path.join(cwd, src || ".");
 		dest = dest.startsWith("~") ? dest : window.path.join(cwd, dest || ".");
 		
 		let cmd = await defiant.shell(`fs -m '${src}' '${dest}'`);
 		return cmd.result;
 	},
-	async copy(src, dest) {
+	async copy(src="", dest="") {
 		src = src.startsWith("~") ? src : window.path.join(cwd, src || ".");
 		dest = dest.startsWith("~") ? dest : window.path.join(cwd, dest || ".");
 		
 		let cmd = await defiant.shell(`fs -y '${src}' '${dest}'`);
 		return cmd.result;
 	},
-	async remove(path) {
+	async remove(path="") {
 		path = path.startsWith("~") ? path : window.path.join(cwd, path || ".");
 		
 		let cmd = await defiant.shell(`fs -d '${path}'`);
 		return cmd.result;
 	},
-	async list(path) {
+	async list(path="") {
 		path = path.startsWith("~") ? path : window.path.join(cwd, path || ".");
 		let htm = window.render({ path, template: "directory-listing" });
 		
