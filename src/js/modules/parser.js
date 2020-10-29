@@ -4,7 +4,7 @@ let memory = [];
 let collapsed_limit = 3;
 let tabLength = 3;
 
-let parser = {
+let Parser = {
 	init(_terminal) {
 		// fast and direct references
 		APP = _terminal;
@@ -171,4 +171,4 @@ Object.defineProperties(String.prototype, {
 	withPrompt: { get: function() {return `<i>def:<span class="ticon terminal-input"></span></i><b>${this}</b>`}, configurable: true },
 });
 
-export default parser;
+export default Parser;

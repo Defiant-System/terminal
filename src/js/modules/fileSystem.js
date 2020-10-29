@@ -2,7 +2,7 @@
 let cwd = "\~/Desktop/"
 //let cwd = "\~/"
 
-const fileSystem = {
+const FS = {
 	pwd() {
 		return cwd.declare;
 	},
@@ -101,4 +101,4 @@ const fileSystem = {
 	}
 };
 
-export default fileSystem;
+export default FS;

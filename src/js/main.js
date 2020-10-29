@@ -1,7 +1,7 @@
 
-import parser from "./modules/parser"
-import history from "./modules/history"
-import fileSystem from "./modules/fileSystem"
+import Parser from "./modules/parser"
+import History from "./modules/history"
+import FS from "./modules/fileSystem"
 
 
 const terminal = {
@@ -17,10 +17,26 @@ const terminal = {
 		this.stdIn = this.input.find(".buffer");
 		this.prompt = this.input.find("b");
 		this.measureEl = window.find(".wrapper").append('<i class="measurement">a</i>');
+		// helps shell find FS
+		this.FS = FS;
 
-		parser.init(terminal);
+		Parser.init(terminal);
 
-		this.fileSystem = fileSystem;
+		// let log = JSON.stringify([
+		// 		"help",
+		// 		"win -o mines",
+		// 		"clear",
+		// 		"fs -ih",
+		// 		"ls",
+		// 		"sys -b",
+		// 		"whoami",
+		// 		"friends",
+		// 		"user -a bill",
+		// 		"net -s bill Hello",
+		// 		"history",
+		// 	]);
+		let log = window.settings.get("history");
+		History.parse(log);
 
 		// fake trigger resize, to calculate charWidth
 		this.dispatch({ type: "window.resize", width: window.width });
@@ -88,6 +104,11 @@ const terminal = {
 
 				// DEV-ONLY-END
 				break;
+			case "window.close":
+				// save history before close
+				let log = History.serialize();
+				window.settings.set("history", log);
+				break;
 			case "window.resize":
 				// measures available width in characters
 				Self.charWidth = Math.round(event.width / Self.measureEl[0].getBoundingClientRect().width);
@@ -107,15 +128,13 @@ const terminal = {
 
 						if (stdIn.slice(0, 1) === "!") {
 							let index = +stdIn.slice(1);
-							if (index > 0 && index < history.log.length) stdIn = history.log[index - 1];
+							if (index > 0 && index < History.length) stdIn = History.get(index);
 						}
 
 						// add history log
-						if (stdIn && stdIn !== history.log[history.log.length - 1]) {
-							history.log.push(stdIn);
+						if (stdIn && stdIn !== History.get[History.length - 1]) {
+							History.push(stdIn);
 						}
-						// reset history index
-						history.index = history.log.length;
 
 						if (stdIn.slice(-2).trim() === "+") {
 							stdIn = "more " + stdIn.slice(0, -2);
@@ -154,7 +173,7 @@ const terminal = {
 
 						target = event.target;
 						stdIn = Self.stdIn.text().trim().slice(0, target.selectionStart);
-						let suggestions = await fileSystem.suggest(stdIn);
+						let suggestions = await FS.suggest(stdIn);
 						
 						if (!suggestions.length) return;
 						if (suggestions.length === 1) {
@@ -176,14 +195,12 @@ const terminal = {
 						}
 						break;
 					case 38: // up
-						history.index = Math.max(history.index - 1, 0);
-						stdIn = history.log[history.index] || "";
-						Self.textarea.val(stdIn);
+						History.goPrev();
+						Self.textarea.val(History.current);
 						break;
 					case 40: // down
-						history.index = Math.min(history.index + 1, history.log.length);
-						stdIn = history.log[history.index] || "";
-						Self.textarea.val(stdIn);
+						History.goNext();
+						Self.textarea.val(History.current);
 						break;
 					case 33: // pageup
 					case 36: // home
@@ -217,7 +234,7 @@ const terminal = {
 				break;
 			// custom events
 			case "explore-item":
-				return parser.dispatch(event);
+				return Parser.dispatch(event);
 			case "update-caret-position":
 				target = event.target;
 				selectionStart = target.selectionStart;
@@ -265,7 +282,7 @@ const terminal = {
 		wrapper.scrollTop(wrapper.prop("scrollHeight"));
 	},
 	print(stdIn) {
-		stdIn = parser.format(stdIn);
+		stdIn = Parser.format(stdIn);
 		let uiIn = this.buffer.append(`<div>${stdIn}</div>`);
 
 		if (stdIn.includes(' data-click="explore-item"') && stdIn.stripHtml().length + 17 > this.charWidth) {
@@ -277,7 +294,7 @@ const terminal = {
 		this.buffer.html("");
 	},
 	history() {
-		let stdOut = history.log.map((item, index) => `${(index + 1).toString().padStart(4, " ")}  ${item}`);
+		let stdOut = History.log.map((item, index) => `${(index + 1).toString().padStart(4, " ")}  ${item}`);
 		return stdOut.join("\n").feed;
 	},
 	grep(stdIn, str) {
