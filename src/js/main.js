@@ -22,19 +22,7 @@ const terminal = {
 
 		Parser.init(terminal);
 
-		// let log = JSON.stringify([
-		// 		"help",
-		// 		"win -o mines",
-		// 		"clear",
-		// 		"fs -ih",
-		// 		"ls",
-		// 		"sys -b",
-		// 		"whoami",
-		// 		"friends",
-		// 		"user -a bill",
-		// 		"net -s bill Hello",
-		// 		"history",
-		// 	]);
+		// populate history stack from settings
 		let log = window.settings.get("history");
 		History.parse(log);
 
@@ -65,7 +53,9 @@ const terminal = {
 					return;
 					// Self.textarea.val(`chmod 644 ../Settings/`);
 
-					Self.textarea.val(`ls ~/Doc`);
+					Self.textarea.val(`ls`);
+					// Self.textarea.val(`ls ~/Doc`);
+					// Self.textarea.val(`sync`);
 
 					// Self.textarea.val(`rm ../Settings/`);
 					// Self.textarea.val(`rm test/`);
