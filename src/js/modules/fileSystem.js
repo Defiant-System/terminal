@@ -1,6 +1,5 @@
 
 let cwd = "\~/Desktop/"
-//let cwd = "\~/"
 
 const FS = {
 	pwd() {
@@ -80,6 +79,18 @@ const FS = {
 		let htm = window.render({ path, template: "directory-listing" });
 		
 		return htm.declare;
+	},
+	async zip(dest, ...args) {
+		dest = window.path.join(cwd, dest);
+		args = args.map(path => window.path.join(cwd, path));
+		let cmd = await defiant.shell(`fs -z '${dest}' '${args.join("' '")}'`);
+		return cmd.result;
+	},
+	async unzip(src, dest) {
+		src = window.path.join(cwd, src);
+		dest = window.path.join(cwd, dest);
+		let cmd = await defiant.shell(`fs -x '${src}' '${dest}'`);
+		return cmd.result;
 	},
 	changeMode() {
 		return { error: "Not implemented yet" };

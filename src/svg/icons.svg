@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
-	<svg id="terminal-cursor-loading" viewBox="0 0 480 680" nocache="1">
+	<svg id="terminal-cursor-loading" viewBox="0 0 480 680" cache="false">
 		<g fill="var(--color-1)" class="cursor-loading">
 			<rect x="38" y="139" width="100" height="100"/>
 			<rect x="188" y="139" width="100" height="100"/>
@@ -22,11 +22,11 @@
 		</style>
 	</svg>
 
-	<svg id="terminal-cursor-classic" viewBox="0 0 480 680" nocache="1">
+	<svg id="terminal-cursor-classic" viewBox="0 0 480 680" cache="false">
 		<path fill="var(--color-1)" stroke="var(--color-2)" stroke-width="30" d="M379.979,596.948c0,24.329-19.725,44.052-44.053,44.052H85.072c-24.328,0-44.051-19.723-44.051-44.052V86.051 C41.021,61.725,60.744,42,85.072,42h250.855c24.328,0,44.051,19.725,44.051,44.051L379.979,596.948L379.979,596.948z"/>
 	</svg>
 	
-	<svg id="terminal-cursor-heart" viewBox="0 0 480 680" nocache="1">
+	<svg id="terminal-cursor-heart" viewBox="0 0 480 680" cache="false">
 		<path fill="var(--color-1)" stroke="var(--color-2)" stroke-width="30" d="M240,563.98c-3.92,0-7.842-1.75-10.782-5.25L76.304,383.164c-1.96-2.042-55.872-60.662-55.872-130.656 c0-85.451,43.864-136.487,117.136-136.487c42.884,0,83.073,40.247,102.433,62.995c19.36-22.748,59.548-62.995,102.433-62.995 c73.272,0,117.136,51.036,117.136,136.487c0,69.994-53.911,128.614-56.116,131.239L250.783,558.73 C247.841,562.23,243.921,563.98,240,563.98z"/>
 	</svg>
 	

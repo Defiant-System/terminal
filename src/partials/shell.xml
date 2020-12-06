@@ -12,6 +12,8 @@
 		<i name="FS.changeMode" alias="chmod" arg="[mode, path]" description="Not implemented yet." hidden="1"/>
 		<i name="FS.changeOwner" alias="chown" arg="[owner, path]" description="Not implemented yet." hidden="1"/>
 		<i name="FS.changeDirectory" alias="cd" arg="[path]" description="Changes path to working directory."/>
+		<i name="FS.unzip" alias="unzip" arg="[src, target]" description="Uncompresses zip file."/>
+		<i name="FS.zip" alias="zip" arg="[target, src]" description="Compresses file(s)."/>
 
 		<i switch="c" name="clear" alias="clear" arg="NONE" description="Clears output."/>
 		<i name="print" alias="echo" arg="[arg]" description="Prints string."/>
