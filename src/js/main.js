@@ -54,7 +54,7 @@ const terminal = {
 					// Self.textarea.val(`chmod 644 ../Settings/`);
 
 					// Self.textarea.val(`zip test.zip file-1.txt`);
-					Self.textarea.val(`zip 'zip files/txt-jpg.zip' file-1.txt girl.jpg`);
+					// Self.textarea.val(`zip 'zip files/txt-jpg.zip' file-1.txt girl.jpg`);
 					// Self.textarea.val(`unzip 'zip files/test.zip' .`);
 					
 					// Self.textarea.val(`ls ~/Doc`);
@@ -63,6 +63,9 @@ const terminal = {
 					// Self.textarea.val(`rm ../Settings/`);
 					// Self.textarea.val(`rm test/`);
 					// Self.textarea.val(`rm test-3.mid`);
+					
+					// Self.textarea.val(`touch cow.txt '...says muu'`);
+					// Self.textarea.val(`rm -p cow.txt`);
 
 					// Self.textarea.val(`mv test/zebra.txt ./`);
 					// Self.textarea.val(`mv test/zebra.txt test/zebra-2.txt`);

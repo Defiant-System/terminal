@@ -68,10 +68,10 @@ const FS = {
 		let cmd = await defiant.shell(`fs -y '${src}' '${dest}'`);
 		return cmd.result;
 	},
-	async remove(path="") {
+	async remove(path="", perm) {
 		path = path.startsWith("~") ? path : window.path.join(cwd, path || ".");
-		
-		let cmd = await defiant.shell(`fs -d '${path}'`);
+
+		let cmd = await defiant.shell(`fs -d${perm === "p" ? "p": ""} '${path}'`);
 		return cmd.result;
 	},
 	async list(path="") {
