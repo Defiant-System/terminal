@@ -3,11 +3,20 @@ import Parser from "./modules/parser"
 import History from "./modules/history"
 import FS from "./modules/fileSystem"
 
+const Colors = {
+		"#222": "0,0,0",
+		"#a00": "50,0,0",
+		"#0a0": "0,50,0",
+		"#00a": "0,0,50",
+		"#a0a": "50,0,50",
+		"#088": "0,30,30",
+	};
 
 const terminal = {
 	async init() {
 		// fast references
 		this.content = window.find("content");
+		this.winBody = this.content.parent();
 		this.textarea = this.content.find("textarea");
 		this.buffer = this.content.find(".output-buffer");
 		this.input = this.content.find(".input");
@@ -21,6 +30,19 @@ const terminal = {
 		this.FS = FS;
 
 		Parser.init(terminal);
+
+		// background & transparency
+		let defaultUI = { color: "0,0,0", opacity: .8 };
+		this.bgUI = window.settings.get("bg-user-interface") || defaultUI;
+		if (this.bgUI !== defaultUI) {
+			this.dispatch({
+				type: "change-opacity",
+				arg: Math.floor(this.bgUI.opacity * 100)
+			});
+			// update menu
+			window.bluePrint.selectSingleNode(`//Menu[@type="colors"]/*[@active]`).removeAttribute("active");
+			window.bluePrint.selectSingleNode(`//Menu[@type="colors"]/*[@arg="${this.bgUI.color}"]`).setAttribute("active", 1);
+		}
 
 		// populate history stack from settings
 		let log = window.settings.get("history");
@@ -42,7 +64,8 @@ const terminal = {
 			selectionStart,
 			selectionEnd,
 			left,
-			command;
+			command,
+			value;
 		//console.log(event);
 		switch (event.type) {
 			// system events
@@ -101,6 +124,8 @@ const terminal = {
 				// DEV-ONLY-END
 				break;
 			case "window.close":
+				// save bgUI before close
+				window.settings.set("bg-user-interface", Self.bgUI);
 				// save history before close
 				let log = History.serialize();
 				window.settings.set("history", log);
@@ -229,6 +254,20 @@ const terminal = {
 				Self.scrollIntoView();
 				break;
 			// custom events
+			case "change-opacity":
+				// save opacity
+				Self.bgUI.opacity = event.arg / 100;
+				// update ui
+				value = `rgba(${Colors[Self.bgUI.color]},${Self.bgUI.opacity})`;
+				Self.winBody.css({ "background-color": value });
+				break;
+			case "change-bg-color":
+				// save color
+				Self.bgUI.color = event.arg;
+				// update ui
+				value = `rgba(${Colors[Self.bgUI.color]},${Self.bgUI.opacity})`;
+				Self.winBody.css({ "background-color": value });
+				break;
 			case "explore-item":
 				return Parser.dispatch(event);
 			case "update-caret-position":

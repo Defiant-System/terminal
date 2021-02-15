@@ -1,6 +1,18 @@
 <MenuBar>
-	<Menu name="Terminal">
+	<Menu name="Terminal" for="output">
 		<Menu name="About Terminal" shell="win -a"/>
+		<Menu type="divider"/>
+		<Menu type="caption" name="Background Opacity:"/>
+		<Menu type="slider" min="60" max="100" value="80" change="change-opacity"/>
+		<Menu type="divider"/>
+		<Menu type="colors" caption="Background Color:" click="change-bg-color">
+			<Color arg="#222" active="1"/>
+			<Color arg="#a00"/>
+			<Color arg="#0a0"/>
+			<Color arg="#00a"/>
+			<Color arg="#a0a"/>
+			<Color arg="#088"/>
+		</Menu>
 		<Menu type="divider"/>
 		<Menu name="Quit Terminal" shell="win -c"/>
 	</Menu>
