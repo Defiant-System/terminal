@@ -12,7 +12,10 @@
 	</xsl:call-template>
 
 	<xsl:for-each select="./*">
-		<xsl:call-template name="file-listing"/>
+		<xsl:variable name="itemPath"><xsl:call-template name="sys:get-file-path"/></xsl:variable>
+		<xsl:if test="//FsReserved/*[@path = $itemPath and not(@hidden)] or //Settings/Entries/*[@id = 'fs-show-hidden-folders' and text() = 'true']">
+			<xsl:call-template name="file-listing"/>
+		</xsl:if>
 	</xsl:for-each>
 </xsl:template>
 
