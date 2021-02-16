@@ -4,13 +4,13 @@ import History from "./modules/history"
 import FS from "./modules/fileSystem"
 
 const Colors = {
-		"#222": "0,0,0",
-		"#a00": "50,0,0",
-		"#0a0": "0,50,0",
-		"#00a": "0,0,50",
-		"#a0a": "50,0,50",
-		"#088": "0,30,30",
-	};
+	"#222": "0,0,0",
+	"#a00": "50,0,0",
+	"#0a0": "0,50,0",
+	"#00a": "0,0,50",
+	"#a0a": "50,0,50",
+	"#088": "0,30,30",
+};
 
 const terminal = {
 	async init() {
@@ -73,13 +73,13 @@ const terminal = {
 				// DEV-ONLY-START
 
 				setTimeout(() => {
-					return;
 					// Self.textarea.val(`chmod 644 ../Settings/`);
 
 					// Self.textarea.val(`zip test.zip file-1.txt`);
 					// Self.textarea.val(`zip 'zip files/txt-jpg.zip' file-1.txt girl.jpg`);
 					// Self.textarea.val(`unzip 'zip files/test.zip' .`);
 					
+					Self.textarea.val(`ls ..`);
 					// Self.textarea.val(`ls ~/Doc`);
 					// Self.textarea.val(`sync`);
 
@@ -119,7 +119,7 @@ const terminal = {
 
 					Self.dispatch({ type: "window.keystroke" });
 					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				}, 1000);
+				}, 700);
 
 				// DEV-ONLY-END
 				break;
