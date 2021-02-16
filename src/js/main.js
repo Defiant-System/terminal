@@ -80,7 +80,7 @@ const terminal = {
 					// Self.textarea.val(`zip 'zip files/txt-jpg.zip' file-1.txt girl.jpg`);
 					// Self.textarea.val(`unzip 'zip files/test.zip' .`);
 					
-					Self.textarea.val(`ls ..`);
+					Self.textarea.val(`ls ../`);
 					// Self.textarea.val(`ls ~/Doc`);
 					// Self.textarea.val(`sync`);
 
