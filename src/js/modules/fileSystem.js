@@ -5,6 +5,9 @@ const FS = {
 	pwd() {
 		return cwd.declare;
 	},
+	set cwd(path) {
+		cwd = path;
+	},
 	async suggest(stdIn) {
 		let parsed = await defiant.shell(`sys -p '${stdIn}'`);
 		let path = parsed.result.args[parsed.result.args.length-1] || "";

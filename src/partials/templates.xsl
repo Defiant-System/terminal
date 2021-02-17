@@ -12,6 +12,7 @@
 	</xsl:call-template>
 
 	<xsl:for-each select="./*">
+		<xsl:sort select="@mStamp" />
 		<xsl:variable name="itemPath"><xsl:call-template name="sys:get-file-path"/></xsl:variable>
 		<xsl:if test="count(//FsReserved/*[@path = $itemPath]/@hidden) = 0 or //Settings/Entries/*[@id = 'fs-show-hidden-folders' and text() = 'true']">
 			<xsl:call-template name="file-listing"/>

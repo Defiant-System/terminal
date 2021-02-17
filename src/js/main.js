@@ -33,7 +33,7 @@ const terminal = {
 
 		// background & transparency
 		let defaultUI = { color: "0,0,0", opacity: .8 };
-		this.bgUI = window.settings.get("bg-user-interface") || defaultUI;
+		this.bgUI = window.settings.getItem("bg-user-interface") || defaultUI;
 		if (this.bgUI !== defaultUI) {
 			this.dispatch({
 				type: "change-opacity",
@@ -45,7 +45,7 @@ const terminal = {
 		}
 
 		// populate history stack from settings
-		let log = window.settings.get("history");
+		let log = window.settings.getItem("history");
 		History.parse(log);
 
 		// fake trigger resize, to calculate charWidth
@@ -54,6 +54,12 @@ const terminal = {
 		// version and copyright 
 		this.about();
 		this.textarea.focus();
+
+		// temp
+		// let data = { a: 2 };
+		// window.storage.setItem("test", data);
+		let test = window.storage.getItem("test");
+		console.log(test);
 	},
 	async dispatch(event) {
 		let Self = terminal,
@@ -73,14 +79,14 @@ const terminal = {
 				// DEV-ONLY-START
 
 				setTimeout(() => {
-					return;
+					// return;
 					// Self.textarea.val(`chmod 644 ../Settings/`);
 
 					// Self.textarea.val(`zip test.zip file-1.txt`);
 					// Self.textarea.val(`zip 'zip files/txt-jpg.zip' file-1.txt girl.jpg`);
 					// Self.textarea.val(`unzip 'zip files/test.zip' .`);
 					
-					Self.textarea.val(`ls ../`);
+					Self.textarea.val(`ls`);
 					// Self.textarea.val(`ls ~/Doc`);
 					// Self.textarea.val(`sync`);
 
@@ -120,16 +126,16 @@ const terminal = {
 
 					Self.dispatch({ type: "window.keystroke" });
 					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				}, 700);
+				}, 1500);
 
 				// DEV-ONLY-END
 				break;
 			case "window.close":
 				// save bgUI before close
-				window.settings.set("bg-user-interface", Self.bgUI);
+				window.settings.setItem("bg-user-interface", Self.bgUI);
 				// save history before close
 				let log = History.serialize();
-				window.settings.set("history", log);
+				window.settings.setItem("history", log);
 				break;
 			case "window.resize":
 				// measures available width in characters
@@ -255,6 +261,9 @@ const terminal = {
 				Self.scrollIntoView();
 				break;
 			// custom events
+			case "set-cwd":
+				FS.cwd = event.path;
+				break;
 			case "change-opacity":
 				// save opacity
 				Self.bgUI.opacity = event.arg / 100;
@@ -310,6 +319,9 @@ const terminal = {
 				break;
 			case "window.blur":
 				Self.textarea.blur();
+				break;
+			case "open-help":
+				defiant.shell("fs -u '~/help/index.md'");
 				break;
 		}
 	},

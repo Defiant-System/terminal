@@ -32,8 +32,8 @@
 		<Menu name="Close Window" shell="win -c"/>
 	</Menu>
 	<Menu name="Help">
-		<Menu name="Send Terminal Feedback"/>
+		<Menu name="How To&#8230;" click="open-help"/>
 		<Menu type="divider"/>
-		<Menu name="License"/>
+		<Menu name="Source Code"/>
 	</Menu>
 </MenuBar>
