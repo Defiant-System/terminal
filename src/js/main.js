@@ -54,12 +54,6 @@ const terminal = {
 		// version and copyright 
 		this.about();
 		this.textarea.focus();
-
-		// temp
-		// let data = { a: 2 };
-		// window.storage.setItem("test", data);
-		let test = window.storage.getItem("test");
-		console.log(test);
 	},
 	async dispatch(event) {
 		let Self = terminal,
