@@ -1,5 +1,5 @@
 
-let cwd = "\~/Desktop/"
+let cwd = "\~/"
 
 const FS = {
 	pwd() {

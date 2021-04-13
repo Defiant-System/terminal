@@ -32,7 +32,7 @@ const terminal = {
 		Parser.init(terminal);
 
 		// background & transparency
-		let defaultUI = { color: "0,0,0", opacity: .8 };
+		let defaultUI = { color: "#222", opacity: .8 };
 		this.bgUI = window.settings.getItem("bg-user-interface") || defaultUI;
 		if (this.bgUI !== defaultUI) {
 			this.dispatch({
@@ -80,7 +80,7 @@ const terminal = {
 					// Self.textarea.val(`zip 'zip files/txt-jpg.zip' file-1.txt girl.jpg`);
 					// Self.textarea.val(`unzip 'zip files/test.zip' .`);
 					
-					Self.textarea.val(`ls`);
+					Self.textarea.val(`user -r hbi`);
 					// Self.textarea.val(`ls ~/Doc`);
 					// Self.textarea.val(`sync`);
 
