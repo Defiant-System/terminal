@@ -66,21 +66,23 @@ const terminal = {
 			left,
 			command,
 			value;
-		//console.log(event);
+		// console.log(event);
 		switch (event.type) {
 			// system events
 			case "window.open":
 				// DEV-ONLY-START
 
 				setTimeout(() => {
-					return;
+					// return;
 					// Self.textarea.val(`chmod 644 ../Settings/`);
 
 					// Self.textarea.val(`zip test.zip file-1.txt`);
 					// Self.textarea.val(`zip 'zip files/txt-jpg.zip' file-1.txt girl.jpg`);
 					// Self.textarea.val(`unzip 'zip files/test.zip' .`);
 					
-					Self.textarea.val(`user -r hbi`);
+					Self.textarea.val(`friends`);
+					// Self.textarea.val(`user -m bill test`);
+
 					// Self.textarea.val(`ls ~/Doc`);
 					// Self.textarea.val(`sync`);
 
@@ -120,7 +122,7 @@ const terminal = {
 
 					Self.dispatch({ type: "window.keystroke" });
 					Self.dispatch({ type: "window.keystroke", keyCode: 13 });
-				}, 1500);
+				}, 500);
 
 				// DEV-ONLY-END
 				break;
@@ -253,6 +255,22 @@ const terminal = {
 				Self.stdIn.html(stdIn);
 				//if (~[18,91,93,37,39].indexOf(event.keyCode)) return;
 				Self.scrollIntoView();
+				break;
+			case "before-contextmenu:output":
+				// fixes transparenty value
+				value = Math.round(Self.bgUI.opacity * 100);
+				window.bluePrint.selectSingleNode(`//Menu[@change="change-opacity"]`)
+					.setAttribute("value", value);
+
+				// fixes color value
+				window.bluePrint.selectNodes(`//Menu[@change="change-bg-color"]/Color`)
+					.map(node => {
+						if (node.getAttribute("arg") === Self.bgUI.color) {
+							node.removeAttribute("active", "1");
+						} else {
+							node.removeAttribute("active");
+						}
+					});
 				break;
 			// custom events
 			case "set-cwd":
