@@ -249,23 +249,28 @@
 
 	<xsl:for-each select="./*">
 		<xsl:sort select="@name" />
-		<span class="ticon offline" title="Offline">
-			<xsl:if test="@online='1'">
-				<xsl:attribute name="class">ticon online</xsl:attribute>
-				<xsl:attribute name="title">Online</xsl:attribute>
-			</xsl:if>
-		</span>
-		
-		<xsl:call-template name="slice-string">
-			<xsl:with-param name="str" select="concat(@id, $white-space)" />
-			<xsl:with-param name="len" select="$col2" />
-		</xsl:call-template>
-		
-		<xsl:call-template name="slice-string">
-			<xsl:with-param name="str" select="concat(@name, $white-space)" />
-			<xsl:with-param name="len" select="$col3" />
-		</xsl:call-template>
-		<br/>
+		<xsl:choose>
+			<xsl:when test="@me"></xsl:when>
+			<xsl:otherwise>
+				<span class="ticon offline" title="Offline">
+					<xsl:if test="@online='1'">
+						<xsl:attribute name="class">ticon online</xsl:attribute>
+						<xsl:attribute name="title">Online</xsl:attribute>
+					</xsl:if>
+				</span>
+				
+				<xsl:call-template name="slice-string">
+					<xsl:with-param name="str" select="concat(@id, $white-space)" />
+					<xsl:with-param name="len" select="$col2" />
+				</xsl:call-template>
+				
+				<xsl:call-template name="slice-string">
+					<xsl:with-param name="str" select="concat(@name, $white-space)" />
+					<xsl:with-param name="len" select="$col3" />
+				</xsl:call-template>
+				<br/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:for-each>
 </xsl:template>
 
