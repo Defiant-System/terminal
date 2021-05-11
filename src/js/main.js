@@ -371,7 +371,7 @@ const terminal = {
 	friends() {
 		return window.render({
 				template: "friends-list",
-				match: '//Friends'
+				match: '/ledger/Settings/Friends'
 			}).declare;
 	},
 	more(name) {
