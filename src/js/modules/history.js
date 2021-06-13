@@ -26,7 +26,7 @@ const History = {
 		return this.log[i-1];
 	},
 	get current() {
-		return this.log[this._index] || "";
+		return this.log[this._index] || "";
 	},
 	get index() {
 		return this._index;
