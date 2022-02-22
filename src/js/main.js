@@ -69,7 +69,7 @@ const terminal = {
 		// console.log(event);
 		switch (event.type) {
 			// system events
-			case "window.open":
+			case "window.init":
 				// DEV-ONLY-START
 
 				setTimeout(() => {
