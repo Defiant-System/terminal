@@ -1,5 +1,5 @@
 <Shell>
-	<i object="terminal" type="Application" description="Public Interace for Terminal">
+	<i object="terminal" type="Application" description="Public Interace for Terminal" hidden="true">
 		<i name="FS.pwd" alias="pwd" arg="NONE" description="Print working directory path."/>
 		<i name="FS.open" alias="open" arg="[path]" description="Opens item with associated application."/>
 		<i name="FS.touch" alias="touch" arg="[path, text]" description="Creates file."/>
@@ -15,7 +15,7 @@
 		<i name="FS.unzip" alias="unzip" arg="[src, target]" description="Uncompresses zip file."/>
 		<i name="FS.zip" alias="zip" arg="[target, src]" description="Compresses file(s)."/>
 
-		<i switch="c" name="clear" alias="clear" arg="NONE" description="Clears output."/>
+		<i name="clear" alias="clear" arg="NONE" description="Clears output."/>
 		<i name="print" alias="echo" arg="[arg]" description="Prints string."/>
 		<i name="grep" alias="grep" arg="string" description="Filters piped data with given string."/>
 		<i name="help" alias="help" arg="NONE" description="Provides Help about shell commands."/>
