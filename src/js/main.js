@@ -73,7 +73,7 @@ const terminal = {
 				// DEV-ONLY-START
 
 				setTimeout(() => {
-					// return;
+					return;
 					// Self.textarea.val(`chmod 644 ../Settings/`);
 
 					// Self.textarea.val(`zip test.zip file-1.txt`);
