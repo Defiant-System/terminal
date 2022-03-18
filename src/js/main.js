@@ -80,9 +80,10 @@ const terminal = {
 					// Self.textarea.val(`zip 'zip files/txt-jpg.zip' file-1.txt girl.jpg`);
 					// Self.textarea.val(`unzip 'zip files/test.zip' .`);
 					
+					Self.textarea.val(`win -o sys:saviour 999`);
 					// Self.textarea.val(`saviour -l`);
 					// Self.textarea.val(`saviour -s 'Pistons'`);
-					Self.textarea.val(`saviour -q 8`);
+					// Self.textarea.val(`saviour -q 8`);
 
 					// Self.textarea.val(`friends`);
 					// Self.textarea.val(`user -m bill test`);
