@@ -2,9 +2,13 @@
 // terminal.spawn
 
 {
-	init() {
+	async init() {
 		// helps terminal find Filesystem
 		this.FS = FS;
+
+		// prepare about string
+		let cmd = await defiant.shell("sys -b");
+		this.infoStr = `${cmd.result.name} Shell [v${cmd.result.version}] ${cmd.result.author} &copy; 2019-`+ (new Date).getFullYear();
 
 		// background & transparency
 		let defaultUI = { color: "#222", opacity: .8 };
@@ -23,6 +27,7 @@
 		let APP = terminal,
 			Self = APP.spawn,
 			Spawn = event.spawn,
+			active,
 			stdIn,
 			stdOut,
 			target,
@@ -39,8 +44,12 @@
 		switch (event.type) {
 			// system events
 			case "spawn.open":
+				// add element used for measurement
+				Self.measureEl = Spawn.find("content .wrapper").append('<i class="measurement">a</i>');
+				// fake trigger resize, to calculate charWidth
+				Self.dispatch({ type: "spawn.resize", width: Spawn.width });
+				// init tab bar
 				Spawn.data.tabs = new Tabs(Self, Spawn);
-				
 				break;
 			case "open.file":
 				(event.files || [event]).map(file => {
@@ -54,7 +63,16 @@
 				break;
 			case "spawn.resize":
 				// measures available width in characters
-				Self.charWidth = Math.round(event.width / Self.els.measureEl[0].getBoundingClientRect().width);
+				Self.charWidth = Math.round(event.width / Self.measureEl[0].getBoundingClientRect().width);
+				break;
+
+			// case "spawn.keyup":
+			case "spawn.keystroke":
+				active = Spawn.data.tabs._active;
+
+				stdIn = active.els.textarea.val().replace(/ /g, "&#160;");
+				if (event.shiftKey && event.char !== "shift") stdIn += event.char;
+				active.els.stdIn.html(stdIn);
 				break;
 
 			// tab related events
@@ -69,58 +87,5 @@
 				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
 		}
-	},
-	scrollIntoView() {
-		let wrapper = this.els.input.parent();
-		wrapper.scrollTop(wrapper.prop("scrollHeight"));
-	},
-	print(stdIn) {
-		stdIn = Parser.format(stdIn);
-		let uiIn = this.els.buffer.append(`<div>${stdIn}</div>`);
-
-		if (stdIn.includes(' data-click="explore-item"') && stdIn.stripHtml().length + 17 > this.charWidth) {
-			// auto explore output - if content longer than window width
-			uiIn.find('b.output [data-click="explore-item"]:first').trigger("click");
-		}
-	},
-	clear() {
-		this.els.buffer.html("");
-	},
-	history() {
-		let stdOut = History.log.map((item, index) => `${(index + 1).toString().padStart(4, " ")}  ${item}`);
-		return stdOut.join("\n").feed;
-	},
-	grep(stdIn, str) {
-		let stdOut = stdIn.split("<br>").reduce((acc, line) => {
-				line = line.stripHtml();
-				if (~line.indexOf(str)) acc.push(line);
-				return acc;
-			}, []);
-		return stdOut.join("<br>").declare;
-	},
-	help() {
-		return this.more("terminal");
-	},
-	friends() {
-		return window.render({
-				template: "friends-list",
-				match: '/ledger/Settings/Friends'
-			}).declare;
-	},
-	more(name) {
-		let xpath = name ? `sys:/ledger/Shell/*[@object="${name}"]` : 'sys:/ledger/Shell',
-			htm = window.render({
-				template: "more-output",
-				match: xpath
-			});
-		return htm.declare;
-	},
-	async about() {
-		let command = await defiant.shell("sys -b"),
-			stdIn = `${command.result.name} Shell [v${command.result.version}] ${command.result.author} &copy; 2019-`+ (new Date).getFullYear();
-		this.print(stdIn.declare);
-	},
-	exit() {
-		defiant.shell("win -c");
 	}
 }
