@@ -1,22 +1,14 @@
 <Application>
 	<Head>
 		<meta name="id" value="terminal"/>
-		<meta name="title" value="Terminal" version="1.6"/>
+		<meta name="title" value="Terminal" version="1.7"/>
 		<meta name="author" value="Hakan Bilgin" namespace="ant"/>
 		<meta name="license" value="AGPL-3.0-or-later"/>
 		<meta name="repository" value="https://github.com/Defiant-System/terminal"/>
-		<meta name="width" value="700"/>
-		<meta name="height" value="480"/>
-		<meta name="top" value="180"/>
-		<meta name="left" value="220"/>
-		<meta name="minimize"/>
-		<meta name="maximize"/>
-		<meta name="resize"/>
 		<meta name="script" value="src/js/main.js"/>
-		<meta name="style" value="src/css/main.less"/>
 		<meta name="icons" value="src/svg/icons.svg"/>
-		<meta name="content" value="src/partials/content.htm"/>
 		<meta name="xsl" value="src/partials/templates.xsl"/>
+		<meta name="spawn" value="src/partials/spawn.xml"/>
 		
 		@import "src/partials/shell.xml"
 		@import "src/partials/menubar.xml"

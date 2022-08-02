@@ -1,0 +1,15 @@
+<Spawn id="spawn">
+	<Head>
+		<meta name="title" value="New Window"/>
+		<meta name="width" value="700"/>
+		<meta name="height" value="480"/>
+		<meta name="top" value="180"/>
+		<meta name="left" value="220"/>
+		<meta name="minimize"/>
+		<meta name="maximize"/>
+		<meta name="resize"/>
+		<meta name="allowTabs"/>
+		<meta name="style" value="../css/main.less"/>
+		<meta name="content" value="content.htm"/>
+	</Head>
+</Spawn>
