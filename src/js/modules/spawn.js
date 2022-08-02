@@ -3,8 +3,8 @@
 
 {
 	init() {
-		// fast references
-		this.els = {};
+		// helps terminal find Filesystem
+		this.FS = FS;
 
 		// background & transparency
 		let defaultUI = { color: "#222", opacity: .8 };
@@ -23,6 +23,15 @@
 		let APP = terminal,
 			Self = APP.spawn,
 			Spawn = event.spawn,
+			stdIn,
+			stdOut,
+			target,
+			selection,
+			selectionStart,
+			selectionEnd,
+			left,
+			command,
+			value,
 			tabs,
 			file,
 			el;
@@ -31,28 +40,12 @@
 			// system events
 			case "spawn.open":
 				Spawn.data.tabs = new Tabs(Self, Spawn);
-				// fast references
-				Self.els.content = Spawn.find("content");
-				Self.els.winBody = Self.els.content.parent();
-				Self.els.textarea = Self.els.content.find("textarea");
-				Self.els.buffer = Self.els.content.find(".output-buffer");
-				Self.els.input = Self.els.content.find(".input");
-				Self.els.cursor = Self.els.input.find(".cursor");
-				Self.els.caret = Self.els.cursor.find("svg:nth(1)");
-				Self.els.stdIn = Self.els.input.find(".buffer");
-				Self.els.prompt = Self.els.input.find("b");
-				Self.els.measureEl = Self.els.content.find(".wrapper").append('<i class="measurement">a</i>');
-
-				// fake trigger resize, to calculate charWidth
-				Self.dispatch({ type: "window.resize", width: Spawn.width });
-
-				// version and copyright 
-				Self.about();
+				
 				break;
 			case "open.file":
-				(event.files || [event]).map(async fHandle => {
+				(event.files || [event]).map(file => {
 					// auto add first base "tab"
-					Self.dispatch({ ...event, path: fHandle.path, type: "new-tab" });
+					Self.dispatch({ ...event, file, type: "new-tab" });
 				});
 				break;
 			case "spawn.blur":
@@ -66,11 +59,14 @@
 
 			// tab related events
 			case "new-tab":
-				Spawn.data.tabs.add(event.path);
+				file = event.file || new defiant.File({ path: "/fs/" });
+				Spawn.data.tabs.add(file);
 				break;
 			case "tab-clicked":
+				Spawn.data.tabs.focus(event.el.data("id"));
 				break;
 			case "tab-close":
+				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
 		}
 	},

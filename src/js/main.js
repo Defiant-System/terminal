@@ -1,7 +1,9 @@
 
 @import "./classes/tabs.js"
+@import "./classes/history.js"
 
 import Parser from "./modules/parser"
+import FS from "./modules/fileSystem"
 
 const Colors = {
 	"#222": "0,0,0",
@@ -11,6 +13,8 @@ const Colors = {
 	"#a0a": "50,0,50",
 	"#088": "0,30,30",
 };
+
+const hLog = window.settings.getItem("history");
 
 
 const terminal = {
