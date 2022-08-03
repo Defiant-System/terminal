@@ -37,8 +37,6 @@ class Tabs {
 		this._stack[tId] = { tabEl, bodyEl, els, history, file };
 		// focus on file
 		this.focus(tId);
-		// version and copyright 
-		this.about();
 	}
 
 	remove(tId) {
@@ -60,73 +58,5 @@ class Tabs {
 		this._spawn.title = active.file.base;
 
 		active.els.textarea.focus();
-	}
-
-
-	/*
-	 * TERMINAL application functions
-	 */
-	scrollIntoView() {
-		let active = this._active;
-		let wrapper = active.els.input.parent();
-		wrapper.scrollTop(wrapper.prop("scrollHeight"));
-	}
-
-	print(sIn) {
-		let stdIn = Parser.format(sIn);
-		let active = this._active;
-		let uiIn = active.els.buffer.append(`<div>${stdIn}</div>`);
-
-		if (stdIn.includes(' data-click="explore-item"') && stdIn.stripHtml().length + 17 > this.charWidth) {
-			// auto explore output - if content longer than window width
-			uiIn.find('b.output [data-click="explore-item"]:first').trigger("click");
-		}
-	}
-
-	clear() {
-		let active = this._active;
-		active.els.buffer.html("");
-	}
-
-	history() {
-		let stdOut = History.log.map((item, index) => `${(index + 1).toString().padStart(4, " ")}  ${item}`);
-		return stdOut.join("\n").feed;
-	}
-
-	grep(stdIn, str) {
-		let stdOut = stdIn.split("<br>").reduce((acc, line) => {
-				line = line.stripHtml();
-				if (~line.indexOf(str)) acc.push(line);
-				return acc;
-			}, []);
-		return stdOut.join("<br>").declare;
-	}
-
-	help() {
-		return this.more("terminal");
-	}
-
-	friends() {
-		return window.render({
-				template: "friends-list",
-				match: '/ledger/Settings/Friends'
-			}).declare;
-	}
-
-	more(name) {
-		let xpath = name ? `sys:/ledger/Shell/*[@object="${name}"]` : 'sys:/ledger/Shell',
-			htm = window.render({
-				template: "more-output",
-				match: xpath
-			});
-		return htm.declare;
-	}
-
-	async about() {
-		this.print(this._parent.infoStr.declare);
-	}
-
-	exit() {
-		defiant.shell("win -c");
 	}
 }

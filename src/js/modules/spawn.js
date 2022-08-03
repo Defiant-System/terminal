@@ -11,7 +11,6 @@
 		let APP = terminal,
 			Self = APP.spawn,
 			Spawn = event.spawn,
-			TABS = Spawn && Spawn.data ? Spawn.data.tabs : false,
 			ACTIVE,
 			stdIn,
 			stdOut,
@@ -50,15 +49,15 @@
 				Spawn.data.tabs = new Tabs(Self, Spawn);
 
 				// DEV-ONLY-START
-				setTimeout(() => {
-					let els = Spawn.data.tabs._active.els,
-						ev = { type: "spawn.keystroke", spawn: Spawn };
+				// setTimeout(() => {
+				// 	let els = Spawn.data.tabs._active.els,
+				// 		ev = { type: "spawn.keystroke", spawn: Spawn };
 
-					els.textarea.val(`exit`);
+				// 	els.textarea.val(`exit`);
 
-					Self.dispatch(ev);
-					Self.dispatch({ ...ev, keyCode: 13 });
-				}, 500);
+				// 	Self.dispatch(ev);
+				// 	Self.dispatch({ ...ev, keyCode: 13 });
+				// }, 500);
 				// DEV-ONLY-END
 				break;
 			case "open.file":
@@ -79,25 +78,31 @@
 			// tab related events
 			case "new-tab":
 				file = event.file || new defiant.File({ path: "/fs/" });
-				TABS.add(file);
+				Spawn.data.tabs.add(file);
+				// save reference to active "tab"
+				Self.refActive = Spawn.data.tabs._active;
+				// version and copyright 
+				Self.about();
+				// clear reference
+				delete Self.refActive;
 				break;
 			case "tab-clicked":
-				TABS.focus(event.el.data("id"));
+				Spawn.data.tabs.focus(event.el.data("id"));
 				break;
 			case "tab-close":
-				TABS.remove(event.el.data("id"));
+				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
 
 			// case "spawn.keyup":
 			case "spawn.keystroke":
-				ACTIVE = TABS._active;
+				ACTIVE = Spawn.data.tabs._active;
 
 				switch (event.keyCode) {
 					case 13: // return
 						stdIn = ACTIVE.els.stdIn.text().replace(/\s+/g, " ").trim();
 
 						// output stdIn
-						TABS.print(stdIn.withPrompt);
+						Self.print(stdIn.withPrompt, ACTIVE);
 
 						if (stdIn.slice(0, 1) === "?") {
 							stdIn = "help"+ stdIn.slice(1);
@@ -119,7 +124,11 @@
 
 						// execute command
 						if (stdIn) {
+							// save reference to active "tab"
+							Self.refActive = ACTIVE;
 							command = await defiant.shell(stdIn.replace(/\\ /g, "%20"));
+							// clear reference
+							delete Self.refActive;
 
 							// app-custom test of stdIn
 							if (command.error) {
@@ -131,10 +140,10 @@
 							// evaluate result
 							if (command.error) {
 								// append error string to output
-								TABS.print(command.error.err);
+								Self.print(command.error.err, ACTIVE);
 							} else if (command.result) {
 								// command returned success
-								TABS.print(command.result);
+								Self.print(command.result, ACTIVE);
 							}
 						}
 
@@ -161,14 +170,14 @@
 						} else {
 							// print copy of stdIn
 							stdIn = ACTIVE.els.stdIn.text();
-							TABS.print(stdIn.withPrompt);
+							Self.print(stdIn.withPrompt, ACTIVE);
 
 							// prepare suggestion list
 							stdOut = "";
 							suggestions.map((item, index) => {
 								stdOut += item.name.padEnd(30, " ") + (index % 2 === 1 ? "\n" : "");
 							});
-							TABS.print(stdOut.declare);
+							Self.print(stdOut.declare, ACTIVE);
 						}
 						break;
 					case 38: // up
@@ -206,6 +215,8 @@
 				stdIn = ACTIVE.els.textarea.val().replace(/ /g, "&#160;");
 				if (event.shiftKey && event.char !== "shift") stdIn += event.char;
 				ACTIVE.els.stdIn.html(stdIn);
+				//if (~[18,91,93,37,39].indexOf(event.keyCode)) return;
+				Self.scrollIntoView(ACTIVE);
 				break;
 			// custom events
 			case "change-opacity":
@@ -262,7 +273,59 @@
 				break;
 		}
 	},
+	scrollIntoView(active) {
+		let wrapper = active.els.input.parent();
+		wrapper.scrollTop(wrapper.prop("scrollHeight"));
+	},
+	print(sIn, aTab) {
+		let active = aTab || this.refActive;
+		let stdIn = Parser.format(sIn);
+		let uiIn = active.els.buffer.append(`<div>${stdIn}</div>`);
+
+		if (stdIn.includes(' data-click="explore-item"') && stdIn.stripHtml().length + 17 > this.charWidth) {
+			// auto explore output - if content longer than window width
+			uiIn.find('b.output [data-click="explore-item"]:first').trigger("click");
+		}
+	},
+	clear() {
+		let active = this.refActive;
+		active.els.buffer.html("");
+	},
+	history() {
+		let stdOut = History.log.map((item, index) => `${(index + 1).toString().padStart(4, " ")}  ${item}`);
+		return stdOut.join("\n").feed;
+	},
+	grep(stdIn, str) {
+		let stdOut = stdIn.split("<br>").reduce((acc, line) => {
+				line = line.stripHtml();
+				if (~line.indexOf(str)) acc.push(line);
+				return acc;
+			}, []);
+		return stdOut.join("<br>").declare;
+	},
+	help() {
+		return this.more("terminal");
+	},
+	friends() {
+		return window.render({
+				template: "friends-list",
+				match: '/ledger/Settings/Friends'
+			}).declare;
+	},
+	more(name) {
+		let xpath = name ? `sys:/ledger/Shell/*[@object="${name}"]` : 'sys:/ledger/Shell',
+			htm = window.render({
+				template: "more-output",
+				match: xpath
+			});
+		return htm.declare;
+	},
+	about() {
+		let active = this.refActive;
+		this.print(this.infoStr.declare);
+	},
 	exit() {
-		console.log(this);
+		let active = this.refActive;
+		// defiant.shell("win -c");
 	}
 }
