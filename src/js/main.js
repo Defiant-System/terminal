@@ -1,9 +1,9 @@
 
 @import "./classes/tabs.js"
 @import "./classes/history.js"
+@import "./modules/fileSystem.js"
 
 import Parser from "./modules/parser"
-import FS from "./modules/fileSystem"
 
 const Colors = {
 	"#222": "0,0,0",
@@ -15,6 +15,9 @@ const Colors = {
 };
 
 const hLog = window.settings.getItem("history");
+
+// default "Current Working Directory"
+let cwd = "\~/"
 
 
 const terminal = {

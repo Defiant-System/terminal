@@ -1,6 +1,4 @@
 
-let cwd = "\~/"
-
 const FS = {
 	pwd() {
 		return cwd.declare;
@@ -112,7 +110,7 @@ const FS = {
 			path = newPath;
 		}
 		cwd = path;
+
+		terminal.spawn.refActive.cwd = cwd;
 	}
 };
-
-export default FS;

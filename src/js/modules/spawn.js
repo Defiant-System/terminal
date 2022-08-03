@@ -48,17 +48,20 @@
 				// init tab bar
 				Spawn.data.tabs = new Tabs(Self, Spawn);
 
+
 				// DEV-ONLY-START
-				// setTimeout(() => {
-				// 	let els = Spawn.data.tabs._active.els,
-				// 		ev = { type: "spawn.keystroke", spawn: Spawn };
+				setTimeout(() => {
+					return;
+					let els = Spawn.data.tabs._active.els,
+						ev = { type: "spawn.keystroke", spawn: Spawn };
 
-				// 	els.textarea.val(`exit`);
+					// els.textarea.val(`exit`);
 
-				// 	Self.dispatch(ev);
-				// 	Self.dispatch({ ...ev, keyCode: 13 });
-				// }, 500);
+					Self.dispatch(ev);
+					Self.dispatch({ ...ev, keyCode: 13 });
+				}, 500);
 				// DEV-ONLY-END
+
 				break;
 			case "open.file":
 				(event.files || [event]).map(file => {
@@ -102,7 +105,8 @@
 				if (value > 1) {
 					Spawn.data.tabs._active.tabEl.find(`[sys-click]`).trigger("click");
 				} else if (value === 1) {
-					// TODO: close spawn window
+					// TODO
+					console.log( "close spawn window" );
 				}
 				break;
 
@@ -139,9 +143,11 @@
 						if (stdIn) {
 							// save reference to active "tab"
 							Self.refActive = ACTIVE;
+							Self.refSpawn = Spawn;
 							command = await defiant.shell(stdIn.replace(/\\ /g, "%20"));
-							// clear reference
+							// clear references
 							delete Self.refActive;
+							delete Self.refSpawn;
 
 							// app-custom test of stdIn
 							if (command.error) {
@@ -249,6 +255,8 @@
 			case "explore-item":
 				return Parser.dispatch(event);
 			case "update-caret-position":
+				ACTIVE = Spawn.data.tabs._active;
+
 				target = event.target;
 				selectionStart = target.selectionStart;
 				selectionEnd = target.selectionEnd;
@@ -258,19 +266,23 @@
 				}
 
 				left = ((selectionStart - target.value.length) * 0.6075);
-				Self.caret.css({left: left +"em"});
-				Self.cursor.toggleClass("moved", left === 0);
+				ACTIVE.els.caret.css({left: left +"em"});
+				ACTIVE.els.cursor.toggleClass("moved", left === 0);
 				break;
 			case "jump-to-start":
 			case "jump-to-end":
-				target = Self.textarea[0];
+				ACTIVE = Spawn.data.tabs._active;
+
+				target = ACTIVE.els.textarea[0];
 				selectionEnd = event.type === "jump-to-start" ? 0 : target.value.length;
 				target.setSelectionRange(selectionEnd, selectionEnd);
 				Self.dispatch({...event, target, type: "update-caret-position"});
 				break;
 			case "delete-to-start":
 			case "delete-to-end":
-				target = Self.textarea[0];
+				ACTIVE = Spawn.data.tabs._active;
+
+				target = ACTIVE.els.textarea[0];
 				stdIn = (event.type === "delete-to-start")
 							? target.value.slice(target.selectionStart, target.value.length)
 							: target.value.slice(0, target.selectionStart);
@@ -278,7 +290,7 @@
 				target.value = stdIn;
 				if (event.type === "delete-to-start") target.setSelectionRange(0, 0);
 
-				Self.stdIn.html(stdIn);
+				ACTIVE.els.stdIn.html(stdIn);
 				Self.dispatch({...event, target, type: "update-caret-position"});
 				break;
 			case "open-help":
@@ -335,11 +347,10 @@
 		return htm.declare;
 	},
 	about() {
-		let active = this.refActive;
 		this.print(this.infoStr.declare);
 	},
 	exit() {
-		let active = this.refActive;
-		defiant.shell("win -c");
+		this.dispatch({ type: "close-tab", spawn: this.refSpawn });
+		// defiant.shell("win -c");
 	}
 }

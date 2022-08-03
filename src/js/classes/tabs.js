@@ -38,7 +38,12 @@ class Tabs {
 		els.prompt = els.input.find("b");
 
 		// save reference to tab
-		this._stack[tId] = { tabEl, bodyEl, els, history, file };
+		this._stack[tId] = {
+			tabEl, bodyEl, els, history, file,
+			set cwd(path) {
+				this.file = new defiant.File({ path });
+			}
+		};
 		// focus on file
 		this.focus(tId);
 	}
@@ -60,10 +65,9 @@ class Tabs {
 		active.bodyEl.removeClass("hidden");
 		// update spawn window title
 		this._spawn.title = active.file.base;
-
-		// TODO: set cwd
+		// set tab cwd
 		terminal.FS.cwd = active.file.path;
-
+		// cursor focus
 		active.els.textarea.focus();
 	}
 }
