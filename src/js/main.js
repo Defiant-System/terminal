@@ -19,6 +19,9 @@ const hLog = window.settings.getItem("history");
 
 const terminal = {
 	init() {
+		// helps terminal find Filesystem
+		this.FS = FS;
+
 		// init all sub-objects
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")

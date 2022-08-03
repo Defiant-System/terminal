@@ -15,14 +15,14 @@
 		<i name="FS.unzip" alias="unzip" arg="[src, target]" description="Uncompresses zip file."/>
 		<i name="FS.zip" alias="zip" arg="[target, src]" description="Compresses file(s)."/>
 
-		<i name="clear" alias="clear" arg="NONE" description="Clears output."/>
-		<i name="print" alias="echo" arg="[arg]" description="Prints string."/>
-		<i name="grep" alias="grep" arg="string" description="Filters piped data with given string."/>
-		<i name="help" alias="help" arg="NONE" description="Provides Help about shell commands."/>
-		<i name="friends" alias="friends" arg="NONE" description="Lists current user friends."/>
-		<i name="more" alias="more" arg="NONE" description="Lists available details about object."/>
-		<i name="history" alias="history" arg="NONE" description="Lists history of commands."/>
-		<i name="about" alias="about" arg="NONE" description="Displays author and copyright-info."/>
-		<i name="exit" alias="exit" arg="NONE" description="Exits shell."/>
+		<i name="spawn.clear" alias="clear" arg="NONE" description="Clears output."/>
+		<i name="spawn.print" alias="echo" arg="[arg]" description="Prints string."/>
+		<i name="spawn.grep" alias="grep" arg="string" description="Filters piped data with given string."/>
+		<i name="spawn.help" alias="help" arg="NONE" description="Provides Help about shell commands."/>
+		<i name="spawn.friends" alias="friends" arg="NONE" description="Lists current user friends."/>
+		<i name="spawn.more" alias="more" arg="NONE" description="Lists available details about object."/>
+		<i name="spawn.history" alias="history" arg="NONE" description="Lists history of commands."/>
+		<i name="spawn.about" alias="about" arg="NONE" description="Displays author and copyright-info."/>
+		<i name="spawn.exit" alias="exit" arg="NONE" description="Exits shell."/>
 	</i>
 </Shell>
