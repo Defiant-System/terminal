@@ -2,6 +2,9 @@
 	<Menu name="Terminal">
 		<Menu name="About Terminal" shell="win -a"/>
 		<Menu type="divider"/>
+		<Menu name="Close Window" click="close-spawn" hotkey="alt+shift+w"/>
+		<Menu name="Close Tab" click="close-tab" hotkey="alt+w"/>
+		<Menu type="divider"/>
 		<Menu name="Quit Terminal" shell="win -c"/>
 	</Menu>
 	<Menu name="Edit">

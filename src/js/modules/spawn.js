@@ -74,6 +74,10 @@
 				// measures available width in characters
 				Self.charWidth = Math.round(event.width / Self.measureEl[0].getBoundingClientRect().width);
 				break;
+			// from menubar
+			case "close-spawn":
+				console.log(event);
+				break;
 
 			// tab related events
 			case "new-tab":
@@ -91,6 +95,15 @@
 				break;
 			case "tab-close":
 				Spawn.data.tabs.remove(event.el.data("id"));
+				break;
+			// from menubar
+			case "close-tab":
+				value = Spawn.data.tabs.length;
+				if (value > 1) {
+					Spawn.data.tabs._active.tabEl.find(`[sys-click]`).trigger("click");
+				} else if (value === 1) {
+					// TODO: close spawn window
+				}
 				break;
 
 			// case "spawn.keyup":
@@ -292,7 +305,8 @@
 		active.els.buffer.html("");
 	},
 	history() {
-		let stdOut = History.log.map((item, index) => `${(index + 1).toString().padStart(4, " ")}  ${item}`);
+		let active = this.refActive;
+		let stdOut = active.history.log.map((item, index) => `${(index + 1).toString().padStart(4, " ")}  ${item}`);
 		return stdOut.join("\n").feed;
 	},
 	grep(stdIn, str) {
@@ -326,6 +340,6 @@
 	},
 	exit() {
 		let active = this.refActive;
-		// defiant.shell("win -c");
+		defiant.shell("win -c");
 	}
 }

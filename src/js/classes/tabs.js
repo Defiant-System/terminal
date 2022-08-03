@@ -13,6 +13,10 @@ class Tabs {
 		template.remove();
 	}
 
+	get length() {
+		return Object.keys(this._stack).length;
+	}
+
 	add(file) {
 		let tId = "f"+ Date.now(),
 			tName = file.path.replace("/fs/", "~/"),
