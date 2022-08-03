@@ -61,6 +61,9 @@ class Tabs {
 		// update spawn window title
 		this._spawn.title = active.file.base;
 
+		// TODO: set cwd
+		terminal.FS.cwd = active.file.path;
+
 		active.els.textarea.focus();
 	}
 }
