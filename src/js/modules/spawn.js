@@ -51,7 +51,7 @@
 
 				// DEV-ONLY-START
 				setTimeout(() => {
-					// return;
+					return;
 					let els = Spawn.data.tabs._active.els;
 
 					els.textarea.val(`user -f`);
