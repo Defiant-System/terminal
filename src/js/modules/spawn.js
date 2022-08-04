@@ -51,10 +51,10 @@
 
 				// DEV-ONLY-START
 				setTimeout(() => {
-					return;
+					// return;
 					let els = Spawn.data.tabs._active.els;
 
-					els.textarea.val(`exit`);
+					els.textarea.val(`user -f`);
 
 					let ev = { type: "spawn.keystroke", spawn: Spawn };
 					Self.dispatch(ev);
@@ -254,7 +254,15 @@
 				Self.winBody.css({ "background-color": value });
 				break;
 			case "explore-item":
-				return Parser.dispatch(event);
+				// save reference to active "tab"
+				Self.refActive = Spawn.data.tabs._active;
+				Self.refSpawn = Spawn;
+				// dispatch event
+				Parser.dispatch(event);
+				// clear references
+				delete Self.refActive;
+				delete Self.refSpawn;
+				return;
 			case "update-caret-position":
 				ACTIVE = Spawn.data.tabs._active;
 

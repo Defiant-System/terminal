@@ -16,9 +16,6 @@ const Colors = {
 
 const hLog = window.settings.getItem("history");
 
-// default "Current Working Directory"
-let cwd = "\~/"
-
 
 const terminal = {
 	init() {
@@ -31,7 +28,7 @@ const terminal = {
 			.map(i => this[i].init());
 
 		// initiate Parser object
-		Parser.init(terminal);
+		Parser.init(this);
 	},
 	dispatch(event) {
 		let Self = terminal,

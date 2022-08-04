@@ -1,4 +1,7 @@
 
+// default "Current Working Directory"
+let cwd = "\~/"
+
 const FS = {
 	pwd() {
 		return cwd.declare;
@@ -110,7 +113,7 @@ const FS = {
 			path = newPath;
 		}
 		cwd = path;
-
+		// make sure active tab body updates reference to CWD
 		terminal.spawn.refActive.cwd = cwd;
 	}
 };

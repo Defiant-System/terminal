@@ -56,7 +56,7 @@ let Parser = {
 					group.html(htm);
 				}
 				// scroll expand in to view
-				APP.scrollIntoView();
+				APP.spawn.scrollIntoView(APP.spawn.refActive);
 				break;
 		}
 	},
