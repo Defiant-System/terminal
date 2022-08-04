@@ -39,7 +39,7 @@ class Tabs {
 
 		// save reference to tab
 		this._stack[tId] = {
-			tabEl, bodyEl, els, history, file,
+			tId, tabEl, bodyEl, els, history, file,
 			set cwd(path) {
 				this.file = new defiant.File({ path });
 			}
@@ -54,11 +54,11 @@ class Tabs {
 	}
 
 	focus(tId) {
-		if (this._active) {
+		if (tId && this._active) {
 			// hide blurred body
 			this._active.bodyEl.addClass("hidden");
 		}
-		let active = this._stack[tId];
+		let active = tId ? this._stack[tId] : this._active;
 		// reference to active tab
 		this._active = active;
 		// unhide focused body
@@ -69,5 +69,11 @@ class Tabs {
 		terminal.FS.cwd = active.file.path;
 		// cursor focus
 		active.els.textarea.focus();
+	}
+
+	blur() {
+		let active = this._active;
+		// cursor blur
+		active.els.textarea.blur();
 	}
 }

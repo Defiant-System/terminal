@@ -52,11 +52,11 @@
 				// DEV-ONLY-START
 				setTimeout(() => {
 					return;
-					let els = Spawn.data.tabs._active.els,
-						ev = { type: "spawn.keystroke", spawn: Spawn };
+					let els = Spawn.data.tabs._active.els;
 
-					// els.textarea.val(`exit`);
+					els.textarea.val(`exit`);
 
+					let ev = { type: "spawn.keystroke", spawn: Spawn };
 					Self.dispatch(ev);
 					Self.dispatch({ ...ev, keyCode: 13 });
 				}, 500);
@@ -70,8 +70,10 @@
 				});
 				break;
 			case "spawn.blur":
+				if (Spawn.data) Spawn.data.tabs.blur();
 				break;
 			case "spawn.focus":
+				if (Spawn.data) Spawn.data.tabs.focus();
 				break;
 			case "spawn.resize":
 				// measures available width in characters
@@ -105,8 +107,7 @@
 				if (value > 1) {
 					Spawn.data.tabs._active.tabEl.find(`[sys-click]`).trigger("click");
 				} else if (value === 1) {
-					// TODO
-					console.log( "close spawn window" );
+					defiant.shell("win -c");
 				}
 				break;
 
@@ -351,6 +352,5 @@
 	},
 	exit() {
 		this.dispatch({ type: "close-tab", spawn: this.refSpawn });
-		// defiant.shell("win -c");
 	}
 }
