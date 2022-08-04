@@ -23,7 +23,7 @@
 			value,
 			file,
 			el;
-		// console.log(event);
+		// console.log(event.type);
 		switch (event.type) {
 			// system events
 			case "spawn.open":
@@ -79,14 +79,11 @@
 				// measures available width in characters
 				Self.charWidth = Math.round(event.width / Self.measureEl[0].getBoundingClientRect().width);
 				break;
-			// from menubar
-			case "close-spawn":
-				console.log(event);
-				break;
 
 			// tab related events
 			case "new-tab":
-				file = event.file || new defiant.File({ path: "/fs/" });
+				value = window.settings.getItem("default-cwd") || "~/";
+				file = event.file || new defiant.File({ path: value });
 				Spawn.data.tabs.add(file);
 				// save reference to active "tab"
 				Self.refActive = Spawn.data.tabs._active;
@@ -101,14 +98,24 @@
 			case "tab-close":
 				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
+
 			// from menubar
+			case "new-spawn":
+				Self.dispatch({ ...event, type: "new-tab" });
+				break;
 			case "close-tab":
 				value = Spawn.data.tabs.length;
 				if (value > 1) {
 					Spawn.data.tabs._active.tabEl.find(`[sys-click]`).trigger("click");
 				} else if (value === 1) {
-					defiant.shell("win -c");
+					Self.dispatch({ ...event, type: "close-spawn" });
 				}
+				break;
+			case "close-spawn":
+				// save cwd to settings
+				window.settings.setItem("default-cwd", Spawn.data.tabs._active.cwd);
+				// system close window / spawn
+				defiant.shell("win -c");
 				break;
 
 			// case "spawn.keyup":

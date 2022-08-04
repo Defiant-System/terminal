@@ -42,6 +42,9 @@ class Tabs {
 			tId, tabEl, bodyEl, els, history, file,
 			set cwd(path) {
 				this.file = new defiant.File({ path });
+			},
+			get cwd() {
+				return this.file.path;
 			}
 		};
 		// focus on file

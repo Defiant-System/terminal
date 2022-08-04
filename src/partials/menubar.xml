@@ -17,7 +17,7 @@
 		<Menu name="Delete to End" click="delete-to-end" hotkey="control+k"/>
 	</Menu>
 	<Menu name="Window">
-		<Menu name="New Window" click="new-clone-window" hotkey="alt+n"/>
+		<Menu name="New Window" click="new-spawn" hotkey="alt+n"/>
 		<Menu name="New Tab" click="new-tab" hotkey="alt+t"/>
 		<Menu name="Merge All Windows" click="merge-all-windows" hotkey="alt+c"/>
 		<Menu type="divider"/>
