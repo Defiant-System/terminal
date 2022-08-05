@@ -70,6 +70,8 @@ class Tabs {
 		let active = tId ? this._stack[tId] : this._active;
 		// reference to active tab
 		this._active = active;
+		// update reference "terminal.spawn.refActive"
+		this._parent.refActive = active;
 		// update reference to window body
 		this._parent.winBody = active.bodyEl.parents("content").parent();
 		// update menu

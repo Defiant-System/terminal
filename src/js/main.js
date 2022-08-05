@@ -45,7 +45,6 @@ const terminal = {
 				Self.spawn.dispatch({ ...event, type: "new-tab", spawn });
 				break;
 			case "window.close":
-				return console.log( event.type );
 				let active = Self.spawn.refActive;
 				// save changes to settings
 				window.settings.setItem("default-cwd", active.cwd);

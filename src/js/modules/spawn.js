@@ -64,8 +64,6 @@
 				Self.refActive = Spawn.data.tabs._active;
 				// version and copyright 
 				Self.about();
-				// clear reference
-				delete Self.refActive;
 				break;
 			case "tab-clicked":
 				Spawn.data.tabs.focus(event.el.data("id"));
@@ -146,9 +144,6 @@
 							Self.refActive = ACTIVE;
 							Self.refSpawn = Spawn;
 							command = await defiant.shell(stdIn.replace(/\\ /g, "%20"));
-							// clear references
-							delete Self.refActive;
-							delete Self.refSpawn;
 
 							// app-custom test of stdIn
 							if (command.error) {
@@ -261,9 +256,6 @@
 				Self.refSpawn = Spawn;
 				// dispatch event
 				Parser.dispatch(event);
-				// clear references
-				delete Self.refActive;
-				delete Self.refSpawn;
 				return;
 			case "update-caret-position":
 				ACTIVE = Spawn.data.tabs._active;
