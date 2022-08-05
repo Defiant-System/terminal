@@ -29,18 +29,6 @@
 			case "spawn.open":
 				// fast reference
 				Self.winBody = Spawn.find("content").parent();
-				// background & transparency
-				let defaultUI = { color: "#222", opacity: .8 };
-				Self.bgUI = window.settings.getItem("bg-user-interface") || defaultUI;
-				if (Self.bgUI !== defaultUI) {
-					Self.dispatch({
-						type: "change-opacity",
-						arg: Math.floor(Self.bgUI.opacity * 100)
-					});
-					// update menu
-					window.bluePrint.selectSingleNode(`//Menu[@type="colors"]/*[@active]`).removeAttribute("active");
-					window.bluePrint.selectSingleNode(`//Menu[@type="colors"]/*[@arg="${Self.bgUI.color}"]`).setAttribute("active", 1);
-				}
 				// add element used for measurement
 				Self.measureEl = Spawn.find("content .wrapper").append('<i class="measurement">a</i>');
 				// fake trigger resize, to calculate charWidth
@@ -87,7 +75,20 @@
 				break;
 
 			case "before-contextmenu:output":
-				console.log("update/reset contextmenu");
+				ACTIVE = Spawn.data.tabs._active;
+				// fixes transparenty value
+				value = Math.round(ACTIVE.bgUI.opacity * 100);
+				window.bluePrint.selectSingleNode(`//Menu[@change="change-opacity"]`)
+					.setAttribute("value", value);
+				// fixes color value
+				window.bluePrint.selectNodes(`//Menu[@change="change-bg-color"]/Color`)
+					.map(node => {
+						if (node.getAttribute("arg") === ACTIVE.bgUI.color) {
+							node.removeAttribute("active", "1");
+						} else {
+							node.removeAttribute("active");
+						}
+					});
 				break;
 
 			// from menubar
@@ -106,8 +107,6 @@
 				}
 				break;
 			case "close-spawn":
-				// save cwd to settings
-				window.settings.setItem("default-cwd", Spawn.data.tabs._active.cwd);
 				// system close window / spawn
 				defiant.shell("win -c");
 				break;
@@ -241,17 +240,19 @@
 				break;
 			// custom events
 			case "change-opacity":
+				ACTIVE = Spawn.data.tabs._active;
 				// save opacity
-				Self.bgUI.opacity = event.arg / 100;
+				ACTIVE.bgUI.opacity = event.arg / 100;
 				// update ui
-				value = `rgba(${Colors[Self.bgUI.color]},${Self.bgUI.opacity})`;
+				value = `rgba(${Colors[ACTIVE.bgUI.color]},${ACTIVE.bgUI.opacity})`;
 				Self.winBody.css({ "background-color": value });
 				break;
 			case "change-bg-color":
+				ACTIVE = Spawn.data.tabs._active;
 				// save color
-				Self.bgUI.color = event.arg;
+				ACTIVE.bgUI.color = event.arg;
 				// update ui
-				value = `rgba(${Colors[Self.bgUI.color]},${Self.bgUI.opacity})`;
+				value = `rgba(${Colors[ACTIVE.bgUI.color]},${ACTIVE.bgUI.opacity})`;
 				Self.winBody.css({ "background-color": value });
 				break;
 			case "explore-item":

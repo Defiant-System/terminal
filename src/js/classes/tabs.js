@@ -6,6 +6,8 @@ class Tabs {
 		this._stack = {};
 		this._active = null;
 
+		this._defaultUI = { color: "#222", opacity: .8 };
+
 		// DOM template
 		let template = spawn.find(`content > div[data-id="ui-template"]`);
 		this._content = spawn.find("content");
@@ -23,6 +25,7 @@ class Tabs {
 			tabEl = this._spawn.tabs.add(tName, tId),
 			bodyEl = this._template.clone(true),
 			history = new History(hLog),
+			bgUI = window.settings.getItem("bg-user-interface") || this._defaultUI,
 			els = {};
 
 		// add element to DOM + append file contents
@@ -39,7 +42,7 @@ class Tabs {
 
 		// save reference to tab
 		this._stack[tId] = {
-			tId, tabEl, bodyEl, els, history, file,
+			tId, tabEl, bodyEl, bgUI, els, history, file,
 			set cwd(path) {
 				this.file = new defiant.File({ path });
 			},
@@ -49,6 +52,9 @@ class Tabs {
 		};
 		// focus on file
 		this.focus(tId);
+		// obey settings bg-color & opacity
+		let arg = Math.floor(bgUI.opacity * 100);
+		this._parent.dispatch({ type: "change-opacity", spawn: this._spawn, arg });
 	}
 
 	remove(tId) {
@@ -66,6 +72,9 @@ class Tabs {
 		this._active = active;
 		// update reference to window body
 		this._parent.winBody = active.bodyEl.parents("content").parent();
+		// update menu
+		window.bluePrint.selectSingleNode(`//Menu[@type="colors"]/*[@active]`).removeAttribute("active");
+		window.bluePrint.selectSingleNode(`//Menu[@type="colors"]/*[@arg="${active.bgUI.color}"]`).setAttribute("active", 1);
 		// unhide focused body
 		active.bodyEl.removeClass("hidden");
 		// update spawn window title

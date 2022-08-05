@@ -44,6 +44,13 @@ const terminal = {
 				spawn = window.open("spawn");
 				Self.spawn.dispatch({ ...event, type: "new-tab", spawn });
 				break;
+			case "window.close":
+				return console.log( event.type );
+				let active = Self.spawn.refActive;
+				// save changes to settings
+				window.settings.setItem("default-cwd", active.cwd);
+				window.settings.setItem("bg-user-interface", active.bgUI);
+				break;
 			case "open-help":
 				defiant.shell("fs -u '~/help/index.md'");
 				break;
@@ -62,9 +69,11 @@ const terminal = {
 			// els.textarea.val(`user -f`);
 			els.textarea.val(`exit`);
 
-			let ev = { type: "spawn.keystroke", spawn };
-			this.dispatch(ev);
-			this.dispatch({ ...ev, keyCode: 13 });
+			// let ev = { type: "spawn.keystroke", spawn };
+			// this.dispatch(ev);
+			// this.dispatch({ ...ev, keyCode: 13 });
+
+			terminal.spawn.dispatch({ type: "change-bg-color", arg: "#a00" });
 		}, 500);
 		// DEV-ONLY-END
 	},
