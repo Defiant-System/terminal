@@ -47,21 +47,8 @@
 				Self.dispatch({ type: "spawn.resize", width: Spawn.width });
 				// init tab bar
 				Spawn.data.tabs = new Tabs(Self, Spawn);
-
-
-				// DEV-ONLY-START
-				setTimeout(() => {
-					return;
-					let els = Spawn.data.tabs._active.els;
-
-					els.textarea.val(`user -f`);
-
-					let ev = { type: "spawn.keystroke", spawn: Spawn };
-					Self.dispatch(ev);
-					Self.dispatch({ ...ev, keyCode: 13 });
-				}, 500);
-				// DEV-ONLY-END
-
+				// DEV
+				APP.test(Spawn);
 				break;
 			case "open.file":
 				(event.files || [event]).map(file => {
@@ -99,9 +86,16 @@
 				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
 
+			case "before-contextmenu:output":
+				console.log("update/reset contextmenu");
+				break;
+
 			// from menubar
 			case "new-spawn":
-				Self.dispatch({ ...event, type: "new-tab" });
+				APP.dispatch({ type: "new-spawn" });
+				break;
+			case "merge-all-windows":
+				console.log( event );
 				break;
 			case "close-tab":
 				value = Spawn.data.tabs.length;

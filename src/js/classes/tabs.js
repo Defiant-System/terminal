@@ -64,6 +64,8 @@ class Tabs {
 		let active = tId ? this._stack[tId] : this._active;
 		// reference to active tab
 		this._active = active;
+		// update reference to window body
+		this._parent.winBody = active.bodyEl.parents("content").parent();
 		// unhide focused body
 		active.bodyEl.removeClass("hidden");
 		// update spawn window title

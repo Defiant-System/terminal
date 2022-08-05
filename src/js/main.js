@@ -39,18 +39,34 @@ const terminal = {
 		
 		switch (event.type) {
 			// system events
+			case "new-spawn":
 			case "window.init":
 				spawn = window.open("spawn");
-				Self.spawn.dispatch({ ...event, type: "new-spawn", spawn });
-				break;
-			case "open.file":
-				spawn = window.open("spawn");
-				Self.spawn.dispatch({ ...event, spawn });
+				Self.spawn.dispatch({ ...event, type: "new-tab", spawn });
 				break;
 			case "open-help":
 				defiant.shell("fs -u '~/help/index.md'");
 				break;
 		}
+	},
+	test(spawn) {
+		// DEV-ONLY-START
+		if (this.test_) return;
+		this.test_ = true;
+
+		setTimeout(() => spawn.el.trigger("mousedown"), 200);
+		setTimeout(() => {
+			return;
+			let els = spawn.data.tabs._active.els;
+
+			// els.textarea.val(`user -f`);
+			els.textarea.val(`exit`);
+
+			let ev = { type: "spawn.keystroke", spawn };
+			this.dispatch(ev);
+			this.dispatch({ ...ev, keyCode: 13 });
+		}, 500);
+		// DEV-ONLY-END
 	},
 	spawn: @import "./modules/spawn.js",
 };
