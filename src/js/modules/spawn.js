@@ -94,7 +94,14 @@
 				APP.dispatch({ type: "new-spawn" });
 				break;
 			case "merge-all-windows":
-				console.log( event );
+				Spawn.siblings.map(oSpawn => {
+					for (let key in oSpawn.data.tabs._stack) {
+						let ref = oSpawn.data.tabs._stack[key];
+						Spawn.data.tabs.merge(ref);
+					}
+					// close sibling spawn
+					oSpawn.close();
+				});
 				break;
 			case "close-tab":
 				value = Spawn.data.tabs.length;

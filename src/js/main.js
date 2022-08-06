@@ -63,6 +63,9 @@ const terminal = {
 		setTimeout(() => spawn.el.trigger("mousedown"), 200);
 		setTimeout(() => {
 			return;
+			
+			return this.dispatch({ type: "merge-all-windows", spawn });
+
 			let els = spawn.data.tabs._active.els;
 
 			// els.textarea.val(`user -f`);

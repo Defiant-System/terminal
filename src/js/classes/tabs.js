@@ -57,6 +57,40 @@ class Tabs {
 		this._parent.dispatch({ type: "change-opacity", spawn: this._spawn, arg });
 	}
 
+	merge(ref) {
+		let tId = ref.tId,
+			file = ref.file,
+			tName = file.path.replace("/fs/", "~/"),
+			tabEl = this._spawn.tabs.add(tName, tId, true),
+			bodyEl = ref.bodyEl.clone(true),
+			history = ref.history,
+			bgUI = ref.bgUI,
+			els = {};
+
+		// add element to DOM + append file contents
+		bodyEl = this._content.append(bodyEl);
+		bodyEl.attr({ "data-id": tId });
+		// fast references
+		els.textarea = bodyEl.find("textarea");
+		els.buffer = bodyEl.find(".output-buffer");
+		els.input = bodyEl.find(".input");
+		els.cursor = els.input.find(".cursor");
+		els.caret = els.cursor.find("svg:nth(1)");
+		els.stdIn = els.input.find(".buffer");
+		els.prompt = els.input.find("b");
+
+		// save reference to tab
+		this._stack[tId] = {
+			tId, tabEl, bodyEl, bgUI, els, history, file,
+			set cwd(path) {
+				this.file = new defiant.File({ path });
+			},
+			get cwd() {
+				return this.file.path;
+			}
+		};
+	}
+
 	remove(tId) {
 		this._stack[tId] = false;
 		delete this._stack[tId];
@@ -81,6 +115,9 @@ class Tabs {
 		active.bodyEl.removeClass("hidden");
 		// update spawn window title
 		this._spawn.title = active.file.base;
+		// make sure scroll down
+		let wrapper = active.els.input.parent();
+		wrapper.scrollTop(wrapper.prop("scrollHeight"));
 		// set tab cwd
 		terminal.FS.cwd = active.file.path;
 		// cursor focus
