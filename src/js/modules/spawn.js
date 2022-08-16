@@ -4,7 +4,7 @@
 {
 	async init() {
 		// prepare about string
-		let cmd = await defiant.shell("sys -b");
+		let cmd = await karaqu.shell("sys -b");
 		this.infoStr = `${cmd.result.name} Shell [v${cmd.result.version}] ${cmd.result.author} &copy; 2019-`+ (new Date).getFullYear();
 	},
 	async dispatch(event) {
@@ -58,7 +58,7 @@
 			// tab related events
 			case "new-tab":
 				value = window.settings.getItem("default-cwd") || "~/";
-				file = event.file || new defiant.File({ path: value });
+				file = event.file || new karaqu.File({ path: value });
 				Spawn.data.tabs.add(file);
 				// save reference to active "tab"
 				Self.refActive = Spawn.data.tabs._active;
@@ -113,7 +113,7 @@
 				break;
 			case "close-spawn":
 				// system close window / spawn
-				defiant.shell("win -c");
+				karaqu.shell("win -c");
 				break;
 
 			// case "spawn.keyup":
@@ -150,7 +150,7 @@
 							// save reference to active "tab"
 							Self.refActive = ACTIVE;
 							Self.refSpawn = Spawn;
-							command = await defiant.shell(stdIn.replace(/\\ /g, "%20"));
+							command = await karaqu.shell(stdIn.replace(/\\ /g, "%20"));
 
 							// app-custom test of stdIn
 							if (command.error) {
@@ -304,7 +304,7 @@
 				Self.dispatch({...event, target, type: "update-caret-position"});
 				break;
 			case "open-help":
-				defiant.shell("fs -u '~/help/index.md'");
+				karaqu.shell("fs -u '~/help/index.md'");
 				break;
 		}
 	},

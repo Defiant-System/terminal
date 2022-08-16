@@ -44,7 +44,7 @@ class Tabs {
 		this._stack[tId] = {
 			tId, tabEl, bodyEl, bgUI, els, history, file,
 			set cwd(path) {
-				this.file = new defiant.File({ path });
+				this.file = new karaqu.File({ path });
 			},
 			get cwd() {
 				return this.file.path;
@@ -83,7 +83,7 @@ class Tabs {
 		this._stack[tId] = {
 			tId, tabEl, bodyEl, bgUI, els, history, file,
 			set cwd(path) {
-				this.file = new defiant.File({ path });
+				this.file = new karaqu.File({ path });
 			},
 			get cwd() {
 				return this.file.path;

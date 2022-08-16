@@ -51,7 +51,7 @@ const terminal = {
 				window.settings.setItem("bg-user-interface", active.bgUI);
 				break;
 			case "open-help":
-				defiant.shell("fs -u '~/help/index.md'");
+				karaqu.shell("fs -u '~/help/index.md'");
 				break;
 		}
 	},
