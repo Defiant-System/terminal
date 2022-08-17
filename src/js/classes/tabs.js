@@ -96,6 +96,16 @@ class Tabs {
 		delete this._stack[tId];
 	}
 
+	setTitle(str) {
+		if (str.startsWith("/fs/")) {
+			str = str.replace("/fs/", "~/");
+		}
+		// update spawn window title
+		this._spawn.title = str;
+		// update active tab name
+		this._active.tabEl.find("span").html(str);
+	}
+
 	focus(tId) {
 		if (tId && this._active) {
 			// hide blurred body
@@ -114,7 +124,8 @@ class Tabs {
 		// unhide focused body
 		active.bodyEl.removeClass("hidden");
 		// update spawn window title
-		this._spawn.title = active.file.dir;
+		let dirName = active.file.kind === "_dir" ? active.file.path : active.file.dir;
+		this.setTitle(dirName);
 		// make sure scroll down
 		let wrapper = active.els.input.parent();
 		wrapper.scrollTop(wrapper.prop("scrollHeight"));
