@@ -30,6 +30,11 @@ const terminal = {
 		// initiate Parser object
 		Parser.init(this);
 	},
+	dispose(event) {
+		if (event.spawn) {
+			return this.spawn.dispose(event);
+		}
+	},
 	dispatch(event) {
 		let Self = terminal,
 			spawn,

@@ -7,6 +7,15 @@
 		let cmd = await karaqu.shell("sys -b");
 		this.infoStr = `${cmd.result.name} Shell [v${cmd.result.version}] ${cmd.result.author} &copy; 2019-`+ (new Date).getFullYear();
 	},
+	dispose(event) {
+		let Spawn = event.spawn;
+		let cmd = { type: "open.file", files: [] };
+		for (let key in Spawn.data.tabs._stack) {
+			let tab = Spawn.data.tabs._stack[key];
+			cmd.files.push(tab.cwd);
+		}
+		return cmd;
+	},
 	async dispatch(event) {
 		let APP = terminal,
 			Self = APP.spawn,

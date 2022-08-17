@@ -115,5 +115,7 @@ const FS = {
 		cwd = path;
 		// make sure active tab body updates reference to CWD
 		terminal.spawn.refActive.cwd = cwd;
+		// TODO: update spawn window title / TAB name
+		terminal.spawn.refSpawn.title = cwd.replace("/fs/", "~/");
 	}
 };
