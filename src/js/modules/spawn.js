@@ -50,7 +50,7 @@
 			case "open.file":
 				(event.files || [event]).map(file => {
 					// auto add first base "tab"
-					Self.dispatch({ ...event, file, type: "new-tab" });
+					Self.dispatch({ ...event, file, type: "tab-new" });
 				});
 				break;
 			case "spawn.blur":
@@ -65,7 +65,7 @@
 				break;
 
 			// tab related events
-			case "new-tab":
+			case "tab-new":
 				value = window.settings.getItem("default-cwd") || "~/";
 				file = event.file || new karaqu.File({ path: value });
 				Spawn.data.tabs.add(file);

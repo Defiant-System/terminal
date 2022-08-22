@@ -92,6 +92,9 @@ class Tabs {
 	}
 
 	remove(tId) {
+		// remove element from DOM tree
+		this._stack[tId].bodyEl.remove();
+		// delete references
 		this._stack[tId] = false;
 		delete this._stack[tId];
 	}
