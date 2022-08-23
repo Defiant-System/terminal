@@ -47,7 +47,7 @@ const terminal = {
 			case "new-spawn":
 			case "window.init":
 				spawn = window.open("spawn");
-				Self.spawn.dispatch({ ...event, type: "tab-new", spawn });
+				Self.spawn.dispatch({ ...event, type: "tab.new", spawn });
 				break;
 			case "window.close":
 				let active = Self.spawn.refActive;

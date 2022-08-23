@@ -50,7 +50,7 @@
 			case "open.file":
 				(event.files || [event]).map(file => {
 					// auto add first base "tab"
-					Self.dispatch({ ...event, file, type: "tab-new" });
+					Self.dispatch({ ...event, file, type: "tab.new" });
 				});
 				break;
 			case "spawn.blur":
@@ -65,7 +65,7 @@
 				break;
 
 			// tab related events
-			case "tab-new":
+			case "tab.new":
 				value = window.settings.getItem("default-cwd") || "~/";
 				file = event.file || new karaqu.File({ path: value });
 				Spawn.data.tabs.add(file);
@@ -74,10 +74,10 @@
 				// version and copyright 
 				Self.about();
 				break;
-			case "tab-clicked":
+			case "tab.clicked":
 				Spawn.data.tabs.focus(event.el.data("id"));
 				break;
-			case "tab-close":
+			case "tab.close":
 				Spawn.data.tabs.remove(event.el.data("id"));
 				break;
 
