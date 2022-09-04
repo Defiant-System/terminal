@@ -55,9 +55,6 @@ const terminal = {
 				window.settings.setItem("default-cwd", active.cwd);
 				window.settings.setItem("bg-user-interface", active.bgUI);
 				break;
-			case "open-help":
-				karaqu.shell("fs -u '~/help/index.md'");
-				break;
 		}
 	},
 	test(spawn) {
