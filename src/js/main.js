@@ -64,20 +64,17 @@ const terminal = {
 
 		setTimeout(() => spawn.el.trigger("mousedown"), 200);
 		setTimeout(() => {
-			return;
-			
-			return this.dispatch({ type: "merge-all-windows", spawn });
 
 			let els = spawn.data.tabs._active.els;
 
-			// els.textarea.val(`user -f`);
-			els.textarea.val(`exit`);
+			els.textarea.val(`sys -r`);
+			// els.textarea.val(`exit`);
 
-			// let ev = { type: "spawn.keystroke", spawn };
-			// this.dispatch(ev);
-			// this.dispatch({ ...ev, keyCode: 13 });
+			let ev = { type: "spawn.keystroke", spawn };
+			this.dispatch(ev);
+			this.dispatch({ ...ev, keyCode: 13 });
 
-			terminal.spawn.dispatch({ type: "change-bg-color", arg: "#a00" });
+			// terminal.spawn.dispatch({ type: "change-bg-color", arg: "#a00" });
 		}, 500);
 		// DEV-ONLY-END
 	},
