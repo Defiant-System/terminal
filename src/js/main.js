@@ -2,6 +2,7 @@
 @import "./classes/tabs.js"
 @import "./classes/history.js"
 @import "./modules/fileSystem.js"
+@import "./modules/test.js"
 
 import Parser from "./modules/parser"
 
@@ -56,27 +57,6 @@ const terminal = {
 				window.settings.setItem("bg-user-interface", active.bgUI);
 				break;
 		}
-	},
-	test(spawn) {
-		// DEV-ONLY-START
-		if (this.test_) return;
-		this.test_ = true;
-
-		setTimeout(() => spawn.el.trigger("mousedown"), 200);
-		setTimeout(() => {
-
-			let els = spawn.data.tabs._active.els;
-
-			els.textarea.val(`sys -r`);
-			// els.textarea.val(`exit`);
-
-			let ev = { type: "spawn.keystroke", spawn };
-			this.dispatch(ev);
-			this.dispatch({ ...ev, keyCode: 13 });
-
-			// terminal.spawn.dispatch({ type: "change-bg-color", arg: "#a00" });
-		}, 500);
-		// DEV-ONLY-END
 	},
 	spawn: @import "./modules/spawn.js",
 };

@@ -44,8 +44,10 @@
 				Self.dispatch({ type: "spawn.resize", width: Spawn.width });
 				// init tab bar
 				Spawn.data.tabs = new Tabs(Self, Spawn);
-				// DEV
-				APP.test(Spawn);
+				
+				// DEV-ONLY-START
+				Test.init(Spawn);
+				// DEV-ONLY-END
 				break;
 			case "open.file":
 				(event.files || [event]).map(file => {
