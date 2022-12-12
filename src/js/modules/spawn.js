@@ -356,7 +356,7 @@
 	friends() {
 		return window.render({
 				template: "friends-list",
-				match: '/ledger/Settings/Friends'
+				match: 'sys:/ledger/Settings/Friends'
 			}).declare;
 	},
 	more(name) {

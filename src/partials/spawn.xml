@@ -2,9 +2,9 @@
 	<Head>
 		<meta name="title" value="New Window"/>
 		<meta name="width" value="700"/>
-		<meta name="height" value="480"/>
+		<meta name="height" value="880"/>
 		<meta name="top" value="180"/>
-		<meta name="left" value="220"/>
+		<meta name="left" value="150"/>
 		<meta name="minimize"/>
 		<meta name="maximize"/>
 		<meta name="resize"/>

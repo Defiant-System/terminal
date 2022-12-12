@@ -7,7 +7,7 @@ let Test = {
 
 			let els = spawn.data.tabs._active.els;
 
-			els.textarea.val(`sys -r`);
+			els.textarea.val(`sys -o`);
 			// els.textarea.val(`exit`);
 
 			let ev = { type: "spawn.keystroke", spawn };
@@ -15,6 +15,9 @@ let Test = {
 			terminal.dispatch({ ...ev, keyCode: 13 });
 
 			// terminal.spawn.dispatch({ type: "change-bg-color", arg: "#a00" });
+
+			// auto expand object exploration
+			setTimeout(() => spawn.find(`em[data-click="explore-item"]`).trigger("click"), 200);
 		}, 500);
 		// DEV-ONLY-END
 	}

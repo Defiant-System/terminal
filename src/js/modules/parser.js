@@ -98,7 +98,7 @@ let Parser = {
 			let value = item[key];
 			let sample = ``;
 
-			if (!item[key]) return;
+			if (item[key] == undefined) return;
 
 			switch (value !== null && item[key].constructor) {
 				case Promise:
