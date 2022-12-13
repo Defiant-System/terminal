@@ -160,15 +160,15 @@ let Parser = {
 
 // extending String object
 Object.defineProperties(String.prototype, {
-	feed:       { get: function() {return `<b class="feed">${this}</b>`}, configurable: true },
-	bold:       { get: function() {return `<b class="bold">${this}</b>`}, configurable: true },
-	italic:     { get: function() {return `<b class="italic">${this}</b>`}, configurable: true },
-	underline:  { get: function() {return `<b class="underline">${this}</b>`}, configurable: true },
-	declare:    { get: function() {return `<b class="declare">${this}</b>`}, configurable: true },
-	default:    { get: function() {return `<b class="default">${this}</b>`}, configurable: true },
-	err:        { get: function() {return `<b><span class="ticon terminal-output"></span></b><b class="error">${this}</b>`}, configurable: true },
-	output:     { get: function() {return `<b><span class="ticon terminal-output"></span></b><b class="output">${this}</b>`}, configurable: true },
-	withPrompt: { get: function() {return `<i>def:<span class="ticon terminal-input"></span></i><b>${this}</b>`}, configurable: true },
+	feed:       { get() {return `<b class="feed">${this}</b>`}, configurable: true },
+	bold:       { get() {return `<b class="bold">${this}</b>`}, configurable: true },
+	italic:     { get() {return `<b class="italic">${this}</b>`}, configurable: true },
+	underline:  { get() {return `<b class="underline">${this}</b>`}, configurable: true },
+	declare:    { get() {return `<b class="declare">${this}</b>`}, configurable: true },
+	default:    { get() {return `<b class="default">${this}</b>`}, configurable: true },
+	err:        { get() {return `<b><span class="ticon terminal-output"></span></b><b class="error">${this}</b>`}, configurable: true },
+	output:     { get() {return `<b><span class="ticon terminal-output"></span></b><b class="output">${this}</b>`}, configurable: true },
+	withPrompt: { get() {return `<i>def:<span class="ticon terminal-input"></span></i><b>${this}</b>`}, configurable: true },
 });
 
 export default Parser;
