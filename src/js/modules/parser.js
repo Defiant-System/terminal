@@ -141,18 +141,15 @@ let Parser = {
 					value = item[key];
 					if (value.trim().startsWith("&lt;")) {
 						type = `html`;
-						value = value
-									.replace(/&lt;(\w+)?/g, "&lt;"+ "$1".name)
-									.replace(/&lt;\\(\w+)?/g, "&lt;"+ "\\"+ "$1".name)
-									.replace(/ (\w+?)(=)(&quot;)(.+?)(&quot;)/g, " "+ "$1".prop + "=".oper + "&quot;".quot + "$4".str + "&quot;".quot)
-									.replace(/&lt;/g, "&lt;".punc)
-									.replace(/\/&gt;/g, "\/&gt;".punc)
-									.replace(/&gt;/g, "&gt;".punc);
-						value = `<em data-click="explore-item" class="html">&lt;html&#8230;&gt;</em>`;
+						value = collapsed
+								? `&lt;Html&gt;`
+								: value.replace(/&lt;(\w+)?/g, "&lt;"+ "$1".name)
+										.replace(/&lt;\\(\w+)?/g, "&lt;"+ "\\"+ "$1".name)
+										.replace(/ (\w+?)(=)(&quot;)(.+?)(&quot;)/g, " "+ "$1".prop + "=".oper + "&quot;".quot + "$4".str + "&quot;".quot)
+										.replace(/&lt;/g, "&lt;".punc)
+										.replace(/\/&gt;/g, "\/&gt;".punc)
+										.replace(/&gt;/g, "&gt;".punc);
 					}
-					// if (value.includes("\n")) {
-					// 	console.log("collapse", value);
-					// }
 					break;
 				case Number:
 				case Boolean:
@@ -160,7 +157,7 @@ let Parser = {
 					break;
 			}
 
-			let clickable = ["object", "array", "html"].includes(type) ? `data-click="explore-item"` : "";
+			let clickable = ["object", "array"].includes(type) ? `data-click="explore-item"` : "";
 
 			return isArray && collapsed ? `${indent}<em class="${type}">${value}</em>`
 							: `${indent}<u>${key}</u> <em ${clickable} class="${type}">${value}</em>${sample}`;
