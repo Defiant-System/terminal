@@ -8,7 +8,7 @@ let Test = {
 			let els = spawn.data.tabs._active.els;
 
 			// els.textarea.val(`sys -rl`);
-			els.textarea.val(`sys -rl dock`);
+			els.textarea.val(`sys -rl`);
 			// els.textarea.val(`sys -r dock-position left`);
 			// els.textarea.val(`sys -r dock-auto-show-hide`);
 			// els.textarea.val(`sys -r menubar-volume 30`);

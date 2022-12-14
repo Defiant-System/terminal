@@ -30,6 +30,9 @@ let Parser = {
 					descendant = memory[index];
 					indent = '';
 				} else if (!item.parent().hasClass("collapsed")) {
+					if (item.hasClass("html")) {
+						return console.log("handle 2");
+					}
 					group = item.next(".group:first");
 					isOn = group.hasClass("collapsed");
 					key = item.prevAll("u:first").text();
@@ -137,13 +140,15 @@ let Parser = {
 				case String:
 					value = item[key];
 					if (value.trim().startsWith("&lt;")) {
+						type = `html`;
 						value = value
 									.replace(/&lt;(\w+)?/g, "&lt;"+ "$1".name)
 									.replace(/&lt;\\(\w+)?/g, "&lt;"+ "\\"+ "$1".name)
 									.replace(/ (\w+?)(=)(&quot;)(.+?)(&quot;)/g, " "+ "$1".prop + "=".oper + "&quot;".quot + "$4".str + "&quot;".quot)
 									.replace(/&lt;/g, "&lt;".punc)
+									.replace(/\/&gt;/g, "\/&gt;".punc)
 									.replace(/&gt;/g, "&gt;".punc);
-						value = "&lt;".punc + " &#8230; ".str + "&gt;".punc;
+						value = `<em data-click="explore-item" class="html">&lt;html&#8230;&gt;</em>`;
 					}
 					// if (value.includes("\n")) {
 					// 	console.log("collapse", value);
@@ -154,8 +159,11 @@ let Parser = {
 					value = item[key];
 					break;
 			}
+
+			let clickable = ["object", "array", "html"].includes(type) ? `data-click="explore-item"` : "";
+
 			return isArray && collapsed ? `${indent}<em class="${type}">${value}</em>`
-							: `${indent}<u>${key}</u> <em data-click="explore-item" class="${type}">${value}</em>${sample}`;
+							: `${indent}<u>${key}</u> <em ${clickable} class="${type}">${value}</em>${sample}`;
 		}).filter(i => i);
 
 		if (item.constructor === Promise) {

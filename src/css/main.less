@@ -103,12 +103,12 @@ content {
 			&.underline { color: inherit; text-decoration: underline; }
 
 			// html highlighting
-			.punc { color: #777; }
-			.name { color: #e66; }
-			.prop { color: #b8b; }
-			.oper { color: #5bb; }
-			.quot { color: #777; }
-			.str { color: #8b8; }
+			.punc { color: #93b; }
+			.name { color: #b5f; }
+			.prop { color: #a4d; }
+			.oper { color: #66c; }
+			.quot { color: #aaa; }
+			.str { color: #88f; }
 
 			&.c1 { color: #0ff; }
 			&.c2 { color: #f4f; }
@@ -131,6 +131,7 @@ content {
 					cursor: default;
 				}
 			}
+
 			> em {
 				cursor: pointer;
 
@@ -145,13 +146,19 @@ content {
 		}
 
 		span {
-			cursor: text;
+			cursor: default;
 
 			&.group {
 				&.collapsed {
-					> em {
+					> em, em {
 						margin-right: 0;
-						cursor: text;
+						cursor: default;
+
+						&[data-click="explore-item"] {
+							cursor: default;
+
+							&:hover { text-decoration: none; }
+						}
 					}
 
 					&.function { display: none; }
@@ -178,11 +185,17 @@ content {
 		.string:after { content: '"'; opacity: 0.7; }
 		.status    { font-style: italic; }
 	}
+
 	em {
 		margin-right: 0.5em;
 		font-style: italic;
-		cursor: pointer;
 		color: #28d;
+
+		&[data-click="explore-item"] {
+			cursor: pointer;
+
+			&:hover { text-decoration: underline; }
+		}
 	}
 
 	b {
