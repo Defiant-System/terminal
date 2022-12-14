@@ -135,6 +135,20 @@ let Parser = {
 					value = value.toString().replace(/\(.+?\)/i, m => `(${m.slice(1,-1).replace(/\w+\s?/g, word => word.slice(0,1))})`);
 					break;
 				case String:
+					value = item[key];
+					if (value.trim().startsWith("&lt;")) {
+						value = value
+									.replace(/&lt;(\w+)?/g, "&lt;"+ "$1".name)
+									.replace(/&lt;\\(\w+)?/g, "&lt;"+ "\\"+ "$1".name)
+									.replace(/ (\w+?)(=)(&quot;)(.+?)(&quot;)/g, " "+ "$1".prop + "=".oper + "&quot;".quot + "$4".str + "&quot;".quot)
+									.replace(/&lt;/g, "&lt;".punc)
+									.replace(/&gt;/g, "&gt;".punc);
+						value = "&lt;".punc + " &#8230; ".str + "&gt;".punc;
+					}
+					// if (value.includes("\n")) {
+					// 	console.log("collapse", value);
+					// }
+					break;
 				case Number:
 				case Boolean:
 					value = item[key];
@@ -159,6 +173,15 @@ let Parser = {
 };
 
 // extending String object
+Object.defineProperties(String.prototype, {
+	punc: { get() {return `<b class="punc">${this}</b>`}, configurable: true },
+	name: { get() {return `<b class="name">${this}</b>`}, configurable: true },
+	prop: { get() {return `<b class="prop">${this}</b>`}, configurable: true },
+	oper: { get() {return `<b class="oper">${this}</b>`}, configurable: true },
+	quot: { get() {return `<b class="quot">${this}</b>`}, configurable: true },
+	str:  { get() {return `<b class="str">${this}</b>`}, configurable: true },
+});
+
 Object.defineProperties(String.prototype, {
 	feed:       { get() {return `<b class="feed">${this}</b>`}, configurable: true },
 	bold:       { get() {return `<b class="bold">${this}</b>`}, configurable: true },
