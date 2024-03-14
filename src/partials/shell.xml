@@ -16,6 +16,7 @@
 		<i name="FS.zip" alias="zip" arg="[target, src]" description="Compresses file(s)."/>
 
 		<i name="spawn.clear" alias="clear" arg="NONE" description="Clears output."/>
+		<i name="spawn.weather" alias="weather" arg="NONE" description="Shows weather forecast."/>
 		<i name="spawn.print" alias="echo" arg="[arg]" description="Prints string."/>
 		<i name="spawn.grep" alias="grep" arg="string" description="Filters piped data with given string."/>
 		<i name="spawn.help" alias="help" arg="NONE" description="Provides Help about shell commands."/>

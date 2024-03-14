@@ -326,6 +326,12 @@
 	print(sIn, aTab) {
 		let active = aTab || this.refActive;
 		let stdIn = Parser.format(sIn);
+		if (stdIn.constructor === Array) {
+			return stdIn.map((line, i) => {
+				let str = i === 0 ? line.output : line.default;
+				active.els.buffer.append(`<div>${str}</div>`);
+			});
+		}
 		let uiIn = active.els.buffer.append(`<div>${stdIn}</div>`);
 
 		if (stdIn.includes(' data-click="explore-item"') && stdIn.stripHtml().length + 17 > this.charWidth) {
@@ -349,6 +355,10 @@
 				return acc;
 			}, []);
 		return stdOut.join("<br>").declare;
+	},
+	async weather() {
+		let cmd = await karaqu.shell("user -w");
+		return cmd.result;
 	},
 	help() {
 		return this.more("terminal");

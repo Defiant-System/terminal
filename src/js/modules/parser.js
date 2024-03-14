@@ -66,6 +66,7 @@ let Parser = {
 	format(item) {
 		if (~[String, Number, Boolean].indexOf(item.constructor)) {
 			let str = item.toString();
+			if (str.match(/ \[([\d\w;]+)m(.*?)\[0m/mg)) return this.ansi(str);
 			return str === str.stripHtml() ? str.output : str.default;
 		}
 		let htm = [];
@@ -174,29 +175,114 @@ let Parser = {
 		}
 
 		return list;
-	}
+	},
+	ansi: (() => {
+		let iteration = 0;
+		let lines;
+		let result;
+		let open;
+
+		function parse(str) {
+			result = { lines: [""] };
+			// consume string
+			lines = str.split("\n");
+			eat(lines.shift());
+			// return result
+			return result.lines;
+		}
+
+		function eat(str) {
+			let match;
+			let l1, l2;
+			// count iterations - to exit before "stack overflow"
+			iteration++;
+
+			// check first charater in remaining
+			switch (str.charAt(0)) {
+				case "[":
+					match = str.match(/\[[\d;]+m?/);
+					if (match) {
+						let [a,b,c,d] = match[0].slice(1,-1).split(";");
+						switch (a) {
+							case "1":
+								if (open) done(`</b>`);
+								done(`<b class="a1">`);
+								open = true;
+								break;
+							case "0":
+								if (open) done(`</b>`);
+								open = false;
+								break;
+							case "38":
+								if (open) done(`</b>`);
+								done(`<b class="a${c}">`);
+								open = true;
+								break;
+						}
+						l1 = match[0].length;
+						str = str.slice(l1);
+					}
+					break;
+				default:
+					// Individual words
+					match = str.match(/.+?(\[|$)/);
+					if (match) {
+						l1 = match[0].length;
+						if (match[0].slice(-1) === "[") l1--;
+						l2 = match[0].slice(-2) === " [" ? l1-1 : l1;
+						done(str.slice(0, l2));
+						str = str.slice(l1);
+					}
+			}
+
+			if (iteration > 64) {
+				return console.log( "stack overflow" );
+			}
+
+			if (!str.length) {
+				iteration = 0; // reset iterations
+				if (open) done(`</b>`);
+				result.lines.push("");
+			} else {
+				return eat(str);
+			}
+
+			if (lines.length) {
+				iteration = 0; // reset iterations
+				if (open) done(`</b>`);
+				eat(lines.shift());
+			}
+		}
+
+		function done(str) {
+			result.lines[result.lines.length-1] += str;
+		}
+
+		return parse;
+	})()
 };
+
 
 // extending String object
 Object.defineProperties(String.prototype, {
-	punc: { get() {return `<b class="punc">${this}</b>`}, configurable: true },
-	name: { get() {return `<b class="name">${this}</b>`}, configurable: true },
-	prop: { get() {return `<b class="prop">${this}</b>`}, configurable: true },
-	oper: { get() {return `<b class="oper">${this}</b>`}, configurable: true },
-	quot: { get() {return `<b class="quot">${this}</b>`}, configurable: true },
-	str:  { get() {return `<b class="str">${this}</b>`}, configurable: true },
+	punc: { get() { return `<b class="punc">${this}</b>`; }, configurable: true },
+	name: { get() { return `<b class="name">${this}</b>`; }, configurable: true },
+	prop: { get() { return `<b class="prop">${this}</b>`; }, configurable: true },
+	oper: { get() { return `<b class="oper">${this}</b>`; }, configurable: true },
+	quot: { get() { return `<b class="quot">${this}</b>`; }, configurable: true },
+	str:  { get() { return `<b class="str">${this}</b>`; }, configurable: true },
 });
 
 Object.defineProperties(String.prototype, {
-	feed:       { get() {return `<b class="feed">${this}</b>`}, configurable: true },
-	bold:       { get() {return `<b class="bold">${this}</b>`}, configurable: true },
-	italic:     { get() {return `<b class="italic">${this}</b>`}, configurable: true },
-	underline:  { get() {return `<b class="underline">${this}</b>`}, configurable: true },
-	declare:    { get() {return `<b class="declare">${this}</b>`}, configurable: true },
-	default:    { get() {return `<b class="default">${this}</b>`}, configurable: true },
-	err:        { get() {return `<b><span class="ticon terminal-output"></span></b><b class="error">${this}</b>`}, configurable: true },
-	output:     { get() {return `<b><span class="ticon terminal-output"></span></b><b class="output">${this}</b>`}, configurable: true },
-	withPrompt: { get() {return `<i>def:<span class="ticon terminal-input"></span></i><b>${this}</b>`}, configurable: true },
+	feed:       { get() { return `<b class="feed">${this}</b>`; }, configurable: true },
+	bold:       { get() { return `<b class="bold">${this}</b>`; }, configurable: true },
+	italic:     { get() { return `<b class="italic">${this}</b>`; }, configurable: true },
+	underline:  { get() { return `<b class="underline">${this}</b>`; }, configurable: true },
+	declare:    { get() { return `<b class="declare">${this}</b>`; }, configurable: true },
+	default:    { get() { return `<b class="default">${this}</b>`; }, configurable: true },
+	err:        { get() { return `<b><span class="ticon terminal-output"></span></b><b class="error">${this}</b>`; }, configurable: true },
+	output:     { get() { return `<b><span class="ticon terminal-output"></span></b><b class="output">${this}</b>`; }, configurable: true },
+	withPrompt: { get() { return `<i>def:<span class="ticon terminal-input"></span></i><b>${this}</b>`; }, configurable: true },
 });
 
 export default Parser;
