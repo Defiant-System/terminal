@@ -1,7 +1,7 @@
 
 let Test = {
 	init(spawn) {
-			// return;
+			return;
 		// setTimeout(() => spawn.el.trigger("mousedown"), 200);
 		setTimeout(() => {
 			// return;
