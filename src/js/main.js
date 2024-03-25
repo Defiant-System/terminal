@@ -52,9 +52,14 @@ const terminal = {
 				break;
 			case "window.close":
 				let active = Self.spawn.refActive;
+				if (!active) return;
 				// save changes to settings
 				window.settings.setItem("default-cwd", active.cwd);
 				window.settings.setItem("bg-user-interface", active.bgUI);
+				break;
+			case "open.file":
+				spawn = window.open("spawn");
+				Self.spawn.dispatch({ ...event, spawn });
 				break;
 		}
 	},

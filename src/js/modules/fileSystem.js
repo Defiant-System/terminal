@@ -7,6 +7,7 @@ const FS = {
 		return cwd.declare;
 	},
 	set cwd(path) {
+		if (path.startsWith("/fs/")) path = "~"+ path.slice(3);
 		cwd = path;
 	},
 	async suggest(stdIn) {

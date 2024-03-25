@@ -19,6 +19,7 @@ backdrop-filter: blur(8px);
 			--color-1: @fgcolor;
 			--color-2: transparent;
 		}
+		
 		.cursor-blink {
 			animation: cursorBlink 600ms infinite alternate;
 		}
@@ -234,7 +235,7 @@ content {
 		vertical-align: middle;
 
 		&.terminal-output { background-image: url(~/icons/output.png); }
-		&.terminal-input { background-image: url(~/icons/input.png); }
+		&.terminal-input { background-image: url(~/icons/input.png); background-position: -1px 0px; }
 		&.offline { background-image: url(~/icons/offline.png); }
 		&.online { background-image: url(~/icons/online.png); }
 	}
@@ -250,6 +251,7 @@ content {
 
 		.cursor {
 			position: relative;
+			top: 1px;
 			z-index: 2;
 			--color-1: transparent;
 			--color-2: darken(@fgcolor, 13%);

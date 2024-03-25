@@ -115,6 +115,7 @@ class Tabs {
 			this._active.bodyEl.addClass("hidden");
 		}
 		let active = tId ? this._stack[tId] : this._active;
+		if (!active) return console.log("error", tId);
 		// reference to active tab
 		this._active = active;
 		// update reference "terminal.spawn.refActive"

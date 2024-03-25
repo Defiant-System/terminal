@@ -32,7 +32,7 @@
 			value,
 			file,
 			el;
-		// console.log(event.type);
+		// console.log(event);
 		switch (event.type) {
 			// system events
 			case "spawn.open":
@@ -50,7 +50,7 @@
 				// DEV-ONLY-END
 				break;
 			case "open.file":
-				(event.files || [event]).map(file => {
+				event.files.map(file => {
 					// auto add first base "tab"
 					Self.dispatch({ ...event, file, type: "tab.new" });
 				});
@@ -70,6 +70,7 @@
 			case "tab.new":
 				value = window.settings.getItem("default-cwd") || "~/";
 				file = event.file || new karaqu.File({ path: value });
+				if (typeof file === "string") file = new karaqu.File({ path: file });
 				Spawn.data.tabs.add(file);
 				// save reference to active "tab"
 				Self.refActive = Spawn.data.tabs._active;
