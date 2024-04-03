@@ -29,7 +29,7 @@
 	<Menu name="Help">
 		<Menu name="How To&#8230;" click="open-help"/>
 		<Menu type="divider"/>
-		<Menu name="Source Code"/>
+		<Menu name="License" shell="win -al"/>
 	</Menu>
 	
 	<Menu for="output">
