@@ -239,6 +239,13 @@
 	<xsl:variable name="col2"><xsl:call-template name="max-width"><xsl:with-param name="attribute" select="'id'" /><xsl:with-param name="pad" select="5" /></xsl:call-template></xsl:variable>
 	<xsl:variable name="col3"><xsl:call-template name="max-width"><xsl:with-param name="attribute" select="'name'" /><xsl:with-param name="pad" select="3" /></xsl:call-template></xsl:variable>
 	
+	<xsl:if test="count(./*) &lt; 1">
+		<b class="default">
+			<b><span class="ticon terminal-output"></span></b>
+			<b class="error">No Friends Yet</b>
+		</b>
+	</xsl:if>
+
 	<b class="c3">
 		<xsl:text>   </xsl:text>
 		<xsl:call-template name="slice-string">
