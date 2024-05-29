@@ -315,6 +315,9 @@
 				ACTIVE.els.stdIn.html(stdIn);
 				Self.dispatch({...event, target, type: "update-caret-position"});
 				break;
+			case "net.receive":
+				Self.print(`${"from".output} ${(event.fromName || event.from).name}: ${event.message.declare}`);
+				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;

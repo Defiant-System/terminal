@@ -61,6 +61,10 @@ const terminal = {
 				spawn = window.open("spawn");
 				Self.spawn.dispatch({ ...event, spawn });
 				break;
+			case "net.receive":
+				spawn = Self.spawn.refActive;
+				Self.spawn.dispatch({ ...event, spawn });
+				break;
 		}
 	},
 	spawn: @import "./modules/spawn.js",
