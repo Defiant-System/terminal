@@ -62,6 +62,7 @@ const terminal = {
 				Self.spawn.dispatch({ ...event, spawn });
 				break;
 			case "net.receive":
+				if (event.from === karaqu.user.username) return; // do nothing if "me" sent the message
 				spawn = Self.spawn.refActive;
 				Self.spawn.dispatch({ ...event, spawn });
 				break;
