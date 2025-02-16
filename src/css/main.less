@@ -102,6 +102,14 @@ content {
 			&.bold { color: inherit; font-weight: 600; }
 			&.italic { color: darken(@declare, 19%); font-style: italic; }
 			&.underline { color: inherit; text-decoration: underline; }
+			&.loading {
+				svg {
+					position: relative;
+					top: 1px;
+					width: 12px;
+					height: 17px;
+				}
+			}
 
 			// html highlighting
 			.punc { color: #93b; }
@@ -263,7 +271,7 @@ content {
 			}
 
 			&.loading {
-				svg:nth-child(1) { display: initial; }
+				svg:nth-child(1) { display: initial; width: 12px; height: 17px; }
 				svg:nth-child(2) { display: none; }
 				svg:nth-child(3) { display: none; }
 			}

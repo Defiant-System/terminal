@@ -361,7 +361,11 @@
 		return stdOut.join("<br>").declare;
 	},
 	async weather() {
+		let uiIn = this.refActive.els.buffer.append(`<div>${"".loading}</div>`);
 		let cmd = await karaqu.shell("user -w");
+		// remove "loading line"
+		uiIn.remove();
+		// return result for stdOut
 		return cmd.result;
 	},
 	help() {

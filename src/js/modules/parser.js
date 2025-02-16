@@ -282,6 +282,7 @@ Object.defineProperties(String.prototype, {
 	default:    { get() { return `<b class="default">${this}</b>`; }, configurable: true },
 	err:        { get() { return `<b><span class="ticon terminal-output"></span></b><b class="error">${this}</b>`; }, configurable: true },
 	output:     { get() { return `<b><span class="ticon terminal-output"></span></b><b class="output">${this}</b>`; }, configurable: true },
+	loading:    { get() { return `<b><span class="ticon terminal-output"></span></b><b class="loading"><svg><use href="#terminal-cursor-loading"/></svg></b>`; }, configurable: true },
 	withPrompt: { get() { return `<i>def:<span class="ticon terminal-input"></span></i><b>${this}</b>`; }, configurable: true },
 });
 
