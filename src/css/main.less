@@ -97,6 +97,7 @@ content {
 			--color-1: darken(@fgcolor, 17%);
 
 			&.declare { color: @declare; }
+			&.email { color: @declare; }
 			&.error { color: @errColor; }
 			&.feed { color: darken(@fgcolor, 17%); }
 			&.bold { color: inherit; font-weight: 600; }
@@ -133,6 +134,8 @@ content {
 			&.c1 { color: #0ff; }
 			&.c2 { color: #f4f; }
 			&.c3 { color: #e5e500; }
+			&.c4 { color: #fff; }
+
 
 			> .ticon {
 				margin-right: 0.15em;
@@ -163,6 +166,26 @@ content {
 			color: #777;
 
 			&:after { content: ":"; color: #aaa; }
+		}
+
+		.email {
+			.c4 {
+				vertical-align: top;
+			}
+
+			span {
+				&.mail {
+					&.collapsed {
+						height: 4em;
+						display: inline-block;
+						overflow: hidden;
+					}
+				}
+			}
+
+			em[data-click="explore-mail"] {
+				// display: inline-block;
+			}
 		}
 
 		span {

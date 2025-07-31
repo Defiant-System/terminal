@@ -16,7 +16,8 @@ let Test = {
 			// els.textarea.val(`pwd`);
 			
 			// els.textarea.val(`mail`);
-			els.textarea.val(`mail -l 2001`);
+			// els.textarea.val(`mail -l 2001`);
+			els.textarea.val(`mail -o 1753987109475`);
 
 			// els.textarea.val(`weather`);
 			// els.textarea.val(`user -w`);

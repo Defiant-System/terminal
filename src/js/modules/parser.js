@@ -279,6 +279,7 @@ Object.defineProperties(String.prototype, {
 	italic:     { get() { return `<b class="italic">${this}</b>`; }, configurable: true },
 	underline:  { get() { return `<b class="underline">${this}</b>`; }, configurable: true },
 	declare:    { get() { return `<b class="declare">${this}</b>`; }, configurable: true },
+	email:      { get() { return `<b class="email">${this}</b>`; }, configurable: true },
 	default:    { get() { return `<b class="default">${this}</b>`; }, configurable: true },
 	err:        { get() { return `<b><span class="ticon terminal-output"></span></b><b class="error">${this}</b>`; }, configurable: true },
 	output:     { get() { return `<b><span class="ticon terminal-output"></span></b><b class="output">${this}</b>`; }, configurable: true },

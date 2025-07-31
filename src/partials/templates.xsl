@@ -15,9 +15,9 @@
 
 
 <xsl:template name="mail-folder">
-	<xsl:text>10 messages</xsl:text>
-	<xsl:text>, 4 new</xsl:text>
-	<xsl:text>, 17 total</xsl:text>
+	<b class="c4">10 messages</b>, 
+	<b class="c4">4 new</b>, 
+	<b class="c4">17 total</b>
 	<br/>
 	<xsl:text>1753987109462  2025-07-31   Sto Akron           Re: Help With Tree Selection</xsl:text><br/>
 	<xsl:text>1753987109463  2025-07-31   Ben Greene          Help With Tree Selection</xsl:text><br/>
@@ -36,7 +36,14 @@
 
 
 <xsl:template name="mail-email">
-	<xsl:text>email</xsl:text>
+	<b class="c4">id:         </b><xsl:value-of select="@id"/><br/>
+	<b class="c4">date:       </b><xsl:value-of select="i/@date"/><br/>
+	<b class="c4">from:       </b><xsl:value-of select="i/@fr"/> &lt;<xsl:value-of select="i/@fr_mail"/>&gt;<br/>
+	<b class="c4">attachment: </b>[file-1.jpg, file-2.zip]<br/>
+	<b class="c4">subject:    </b><xsl:value-of select="i/@sub"/><br/>
+	<b class="c4">message:    </b><span class="mail collapsed"><xsl:value-of select="i/text/text()"/></span><br/>
+	<xsl:text>            </xsl:text><em data-click="explore-mail">Show more</em>
+	<br/>
 </xsl:template>
 
 
