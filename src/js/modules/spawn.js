@@ -46,7 +46,7 @@
 				Spawn.data.tabs = new Tabs(Self, Spawn);
 				
 				// DEV-ONLY-START
-				Test.init(Spawn);
+				Test.init(Spawn, APP);
 				// DEV-ONLY-END
 				break;
 			case "open.file":
@@ -176,6 +176,13 @@
 								// append error string to output
 								Self.print(command.error.err, ACTIVE);
 							} else if (command.result) {
+								if (command.result.constructor === Promise) {
+									let uiIn = Self.refActive.els.buffer.append(`<div>${"".loading}</div>`);
+									let pResult = await command.result;
+									command.result = command.command.startsWith("mail ") ? Mail.handle(pResult) : pResult;
+									// remove "loading line"
+									uiIn.remove();
+								}
 								// command returned success
 								Self.print(command.result, ACTIVE);
 							}

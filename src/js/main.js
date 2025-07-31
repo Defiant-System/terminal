@@ -2,6 +2,7 @@
 @import "./classes/tabs.js"
 @import "./classes/history.js"
 @import "./modules/fileSystem.js"
+@import "./modules/mail.js"
 @import "./modules/test.js"
 
 import Parser from "./modules/parser"

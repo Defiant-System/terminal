@@ -1,5 +1,20 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<xsl:template name="mail-summary">
+	<xsl:text>summary</xsl:text>
+</xsl:template>
+
+
+<xsl:template name="mail-listing">
+	<xsl:text>mail</xsl:text>
+</xsl:template>
+
+
+<xsl:template name="mail-email">
+	<xsl:text>email</xsl:text>
+</xsl:template>
+
+
 <xsl:template name="directory-listing">
 	<xsl:text>total </xsl:text>
 	<xsl:call-template name="sys:file-size">

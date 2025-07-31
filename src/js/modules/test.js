@@ -1,12 +1,12 @@
 
 let Test = {
-	init(spawn) {
-		
+	init(spawn, APP) {
+
 		// setTimeout(() => {
 		// 	spawn.find(".cursor").addClass("loading");
 		// }, 500);
 
-		return;
+		// return;
 		
 		// setTimeout(() => spawn.el.trigger("mousedown"), 200);
 		setTimeout(() => {
@@ -14,7 +14,8 @@ let Test = {
 			let els = spawn.data.tabs._active.els;
 
 			// els.textarea.val(`pwd`);
-			els.textarea.val(`weather`);
+			els.textarea.val(`mail -l`);
+			// els.textarea.val(`weather`);
 			// els.textarea.val(`user -w`);
 			// els.textarea.val(`sys -rl`);
 			// els.textarea.val(`sys -rl i18n`);
