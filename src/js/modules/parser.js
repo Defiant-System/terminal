@@ -18,7 +18,12 @@ let Parser = {
 			indent,
 			isOn,
 			htm;
+		// console.log(event);
 		switch (event.type) {
+			case "show-mail":
+				event.el.prevAll(".mail.collapsed").removeClass("collapsed");
+				event.el.remove();
+				break;
 			case "explore-item":
 				item = $(event.target);
 				if (item.parent().hasClass("output")) {

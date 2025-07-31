@@ -19,19 +19,36 @@
 	<b class="c4">4 new</b>, 
 	<b class="c4">17 total</b>
 	<br/>
-	<xsl:text>1753987109462  2025-07-31   Sto Akron           Re: Help With Tree Selection</xsl:text><br/>
-	<xsl:text>1753987109463  2025-07-31   Ben Greene          Help With Tree Selection</xsl:text><br/>
-	<xsl:text>1753987109464  2025-07-31   Daniel Hellerman    What type of butterfly is this on my flowers</xsl:text><br/>
-	<xsl:text>1753987109465  2025-07-31   Sonny Fazio         Upcoming Newsletter Feature Image</xsl:text><br/>
-	<xsl:text>1753987109466  2025-07-31   Luca De Baptistis   Requesting Information</xsl:text><br/>
-	<xsl:text>1753987109467  2025-07-31   Ben Greene          Schedule for NYC</xsl:text><br/>
-	<xsl:text>1753987109468  2025-07-31   Ben Greene          Re: Help With Tree Selection</xsl:text><br/>
-	<xsl:text>1753987109469  2025-07-31   Sto Akron           Re: Help With Tree Selection</xsl:text><br/>
-	<xsl:text>1753987109470  2025-07-31   Ben Greene          Help With Tree Selection</xsl:text><br/>
-	<xsl:text>1753987109471  2025-07-31   Daniel Hellerman    What type of butterfly is this on my flowers</xsl:text><br/>
-	<xsl:text>1753987109472  2025-07-31   Sonny Fazio         Upcoming Newsletter Feature Image</xsl:text><br/>
-	<xsl:text>1753987109473  2025-07-31   Luca De Baptistis   Requesting Information</xsl:text><br/>
-	<xsl:text>1753987109474  2025-07-31   Ben Greene          Schedule for NYC</xsl:text><br/>
+	<xsl:for-each select="./*">
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat(@id, $white-space)" />
+			<xsl:with-param name="len" select="14" />
+		</xsl:call-template>
+
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="substring-after(@mDate, ' ')" />
+			<xsl:with-param name="len" select="3" />
+		</xsl:call-template>
+
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat($white-space, substring-before(@mDate, ' '))" />
+			<xsl:with-param name="len" select="-1" />
+		</xsl:call-template>
+
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat(@fr, $white-space)" />
+			<xsl:with-param name="len" select="15" />
+		</xsl:call-template>
+
+		<xsl:text>  </xsl:text>
+
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat(@sub, $white-space)" />
+			<xsl:with-param name="len" select="44" />
+		</xsl:call-template>
+
+		<br/>
+	</xsl:for-each>
 </xsl:template>
 
 
@@ -42,8 +59,7 @@
 	<b class="c4">attachment: </b>[file-1.jpg, file-2.zip]<br/>
 	<b class="c4">subject:    </b><xsl:value-of select="i/@sub"/><br/>
 	<b class="c4">message:    </b><span class="mail collapsed"><xsl:value-of select="i/text/text()"/></span><br/>
-	<xsl:text>            </xsl:text><em data-click="explore-mail">Show more</em>
-	<br/>
+	<xsl:text>            </xsl:text><em data-click="show-mail">Show more<br/></em>
 </xsl:template>
 
 

@@ -280,6 +280,7 @@
 				value = `rgba(${Colors[ACTIVE.bgUI.color]},${ACTIVE.bgUI.opacity})`;
 				Self.winBody.css({ "background-color": value });
 				break;
+			case "show-mail":
 			case "explore-item":
 				// save reference to active "tab"
 				Self.refActive = Spawn.data.tabs._active;
