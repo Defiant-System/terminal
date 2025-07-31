@@ -23,6 +23,7 @@ const terminal = {
 	init() {
 		// helps terminal find Filesystem
 		this.FS = FS;
+		// this.Mail = Mail;
 
 		// init all sub-objects
 		Object.keys(this)

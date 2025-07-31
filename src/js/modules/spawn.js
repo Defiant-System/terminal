@@ -148,6 +148,10 @@
 							if (index > 0 && index < ACTIVE.history.length) stdIn = ACTIVE.history.get(index);
 						}
 
+						if (stdIn === "mail") {
+							stdIn = "mail -i";
+						}
+
 						// add history log
 						if (stdIn && stdIn !== ACTIVE.history.get[ACTIVE.history.length - 1]) {
 							ACTIVE.history.push(stdIn);

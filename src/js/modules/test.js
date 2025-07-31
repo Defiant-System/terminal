@@ -14,7 +14,10 @@ let Test = {
 			let els = spawn.data.tabs._active.els;
 
 			// els.textarea.val(`pwd`);
-			els.textarea.val(`mail -l`);
+			
+			// els.textarea.val(`mail`);
+			els.textarea.val(`mail -l 2001`);
+
 			// els.textarea.val(`weather`);
 			// els.textarea.val(`user -w`);
 			// els.textarea.val(`sys -rl`);

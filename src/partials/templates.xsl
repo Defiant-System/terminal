@@ -1,12 +1,37 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template name="mail-summary">
-	<xsl:text>summary</xsl:text>
+	<b class="c3">ID    </b>
+	<b class="c3">FOLDER     </b>
+	<b class="c3">UNREAD  </b>
+	<b class="c3">TOTAL</b>
+	<br/>
+	<xsl:text>2001  inbox      2       6</xsl:text><br/>
+	<xsl:text>2002  drafts     0       4</xsl:text><br/>
+	<xsl:text>2003  junk       0       0</xsl:text><br/>
+	<xsl:text>2004  sent       0       2</xsl:text><br/>
+	<xsl:text>2005  deleted    0       2</xsl:text><br/>
 </xsl:template>
 
 
-<xsl:template name="mail-listing">
-	<xsl:text>mail</xsl:text>
+<xsl:template name="mail-folder">
+	<xsl:text>10 messages</xsl:text>
+	<xsl:text>, 4 new</xsl:text>
+	<xsl:text>, 17 total</xsl:text>
+	<br/>
+	<xsl:text>1753987109462  2025-07-31   Sto Akron           Re: Help With Tree Selection</xsl:text><br/>
+	<xsl:text>1753987109463  2025-07-31   Ben Greene          Help With Tree Selection</xsl:text><br/>
+	<xsl:text>1753987109464  2025-07-31   Daniel Hellerman    What type of butterfly is this on my flowers</xsl:text><br/>
+	<xsl:text>1753987109465  2025-07-31   Sonny Fazio         Upcoming Newsletter Feature Image</xsl:text><br/>
+	<xsl:text>1753987109466  2025-07-31   Luca De Baptistis   Requesting Information</xsl:text><br/>
+	<xsl:text>1753987109467  2025-07-31   Ben Greene          Schedule for NYC</xsl:text><br/>
+	<xsl:text>1753987109468  2025-07-31   Ben Greene          Re: Help With Tree Selection</xsl:text><br/>
+	<xsl:text>1753987109469  2025-07-31   Sto Akron           Re: Help With Tree Selection</xsl:text><br/>
+	<xsl:text>1753987109470  2025-07-31   Ben Greene          Help With Tree Selection</xsl:text><br/>
+	<xsl:text>1753987109471  2025-07-31   Daniel Hellerman    What type of butterfly is this on my flowers</xsl:text><br/>
+	<xsl:text>1753987109472  2025-07-31   Sonny Fazio         Upcoming Newsletter Feature Image</xsl:text><br/>
+	<xsl:text>1753987109473  2025-07-31   Luca De Baptistis   Requesting Information</xsl:text><br/>
+	<xsl:text>1753987109474  2025-07-31   Ben Greene          Schedule for NYC</xsl:text><br/>
 </xsl:template>
 
 
