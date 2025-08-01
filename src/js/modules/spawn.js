@@ -2,10 +2,8 @@
 // terminal.spawn
 
 {
-	async init() {
-		// prepare about string
-		let cmd = await karaqu.shell("sys -b");
-		this.infoStr = `${cmd.result.name} Shell [v${cmd.result.version}] ${cmd.result.author} &copy; 2019-`+ (new Date).getFullYear();
+	init() {
+		// anything to do?
 	},
 	dispose(event) {
 		let Spawn = event.spawn;
@@ -74,7 +72,7 @@
 				Spawn.data.tabs.add(file);
 				// save reference to active "tab"
 				Self.refActive = Spawn.data.tabs._active;
-				// version and copyright 
+				// version and copyright
 				Self.about();
 				break;
 			case "tab.clicked":
@@ -398,7 +396,13 @@
 		return htm.declare;
 	},
 	about() {
-		this.print(this.infoStr.declare);
+		karaqu.shell("sys -b").then(cmd => {
+			// prepare about string
+			let infoStr = `${cmd.result.name} Shell [v${cmd.result.version}] ${cmd.result.author} &copy; 2019-`+ (new Date).getFullYear();
+			this.print(infoStr.declare);
+			// notify about unread mail, if any
+			if (cmd.result.mail) this.print(`You have ${cmd.result.mail.toString().bold} unread mail`.declare);
+		});
 	},
 	exit() {
 		this.dispatch({ type: "close-tab", spawn: this.refSpawn });
