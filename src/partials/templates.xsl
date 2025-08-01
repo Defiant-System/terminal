@@ -6,23 +6,52 @@
 	<b class="c3">UNREAD  </b>
 	<b class="c3">TOTAL</b>
 	<br/>
-	<xsl:text>2001  inbox      2       6</xsl:text><br/>
-	<xsl:text>2002  drafts     0       4</xsl:text><br/>
-	<xsl:text>2003  junk       0       0</xsl:text><br/>
-	<xsl:text>2004  sent       0       2</xsl:text><br/>
-	<xsl:text>2005  deleted    0       2</xsl:text><br/>
+	<xsl:for-each select="./*">
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat(@id, $white-space)" />
+			<xsl:with-param name="len" select="5" />
+		</xsl:call-template>
+
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat(@name, $white-space)" />
+			<xsl:with-param name="len" select="9" />
+		</xsl:call-template>
+
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat($white-space, @unr)" />
+			<xsl:with-param name="len" select="-6" />
+		</xsl:call-template>
+
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat($white-space, @tot)" />
+			<xsl:with-param name="len" select="-5" />
+		</xsl:call-template>
+		<br/>
+	</xsl:for-each>
 </xsl:template>
 
 
 <xsl:template name="mail-folder">
-	<b class="c4">10 messages</b>, 
-	<b class="c4">4 new</b>, 
-	<b class="c4">17 total</b>
+	<b class="c3">ID             </b>
+	<b class="c3">   SIZE </b>
+	<b class="c3">DATE   </b>
+	<b class="c3">FROM              </b>
+	<b class="c3">SUBJECT</b>
 	<br/>
 	<xsl:for-each select="./*">
 		<xsl:call-template name="slice-string">
 			<xsl:with-param name="str" select="concat(@id, $white-space)" />
-			<xsl:with-param name="len" select="14" />
+			<xsl:with-param name="len" select="13" />
+		</xsl:call-template>
+	
+		<xsl:choose>
+			<xsl:when test="@is_re = '1'"><xsl:text> </xsl:text></xsl:when>
+			<xsl:otherwise><xsl:text>*</xsl:text></xsl:otherwise>
+		</xsl:choose>
+
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat($white-space, @size)" />
+			<xsl:with-param name="len" select="-6" />
 		</xsl:call-template>
 
 		<xsl:call-template name="slice-string">
@@ -49,6 +78,10 @@
 
 		<br/>
 	</xsl:for-each>
+
+	<b class="a046">10 messages, </b>
+	<b class="a046">4 new, </b>
+	<b class="a046">17 total</b>
 </xsl:template>
 
 
