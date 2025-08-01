@@ -21,8 +21,8 @@ let Parser = {
 		// console.log(event);
 		switch (event.type) {
 			case "show-mail":
-				event.el.prevAll(".mail.collapsed").removeClass("collapsed");
-				event.el.remove();
+				event.el.parent().prevAll(".mail.collapsed").removeClass("collapsed");
+				event.el.parent().remove();
 				break;
 			case "explore-item":
 				item = $(event.target);

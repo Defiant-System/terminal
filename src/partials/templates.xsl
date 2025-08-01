@@ -79,20 +79,20 @@
 		<br/>
 	</xsl:for-each>
 
-	<b class="a046">10 messages, </b>
-	<b class="a046">4 new, </b>
-	<b class="a046">17 total</b>
+	<b class="a046"><xsl:value-of select="count(./*)"/> messages, </b>
+	<b class="a046"><xsl:value-of select="@unread"/> new, </b>
+	<b class="a046"><xsl:value-of select="@total"/> total</b>
 </xsl:template>
 
 
 <xsl:template name="mail-email">
-	<b class="c4">id:         </b><xsl:value-of select="@id"/><br/>
-	<b class="c4">date:       </b><xsl:value-of select="i/@date"/><br/>
-	<b class="c4">from:       </b><xsl:value-of select="i/@fr"/> &lt;<xsl:value-of select="i/@fr_mail"/>&gt;<br/>
-	<b class="c4">attachment: </b>[file-1.jpg, file-2.zip]<br/>
-	<b class="c4">subject:    </b><xsl:value-of select="i/@sub"/><br/>
-	<b class="c4">message:    </b><span class="mail collapsed"><xsl:value-of select="i/text/text()"/></span><br/>
-	<xsl:text>            </xsl:text><em data-click="show-mail">Show more<br/></em>
+	<b class="a046">id:         </b><xsl:value-of select="@id"/><br/>
+	<b class="a046">date:       </b><xsl:value-of select="i/@date"/><br/>
+	<b class="a046">from:       </b><xsl:value-of select="i/@fr"/> &lt;<xsl:value-of select="i/@fr_mail"/>&gt;<br/>
+	<b class="a046">attachment: </b>[file-1.jpg, file-2.zip]<br/>
+	<b class="a046">subject:    </b><xsl:value-of select="i/@sub"/><br/>
+	<b class="a046">message:    </b><span class="mail collapsed"><xsl:value-of select="i/text/text()"/></span>
+	<span class="more"><xsl:text>            </xsl:text><em data-click="show-mail">Show more<br/></em></span>
 </xsl:template>
 
 
