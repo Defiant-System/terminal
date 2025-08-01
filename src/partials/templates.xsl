@@ -1,5 +1,14 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<xsl:template name="mail-envelope">
+	Mail sent to <xsl:value-of select="i/@to"/>
+	<xsl:text> </xsl:text>
+	<b class="a046">&lt;<xsl:value-of select="i/@to_mail"/>&gt;</b>
+	<xsl:text>, </xsl:text>
+	<xsl:value-of select="i/@mLong"/>
+</xsl:template>
+
+
 <xsl:template name="mail-summary">
 	<b class="c3">ID    </b>
 	<b class="c3">FOLDER     </b>
