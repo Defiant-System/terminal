@@ -10,10 +10,10 @@
 
 
 <xsl:template name="mail-summary">
-	<b class="c3">ID    </b>
-	<b class="c3">FOLDER     </b>
+	<b class="c3">ID   </b>
 	<b class="c3">UNREAD  </b>
-	<b class="c3">TOTAL</b>
+	<b class="c3">TOTAL  </b>
+	<b class="c3">FOLDER</b>
 	<br/>
 	<xsl:for-each select="./*">
 		<xsl:call-template name="slice-string">
@@ -22,18 +22,18 @@
 		</xsl:call-template>
 
 		<xsl:call-template name="slice-string">
-			<xsl:with-param name="str" select="concat(@name, $white-space)" />
-			<xsl:with-param name="len" select="9" />
-		</xsl:call-template>
-
-		<xsl:call-template name="slice-string">
 			<xsl:with-param name="str" select="concat($white-space, @unr)" />
-			<xsl:with-param name="len" select="-6" />
+			<xsl:with-param name="len" select="-4" />
 		</xsl:call-template>
 
 		<xsl:call-template name="slice-string">
 			<xsl:with-param name="str" select="concat($white-space, @tot)" />
 			<xsl:with-param name="len" select="-5" />
+		</xsl:call-template>
+
+		<xsl:call-template name="slice-string">
+			<xsl:with-param name="str" select="concat(' ', @name, $white-space)" />
+			<xsl:with-param name="len" select="9" />
 		</xsl:call-template>
 		<br/>
 	</xsl:for-each>
