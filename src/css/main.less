@@ -135,6 +135,13 @@ content {
 			&.c2 { color: #f4f; }
 			&.c3 { color: #e5e500; }
 			&.c4 { color: #fff; }
+			&.c5 {
+				color: @declare;
+				user-select: text;
+				transition: color 200ms;
+
+				&.copied { color: #fff; }
+			}
 
 			> .ticon {
 				margin-right: 0.15em;

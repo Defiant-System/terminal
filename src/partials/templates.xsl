@@ -48,11 +48,11 @@
 	<b class="c3">SUBJECT</b>
 	<br/>
 	<xsl:for-each select="./*">
-		<xsl:call-template name="slice-string">
+		<b class="c5"><xsl:call-template name="slice-string">
 			<xsl:with-param name="str" select="concat(@id, $white-space)" />
 			<xsl:with-param name="len" select="13" />
-		</xsl:call-template>
-	
+		</xsl:call-template></b>
+
 		<xsl:choose>
 			<xsl:when test="@is_re = '1'"><xsl:text> </xsl:text></xsl:when>
 			<xsl:otherwise><xsl:text>*</xsl:text></xsl:otherwise>

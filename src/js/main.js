@@ -44,6 +44,7 @@ const terminal = {
 		// proxy spawn events
 		if (event.spawn) return Self.spawn.dispatch(event);
 		
+		// console.log(event);
 		switch (event.type) {
 			// system events
 			case "new-spawn":

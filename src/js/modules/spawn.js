@@ -262,6 +262,15 @@
 				Self.scrollIntoView(ACTIVE);
 				break;
 			// custom events
+			case "make-selection":
+				el = $(event.target);
+				if (el.css("user-select") === "text") {
+					// copy text to clipboard
+					navigator.clipboard.writeText(el.text().trim());
+					// flash element
+					el.cssSequence("copied", "transitionend", el => el.removeClass("copied"));
+				}
+				break;
 			case "change-opacity":
 				ACTIVE = Spawn.data.tabs._active;
 				// save opacity
