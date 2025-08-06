@@ -74,14 +74,14 @@
 		</xsl:call-template>
 
 		<xsl:call-template name="slice-string">
-			<xsl:with-param name="str" select="concat(@fr, $white-space)" />
+			<xsl:with-param name="str" select="concat(./from/i[1]/@name, $white-space)" />
 			<xsl:with-param name="len" select="15" />
 		</xsl:call-template>
 
 		<xsl:text>  </xsl:text>
 
 		<xsl:call-template name="slice-string">
-			<xsl:with-param name="str" select="concat(@sub, $white-space)" />
+			<xsl:with-param name="str" select="concat(subject/text(), $white-space)" />
 			<xsl:with-param name="len" select="44" />
 		</xsl:call-template>
 
@@ -97,11 +97,22 @@
 <xsl:template name="mail-email">
 	<b class="a046">id:         </b><xsl:value-of select="@id"/><br/>
 	<b class="a046">date:       </b><xsl:value-of select="i/@date"/><br/>
-	<b class="a046">from:       </b><xsl:value-of select="i/@fr"/> &lt;<xsl:value-of select="i/@fr_mail"/>&gt;<br/>
-	<b class="a046">attachment: </b>[file-1.jpg, file-2.zip]<br/>
-	<b class="a046">subject:    </b><xsl:value-of select="i/@sub"/><br/>
+	<b class="a046">from:       </b><xsl:value-of select="i/from/i/@name"/> &lt;<xsl:value-of select="i/from/i/@mail"/>&gt;<br/>
+	<b class="a046">attachment: </b>[<xsl:call-template name="mail-attachments" />]<br/>
+	<b class="a046">subject:    </b><xsl:value-of select="i/subject/text()"/><br/>
 	<b class="a046">message:    </b><span class="mail collapsed"><xsl:value-of select="i/text/text()"/></span>
 	<span class="more"><xsl:text>            </xsl:text><em data-click="show-mail">Show more<br/></em></span>
+</xsl:template>
+
+
+<xsl:template name="mail-attachments">
+	<xsl:for-each select="i/attachments/*">
+		<b class="c3"><xsl:call-template name="sys:substring-after-last">
+			<xsl:with-param name="string" select="@path" />
+			<xsl:with-param name="delimiter" select="'/'" />
+		</xsl:call-template></b>
+		<xsl:if test="position() &lt; count(../*)">, </xsl:if>
+	</xsl:for-each>
 </xsl:template>
 
 
