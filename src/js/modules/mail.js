@@ -7,7 +7,7 @@ const Mail = {
 			let moment = new karaqu.Moment(+x.getAttribute("mStamp"));
 			x.setAttribute("mDate", moment.format("D MMM"));
 			x.setAttribute("mLong", moment.format("D MMM YYYY"));
-		})
+		});
 
 		let htm = window.render({ data, template });
 		return htm.email;

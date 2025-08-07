@@ -6,7 +6,7 @@ let Test = {
 		// 	spawn.find(".cursor").addClass("loading");
 		// }, 500);
 
-		// return;
+		return;
 		
 		// setTimeout(() => spawn.el.trigger("mousedown"), 200);
 		setTimeout(() => {
