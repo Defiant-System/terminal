@@ -181,7 +181,7 @@
 								if (command.result.constructor === Promise) {
 									let uiIn = Self.refActive.els.buffer.append(`<div>${"".loading}</div>`);
 									let pResult = await command.result;
-									command.result = command.command.startsWith("mail ") ? Mail.handle(pResult) : pResult;
+									command.result = command.command.startsWith("mail ") ? Mail.handle(command, pResult) : pResult;
 									// remove "loading line"
 									uiIn.remove();
 								}
