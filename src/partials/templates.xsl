@@ -42,8 +42,8 @@
 
 <xsl:template name="mail-folder">
 	<b class="c3">ID             </b>
-	<b class="c3">   SIZE </b>
-	<b class="c3">DATE   </b>
+	<b class="c3">    SIZE  </b>
+	<b class="c3">DATE    </b>
 	<b class="c3">FROM              </b>
 	<b class="c3">SUBJECT</b>
 	<br/>
@@ -54,14 +54,16 @@
 		</xsl:call-template></b>
 
 		<xsl:choose>
-			<xsl:when test="@is_re = '1'"><xsl:text> </xsl:text></xsl:when>
+			<xsl:when test="@is_read = '1'"><xsl:text> </xsl:text></xsl:when>
 			<xsl:otherwise><xsl:text>*</xsl:text></xsl:otherwise>
 		</xsl:choose>
 
 		<xsl:call-template name="slice-string">
 			<xsl:with-param name="str" select="concat($white-space, @size)" />
-			<xsl:with-param name="len" select="-6" />
+			<xsl:with-param name="len" select="-7" />
 		</xsl:call-template>
+
+		<xsl:text> </xsl:text>
 
 		<xsl:call-template name="slice-string">
 			<xsl:with-param name="str" select="substring-after(@mDate, ' ')" />
@@ -72,6 +74,8 @@
 			<xsl:with-param name="str" select="concat($white-space, substring-before(@mDate, ' '))" />
 			<xsl:with-param name="len" select="-1" />
 		</xsl:call-template>
+
+		<xsl:text> </xsl:text>
 
 		<xsl:call-template name="slice-string">
 			<xsl:with-param name="str" select="concat(./from/i[1]/@name, $white-space)" />
