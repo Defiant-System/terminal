@@ -1,7 +1,7 @@
 <Application>
 	<Head>
 		<meta name="id" value="terminal"/>
-		<meta name="title" value="Terminal" version="1.98"/>
+		<meta name="title" value="Terminal" version="1.99"/>
 		<meta name="author" value="Hakan Bilgin" namespace="ant"/>
 		<meta name="license" value="AGPL-3.0-or-later"/>
 		<meta name="repository" value="https://github.com/Defiant-System/terminal"/>
