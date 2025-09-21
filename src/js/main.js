@@ -16,7 +16,8 @@ const Colors = {
 	"#088": "0,30,30",
 };
 
-const hLog = window.settings.getItem("history");
+// restore history, if any
+const hLog = window.settings.getItem("history") || `[]`;
 
 
 const terminal = {
@@ -58,6 +59,7 @@ const terminal = {
 				// save changes to settings
 				window.settings.setItem("default-cwd", active.cwd);
 				window.settings.setItem("bg-user-interface", active.bgUI);
+				window.settings.setItem("history", active.history.serialize());
 				break;
 			case "open.file":
 				spawn = window.open("spawn");

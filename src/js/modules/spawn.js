@@ -337,6 +337,11 @@
 			case "net.receive":
 				Self.print(`${"from".output} ${(event.fromName || event.from).name}: ${event.message.declare}`);
 				break;
+			case "change-working-directory":
+				Self.refSpawn = Spawn;
+				// set tab cwd
+				FS.changeDirectory(event.arg);
+				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;

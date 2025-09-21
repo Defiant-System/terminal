@@ -106,7 +106,7 @@ const FS = {
 	changeDirectory(path) {
 		if (!path || path === "/") {
 			path = "~";
-		} else {
+		} else if (!path.startsWith("~")) {
 			let newPath = window.path.join(cwd, path);
 			if (!window.path.isDirectory(newPath)) {
 				return { error: `"${path}" is not a directory` }

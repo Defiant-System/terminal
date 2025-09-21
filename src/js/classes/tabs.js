@@ -104,7 +104,11 @@ class Tabs {
 			str = str.replace("/fs/", "~/");
 		}
 		// update spawn window title
-		this._spawn.title = str;
+		this._spawn.title = {
+			name: `<i class="icon-folder"></i> ${str}`,
+			context: `sys:fs-title-menu`,
+			path: str
+		};
 		// update active tab name
 		this._active.tabEl.find("span").html(str);
 	}
